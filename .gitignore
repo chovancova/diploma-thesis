@@ -310,3 +310,14 @@ __pycache__/
 build/
 
 project_fuzzy/Debug
+*.obj
+project_fuzzy/Debug/project_fuzzy.exe
+*.log
+project_fuzzy/Debug/project_fuzzy.pdb
+*.tlog
+project_fuzzy/Debug/project_fuzzy.tlog/CL.read.1.tlog
+*.tlog
+project_fuzzy/Debug/project_fuzzy.tlog/CL.write.1.tlog
+*.tlog
+project_fuzzy/Debug/vc140.pdb
+*.sdf
