@@ -13,47 +13,44 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
-    <Filter Include="Source Files\data_sets">
-      <UniqueIdentifier>{97bb0d85-68e3-4982-8e6b-f4e199d492fb}</UniqueIdentifier>
+    <Filter Include="Source Files\DataSets">
+      <UniqueIdentifier>{dd4d4228-6e04-418e-aa4d-b1d7b2f42bce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\data_sets\db_all">
-      <UniqueIdentifier>{0bcf7448-660f-4c41-afe7-4769de52f4ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\fuzzy">
-      <UniqueIdentifier>{ab187aeb-3d92-4ec2-8d08-f367b90dc69f}</UniqueIdentifier>
+    <Filter Include="Source Files\Fuzzy">
+      <UniqueIdentifier>{35f4f528-84e9-4b5f-871c-adfb77c033b5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TempFunctions.cpp">
+    <ClCompile Include="Source\Fuzzy\fuzzy.cpp">
+      <Filter>Source Files\Fuzzy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TempFunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="data_sets\DataSets.cpp">
-      <Filter>Source Files\data_sets</Filter>
-    </ClCompile>
-    <ClCompile Include="fuzzy.cpp">
-      <Filter>Source Files\fuzzy</Filter>
+    <ClCompile Include="Source\DataSets\DataSets.cpp">
+      <Filter>Source Files\DataSets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="data_sets\DataSets.h">
-      <Filter>Source Files\data_sets</Filter>
+    <ClInclude Include="Source\Fuzzy\fuzzy.h">
+      <Filter>Source Files\Fuzzy</Filter>
     </ClInclude>
-    <ClInclude Include="fuzzy.h">
-      <Filter>Source Files\fuzzy</Filter>
-    </ClInclude>
-    <ClInclude Include="TempFunctions.h">
+    <ClInclude Include="Source\TempFunctions.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DataSets\DataSets.h">
+      <Filter>Source Files\DataSets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="data_sets\db_all\heart.data">
-      <Filter>Source Files\data_sets\db_all</Filter>
+    <None Include="Data\heart.data">
+      <Filter>Resource Files</Filter>
     </None>
-    <None Include="data_sets\db_all\iris.data">
-      <Filter>Source Files\data_sets\db_all</Filter>
+    <None Include="Data\iris.data">
+      <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
 </Project>
