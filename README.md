@@ -7,13 +7,13 @@ The aim of the thesis is to compare experimental algorithms that are used for Fu
 <h3>Content</h3>
 
 <ul>
-<ol> Introduction to the Fuzzification (numeric values  transform to linguistic).</ol>
+<li> Introduction to the Fuzzification (numeric values  transform to linguistic).</li>
 
-<ol> Analysis of the existing algorithms for fuzzification numerical values.</ol>
+<li> Analysis of the existing algorithms for fuzzification numerical values.</li>
 
-<ol> Implementation of selected algorithms in C ++.</ol>
+<li> Implementation of selected algorithms in C ++.</li>
 
-<ol> Experimental comparison algorithms implemented on different output data.</ol>
+<li> Experimental comparison algorithms implemented on different output data.</li>
 </ul>
 
 
@@ -25,13 +25,13 @@ Cieľom diplomovej práce je experimentálne porovnať algoritmy, ktoré slúži
 
 <ul>
 
-<ol>Oboznámenie sa s problematikou fuzzifikácie (transformácie numerických hodnôt na lingvistické).</ol>
+<li>Oboznámenie sa s problematikou fuzzifikácie (transformácie numerických hodnôt na lingvistické).</li>
 
-<ol> Rozbor existujúcich algoritmov pre fuzzifikáciu numerických hodnôt.</ol>
+<li> Rozbor existujúcich algoritmov pre fuzzifikáciu numerických hodnôt.</li>
 
-<ol>Implementácia vybraných algoritmov fuzzifikácie v jazyku C++.</ol>
+<li>Implementácia vybraných algoritmov fuzzifikácie v jazyku C++.</li>
 
-<ol>Experimentálne porovnanie implementovaných algoritmov na rôznych výstupných dátach.</ol>
+<li>Experimentálne porovnanie implementovaných algoritmov na rôznych výstupných dátach.</li>
 
 </ul>
 
