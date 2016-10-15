@@ -1,5 +1,4 @@
-# diploma-thesis
-<h1>Diploma Thesis</h1>
+# Diploma Thesis
 <h2>Tool for fuzzification of numerical values </h2>
 
 The aim of the thesis is to compare experimental algorithms that are used for Fuzzification numerical values.
