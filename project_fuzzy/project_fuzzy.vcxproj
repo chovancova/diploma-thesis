@@ -18,6 +18,21 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\DataSets\DataSets.cpp" />
+    <ClCompile Include="Source\Fuzzy\fuzzy.cpp" />
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\TempFunctions.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\DataSets\DataSets.h" />
+    <ClInclude Include="Source\Fuzzy\fuzzy.h" />
+    <ClInclude Include="Source\TempFunctions.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\heart.data" />
+    <None Include="Data\iris.data" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F45DFB64-9ABA-4C9C-B7ED-28B835567DF3}</ProjectGuid>
     <Keyword>ManagedCProj</Keyword>
@@ -98,21 +113,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="data_sets\DataSets.cpp" />
-    <ClCompile Include="fuzzy.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="TempFunctions.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="data_sets\DataSets.h" />
-    <ClInclude Include="fuzzy.h" />
-    <ClInclude Include="TempFunctions.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="data_sets\db_all\heart.data" />
-    <None Include="data_sets\db_all\iris.data" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

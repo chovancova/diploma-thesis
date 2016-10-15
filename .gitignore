@@ -308,3 +308,5 @@ __pycache__/
 
 ### VisualStudio Patch ###
 build/
+
+project_fuzzy/Debug
