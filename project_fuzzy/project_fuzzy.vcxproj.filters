@@ -38,14 +38,14 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="data_sets\DataSets.h">
+      <Filter>Source Files\data_sets</Filter>
+    </ClInclude>
     <ClInclude Include="fuzzy.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\fuzzy</Filter>
     </ClInclude>
     <ClInclude Include="TempFunctions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="data_sets\DataSets.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
