@@ -117,3 +117,25 @@ int DataSets::ReadCrispFileHeart(FILE* fp)
   nonNumericAttributes[12]= 3; // A[13] - thal: 0->3 (normal); 1->6 (fixed defect); 2->7 (reversable defect)
   return 1;
 }
+
+// -------------------------    Initial Error   ---------------------------
+float DataSets::InitialError(unsigned int numDB)
+{
+	unsigned long* classNoOI, maxClass;
+	unsigned int jb;
+
+	classNoOI = newUnLong(NumberOfOutputIntervals, 0l, " classNoOI from InitialErrorDS");
+	for (unsigned long k = 0; k<TotalSets; k++)
+	{
+		jb = R[k].A[NumberOfInputAttributes];
+		classNoOI[jb]++;
+	}
+	maxClass = classNoOI[0];
+	for (jb = 0; jb<NumberOfOutputIntervals; jb++)
+	{
+		printf("classNoOI[jb=%d]=%d\n", jb, classNoOI[jb]);
+		if (classNoOI[jb] > maxClass)  maxClass = classNoOI[jb];
+	}
+	return(1 - (float)maxClass*1.0f / TotalSets);
+}
+

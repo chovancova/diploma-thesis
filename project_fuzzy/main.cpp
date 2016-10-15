@@ -5,43 +5,43 @@
 void run_data_sets()
 {
 
-  unsigned int numDB = _IRIS;
-  float        error;
+	unsigned int numDB = _IRIS;
+	float        error;
 
-  DataSets initialData(numDB);
-  initialData.ReadDataSets(numDB);
-  initialData.WriteCrispFile();     // ********* Check of initial data
+	DataSets initialData(numDB);
+	initialData.ReadDataSets(numDB);
+	initialData.WriteCrispFile();     // ********* Check of initial data
 
-  // initialData.InitialError(numDB) - > nie je definovana
-  /*
-  error = initialData.InitialError(numDB);
+	initialData.InitialError(numDB); // -> nie je definovana
 
-  printf("Press any key... TotalSets = %d   InitialError =%f", initialData.ReturnTotalSets(), error);
+	error = initialData.InitialError(numDB);
 
-  getchar();
-  getchar();
-  */
+	printf("Press any key... TotalSets = %d   InitialError =%f", initialData.ReturnTotalSets(), error);
+
+	getchar();
+	getchar();
+
 }
 
 
 void run_fuzzy()
 {
-  unsigned int numDB = _IRIS ;// ********* Number of DataBase
+	unsigned int numDB = _IRIS;// ********* Number of DataBase
 
-    Fuzzy newA(numDB); // Fuzzy        newA      (numDB);
-  newA.ReadDataSets(numDB);
-  newA.WriteCrispFile();
-    newA.StartFuzzification(numDB);
-    printf("Fuzzyfication is finished.  Press any key...");
+	Fuzzy newA(numDB); // Fuzzy        newA      (numDB);
+	newA.ReadDataSets(numDB);
+	newA.WriteCrispFile();
+	newA.StartFuzzification(numDB);
+	printf("Fuzzyfication is finished.  Press any key...");
 }
 
 
 int main()
 {
-  run_data_sets();
-  run_fuzzy();
+	run_data_sets();
+	run_fuzzy();
 
-  getchar();
+	getchar();
 
-  return 0;
+	return 0;
 }
