@@ -1,0 +1,31 @@
+IRIS
+
+http://archive.ics.uci.edu/ml/datasets/Iris
+
+Attribute Information:
+1. sepal length in cm 
+2. sepal width in cm 
+3. petal length in cm 
+4. petal width in cm 
+5. class: 
+-- Iris Setosa 
+-- Iris Versicolour 
+-- Iris Virginica
+
+Data Set Characteristics: Multivariate
+Number of Instances: 150
+Area:Life
+Attribute Characteristics:Real
+Number of Attributes:4
+Date Donated: 1988-07-01
+Associated Tasks:Classification
+Missing Values? No
+Number of Web Hits:1136965
+
+Example: 
+5.1,3.5,1.4,0.2,Iris-setosa
+4.9,3.0,1.4,0.2,Iris-setosa
+7.0,3.2,4.7,1.4,Iris-versicolor
+6.4,3.2,4.5,1.5,Iris-versicolor
+7.7,3.8,6.7,2.2,Iris-virginica
+7.7,2.6,6.9,2.3,Iris-virginica
