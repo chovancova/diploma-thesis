@@ -321,3 +321,6 @@ project_fuzzy/Debug/project_fuzzy.tlog/CL.write.1.tlog
 *.tlog
 project_fuzzy/Debug/vc140.pdb
 *.sdf
+*.obj
+*.obj
+*.pdb
