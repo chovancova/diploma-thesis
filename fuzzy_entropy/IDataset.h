@@ -4,7 +4,7 @@ struct DataItem
 {
 	std::vector<float> features;
 	std::vector<float> features_normalised;
-	float label;
+	int label;
 };
 
 class IDataset 
@@ -16,11 +16,12 @@ class IDataset
 		~IDataset();
 
 	unsigned int getSize();
+	unsigned int getFeatureSize();
 	struct DataItem get(unsigned int index);
 	
 	void print(bool print_original = false);
 	void print(unsigned int index, bool print_original = false);
-
+	inline DataItem IDataset::rndFromArray();
 	void normalise();
 };
 
@@ -35,6 +36,11 @@ inline IDataset::~IDataset()
 inline unsigned IDataset::getSize() 
 {
 	return items.size();
+}
+
+inline unsigned IDataset::getFeatureSize()
+{
+	return items[0].features.size();
 }
 
 inline DataItem IDataset::get(unsigned int index)
@@ -64,7 +70,7 @@ inline void IDataset::print(unsigned index, bool print_original)
 			printf_s("%6.3f ", items[index].features_normalised[i]);
 	}
 
-	printf_s(" > %6.3f \n", items[index].label);
+	printf_s(" => %i \n", items[index].label);
 }
 
 inline void IDataset::normalise()
@@ -104,4 +110,9 @@ inline void IDataset::normalise()
 		for (j = 0; j < items.size(); j++)
 			items[j].features_normalised[i] = k*items[j].features[i] + q;
 	}
+}
+inline DataItem IDataset::rndFromArray()
+{
+	int randIdex = rand() % items.size();
+		return	items[randIdex];
 }

@@ -1,12 +1,11 @@
 #pragma once
 #include <vector>
-#include "IDataset.h"`
+#include "IDataset.h"
 
 struct KMeansResult
 {
 	std::vector<float> distances;
 	unsigned int cluster_id;
-	float label;
 };
 
 class KMeans
@@ -20,10 +19,11 @@ public:
 	KMeans(unsigned int centers_count, unsigned int features_count);
 	~KMeans();
 
-	void process(struct DataItem &item, float learning_rate = 0.0);
+	float process(struct DataItem &item, float learning_rate = 0.0);
 
 	struct KMeansResult get();
 	unsigned int getSize();
+	void setCenter(DataItem center, unsigned index);
 	struct DataItem get_center(unsigned int index);
 
 	void print_result();

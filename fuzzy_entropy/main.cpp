@@ -1,5 +1,6 @@
 #include "DatasetIris.h"
 #include "KMeans.h"
+#include "FuzzyClassiffication.h"
 
 int main()
 {
@@ -8,6 +9,16 @@ int main()
 	iris.normalise();
 	iris.print();
 
+
+	struct FuzzyClassifficationInit fuzzy_init_struct;
+	
+	fuzzy_init_struct.centers_count = 3;
+	fuzzy_init_struct.learning_rate = 0.01;
+
+	FuzzyClassiffication fuzzy_classiffication(&iris, fuzzy_init_struct);
+
+
+	/*
 	KMeans k_means(8, iris.get(0).features.size());
 
 
@@ -46,7 +57,8 @@ int main()
 	}
 
 
-	 
+	*/
+
 	printf("program done\n");
 	getchar();
 

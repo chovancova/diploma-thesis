@@ -18,7 +18,6 @@ KMeans::KMeans(unsigned int centers_count, unsigned int features_count)
 		result.distances.push_back(0.0f);
 
 	result.cluster_id = 0;
-	result.label = 0.0;
 }
 
 
@@ -27,7 +26,7 @@ KMeans::~KMeans()
 
 }
 
-void KMeans::process(struct DataItem &item, float learning_rate)
+float KMeans::process(struct DataItem &item, float learning_rate)
 {
 	for (unsigned int i = 0; i < centers.size(); i++)
 		result.distances[i] = distance(centers[i].features_normalised, item.features_normalised);
@@ -41,17 +40,23 @@ void KMeans::process(struct DataItem &item, float learning_rate)
 	}
 
 	result.cluster_id = min_idx;
-	result.label = centers[min_idx].label;
+
+	float center_difference = 0.0;
 
 	for (unsigned int i = 0; i < centers[min_idx].features_normalised.size(); i++)
 	{
+		float tmp = centers[min_idx].features_normalised[i];
 		centers[min_idx].features_normalised[i] = (1.0f - learning_rate)*centers[min_idx].features_normalised[i] 
 												+ learning_rate*item.features_normalised[i];
-	
+
+		center_difference += (centers[min_idx].features_normalised[i] - tmp)*(centers[min_idx].features_normalised[i] - tmp);
 	}
 
 	centers[min_idx].label = (1.0f - learning_rate)*centers[min_idx].label + learning_rate*item.label;
 
+	center_difference = sqrt(center_difference);
+
+	return center_difference;
 }
 
 
@@ -65,6 +70,14 @@ unsigned int KMeans::getSize()
 	return centers.size();
 }
 
+void KMeans::setCenter(struct DataItem center, unsigned int index)
+{
+	if(index < centers.size())
+	{
+			centers[index] = center;
+	}
+}
+
 struct DataItem KMeans::get_center(unsigned int index)
 {
 	return centers[index];
@@ -72,7 +85,7 @@ struct DataItem KMeans::get_center(unsigned int index)
 
 void KMeans::print_result()
 {
-	printf("cluster id %i label %6.3f :", result.cluster_id, result.label);
+	printf("cluster id %i ", result.cluster_id);
 	for (unsigned int i = 0; i < result.distances.size(); i++)
 		printf("%6.3f ", result.distances[i]);
 
@@ -102,3 +115,4 @@ float KMeans::rnd()
 	float temp = ((rand()% 20000) / 10000.0f) - 1.0;
 	return temp;
 }
+
