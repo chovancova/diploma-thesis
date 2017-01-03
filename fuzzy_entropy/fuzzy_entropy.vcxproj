@@ -147,12 +147,14 @@
     <ClInclude Include="FuzzyClassiffication.h" />
     <ClInclude Include="IDataset.h" />
     <ClInclude Include="KMeans.h" />
+    <ClInclude Include="MembershipFunction.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DatasetIris.cpp" />
     <ClCompile Include="FuzzyClassiffication.cpp" />
     <ClCompile Include="KMeans.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MembershipFunction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
