@@ -1,0 +1,8 @@
+title: Diploma-thesis-fuzzification
+description: Diploma Thesis
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-slate
+
+gems:
+  - jekyll-mentions
