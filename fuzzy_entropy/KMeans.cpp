@@ -43,18 +43,34 @@ float KMeans::process(struct DataItem &item, float learning_rate)
 
 	float center_difference = 0.0;
 
-	for (unsigned int i = 0; i < centers[min_idx].features_normalised.size(); i++)
+	if (learning_rate > 0.0)
 	{
-		float tmp = centers[min_idx].features_normalised[i];
-		centers[min_idx].features_normalised[i] = (1.0f - learning_rate)*centers[min_idx].features_normalised[i] 
-												+ learning_rate*item.features_normalised[i];
+		//kohonen network = in the future move not only center[min_idx], but all generally move all other 
+		for (unsigned int i = 0; i < centers[min_idx].features_normalised.size(); i++)
+		{
+			float tmp = centers[min_idx].features_normalised[i];
+			centers[min_idx].features_normalised[i] = (1.0f - learning_rate)*centers[min_idx].features_normalised[i]
+				+ learning_rate*item.features_normalised[i];
+			
+			//avoid very very similar centers[min_idx] -> if centers[min_idx] == centers[i], set centers[min_idx] random
+			for (unsigned int k = 0; k < centers.size(); k++)
+				if (k != min_idx)
+				{
+					float tmp2 = centers[min_idx].features_normalised[i] - centers[k].features_normalised[i];
+					if (abs(tmp2) < 0.001)
+					{
+						centers[min_idx].features_normalised[i] = rnd();
+					}
+				}
 
-		center_difference += (centers[min_idx].features_normalised[i] - tmp)*(centers[min_idx].features_normalised[i] - tmp);
+
+			center_difference += (centers[min_idx].features_normalised[i] - tmp)*(centers[min_idx].features_normalised[i] - tmp);
+		}
+
+		centers[min_idx].label = (1.0f - learning_rate)*centers[min_idx].label + learning_rate*item.label;
+
+		center_difference = sqrt(center_difference);
 	}
-
-	centers[min_idx].label = (1.0f - learning_rate)*centers[min_idx].label + learning_rate*item.label;
-
-	center_difference = sqrt(center_difference);
 
 	return center_difference;
 }
@@ -68,6 +84,11 @@ struct KMeansResult KMeans::get()
 unsigned int KMeans::getSize()
 {
 	return centers.size();
+}
+
+unsigned int KMeans::getCenterItemSize()
+{
+	return centers[0].features_normalised.size();
 }
 
 void KMeans::setCenter(struct DataItem center, unsigned int index)

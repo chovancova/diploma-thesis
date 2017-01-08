@@ -13,7 +13,7 @@ int main()
 	struct FuzzyClassifficationInit fuzzy_init_struct;
 	
 	fuzzy_init_struct.centers_count = 3;
-	fuzzy_init_struct.learning_rate = 0.01;
+	fuzzy_init_struct.learning_rate = 0.01f;
 
 	FuzzyClassiffication fuzzy_classiffication(&iris, fuzzy_init_struct);
 

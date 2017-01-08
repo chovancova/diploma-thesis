@@ -23,6 +23,7 @@ public:
 
 	struct KMeansResult get();
 	unsigned int getSize();
+	unsigned getCenterItemSize();
 	void setCenter(DataItem center, unsigned index);
 	struct DataItem get_center(unsigned int index);
 

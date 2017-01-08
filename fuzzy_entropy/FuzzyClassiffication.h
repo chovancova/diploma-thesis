@@ -15,12 +15,16 @@ class FuzzyClassiffication
 		class IDataset *dataset;
 		struct FuzzyClassifficationInit init_struct;
 
+
 public:
 	FuzzyClassiffication(class IDataset *dataset, struct FuzzyClassifficationInit init_struct);
 	~FuzzyClassiffication();
+
 private:
 	void DetermineNumberOfIntervals();
 	void trainKMeans();
 	float computeEntropy();
+	float get_fuzzy_entropy(unsigned int class_index, std::vector<std::vector<std::vector<float>>> &mu);
+
 };
 
