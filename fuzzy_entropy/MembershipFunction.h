@@ -12,7 +12,12 @@ class MembershipFunction
 	public:
 	MembershipFunction(class KMeans *kmeans);
 	~MembershipFunction();
-
+	/*
+	* Step C. Assign a membership function for each interval.
+	* Case I) The left-most interval.
+	* Case II) The right-most interval.
+	* Case III) The internal intervals.
+	*/
 	void process(std::vector<float> input);
 
 	std::vector<std::vector<float>> get();

@@ -21,7 +21,12 @@ MembershipFunction::MembershipFunction(KMeans* kmeans)
 MembershipFunction::~MembershipFunction()
 {
 }
-
+/*
+* Step C. Assign a membership function for each interval.
+* Case I) The left-most interval.
+* Case II) The right-most interval.
+* Case III) The internal intervals.
+*/
 void MembershipFunction::process(std::vector<float> input)
 {
 	for (unsigned int center = 0; center < centers.size(); center++)

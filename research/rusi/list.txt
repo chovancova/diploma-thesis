@@ -1,0 +1,66 @@
+Hello Vitaliy,
+
+I finally got to the opportunity to find and correct a program that samples the data (attributes) in accordance with the criterion of MDLP (minimum description length partition), based on entropy and having built a stopping criterion.
+
+1. MDLP method developed in the
+Fayyad, U. M. and Irani, K. B. (1993). Multi-interval discretization of continuous-valued attributes for classification learning, Artificial intelligence, 13, 1022-1027.
+I had an interactive version of the program, which lets you choose from several stopping criteria:
+1) using the criteria proposed in the original work;
+2) criteria for the number of partitions intevalov;
+3) criteria for the threshold Gini index (which assesses the effectiveness of the partition at the point in terms of the decrease in entropy).
+
+2. I am sending you the console version MDLP sampling program where the stop criterion is built.
+The input data is supplied matritsv (possible with column names, you can not), one row of the matrix is ​​equal to the data object columns - attributes.
+The tabs or spaces can be used as a separator in the string value.
+For deystvielno numbers as a divider point it should be used.
+The feature responsible for the class must be in the last column.
+
+3. Run the following:
+discR.exe data file name.
+For example: discR.exe iris.txt
+The output of the two files:? Output.txt - input matrix with discrete znachenimyai, cut.txt - intervals corresponding to discrete values.
+
+4. Together with the program an example of a data file and iris.txt heartShort.txt.
+
+5. The program does not handle missing values.
+
+
+5. If you need a source, it can be sent by request.
+
+All the best,
+Natalia Novoselova
+UIIP Minsk
+
+==============================================================================
+Dobrý deň, Vitaliy,
+
+Konečne som sa dostal k príležitosti nájsť a opraviť program, ktorý vzorky získané údaje (atribútov) v súlade s kritériom MDLP (minimálna dĺžka opis priečka), založenej na entropiu a že bola postavená kritérium zastavenia.
+
+1. MDLP metóda vyvinutá v
+Fayyad, U. M. a Irani, K. B. (1993). Multi-interval diskretizace spojitých hodnotou atribútov pre klasifikáciu vzdelávania, umelú inteligenciu, 13, 1022-1027.
+Mal som interaktívnu verziu programu, ktorý vám umožní vybrať z niekoľkých zastávkach kritérií:
+1) pomocou kritérií navrhnutých v pôvodnej práci;
+2) kritériá na počet priečok intevalov;
+3) Kritériá pre prahovú Giniho indexu (ktorá hodnotí účinnosť oddiele v mieste, pokiaľ ide o zníženie entropia).
+
+2. Posielam vám konzolu verzie vzorkovacej MDLP program, kde je kritériom zastavenie postavená.
+Vstupné dáta sú dodávané matritsv (možno s názvami stĺpcov, nemôžete), jeden riadok matice je rovná stĺpce dát objektu - atribúty.
+Výstupky alebo priestory, ktoré môžu byť použité ako oddeľovač na hodnotu reťazca.
+Pre deystvielno čísel ako deliace bod by sa malo používať.
+Táto funkcia zodpovedá za triedy musia byť v poslednom stĺpci.
+
+3. Spustite nasledujúci:
+discR.exe Názov dátového súboru.
+Napríklad: discR.exe iris.txt
+Výstup z dvoch súborov:? Output.txt - vstupná matice s diskrétnym znachenimyai, cut.txt - intervaly, ktoré zodpovedajú diskrétnych hodnôt.
+
+4. Spoločne s programom príklad dátového súboru a iris.txt heartShort.txt.
+
+5. Program nespracováva chýbajúce hodnoty.
+
+
+5. Ak budete potrebovať zdroj, môže byť poslaný na vyžiadanie.
+
+Všetko najlepšie,
+natalia Novoselovo
+UIIP Minsk
