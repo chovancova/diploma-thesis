@@ -6,6 +6,7 @@ struct KMeansResult
 {
 	std::vector<float> distances;
 	unsigned int cluster_id;
+	std::vector<float> label;
 };
 
 class KMeans
@@ -16,7 +17,7 @@ private:
 	struct KMeansResult result;
 
 public:
-	KMeans(unsigned int centers_count, unsigned int features_count);
+	KMeans(unsigned int centers_count, unsigned int features_count, unsigned int classes_count);
 	~KMeans();
 	/*
 	  Step B. Determination of the Interval Locations 
@@ -33,6 +34,7 @@ public:
 	unsigned getCenterItemSize();
 	void setCenter(DataItem center, unsigned index);
 	struct DataItem get_center(unsigned int index);
+
 
 	void print_result();
 

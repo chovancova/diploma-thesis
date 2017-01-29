@@ -2,12 +2,14 @@
 
 
 
-KMeans::KMeans(unsigned int centers_count, unsigned int features_count)
+KMeans::KMeans(unsigned int centers_count, unsigned int features_count, unsigned int classes_count)
 {
 	for (unsigned int j = 0; j < centers_count; j++)
 	{
 		struct DataItem tmp;
-		tmp.label = 0;
+
+		for (unsigned int i = 0; i < classes_count; i++)
+			tmp.label.push_back(0.0);
 
 		for (unsigned int i = 0; i < features_count; i++)
 			tmp.features_normalised.push_back(rnd());
@@ -40,6 +42,15 @@ float KMeans::process(struct DataItem &item, float learning_rate)
 	}
 
 	result.cluster_id = min_idx;
+	result.label = centers[min_idx].label;
+
+	//normalise result label
+	float sum = 0.0;
+	for (unsigned int i = 0; i < result.label.size(); i++)
+		sum += result.label[i];
+
+	for (unsigned int i = 0; i < result.label.size(); i++)
+		result.label[i] /= sum;
 
 	float center_difference = 0.0;
 
@@ -53,13 +64,15 @@ float KMeans::process(struct DataItem &item, float learning_rate)
 				+ learning_rate*item.features_normalised[i];
 			
 			//avoid very very similar centers[min_idx] -> if centers[min_idx] == centers[i], set centers[min_idx] random
+			//okolo centra zasumi do vzdialenosti ...
 			for (unsigned int k = 0; k < centers.size(); k++)
 				if (k != min_idx)
 				{
+					float eta = 0.5;//sum
 					float tmp2 = centers[min_idx].features_normalised[i] - centers[k].features_normalised[i];
 					if (abs(tmp2) < 0.001)
 					{
-						centers[min_idx].features_normalised[i] = rnd();
+						centers[min_idx].features_normalised[i] = (1.0 - eta)*centers[min_idx].features_normalised[i] + eta*rnd();
 					}
 				}
 
@@ -67,7 +80,9 @@ float KMeans::process(struct DataItem &item, float learning_rate)
 			center_difference += (centers[min_idx].features_normalised[i] - tmp)*(centers[min_idx].features_normalised[i] - tmp);
 		}
 
-		centers[min_idx].label = (1.0f - learning_rate)*centers[min_idx].label + learning_rate*item.label;
+		for (unsigned int i = 0; i < centers[min_idx].label.size(); i++)
+			centers[min_idx].label[i] = 
+				(1.0f - learning_rate)*centers[min_idx].label[i] + learning_rate*item.label[i];
 
 		center_difference = sqrt(center_difference);
 	}
@@ -85,6 +100,7 @@ unsigned int KMeans::getSize()
 {
 	return centers.size();
 }
+
 
 unsigned int KMeans::getCenterItemSize()
 {

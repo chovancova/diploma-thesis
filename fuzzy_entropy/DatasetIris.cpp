@@ -31,20 +31,25 @@ DatasetIris::DatasetIris()
 	struct DataItem tmp;
 	for (unsigned int i = 0; i < count_atributes; i++)
 		tmp.features.push_back(0.0);
-	tmp.label = 0;
-
+	
+	tmp.label.push_back(0.0);
+	tmp.label.push_back(0.0);
+	tmp.label.push_back(0.0);
 
 	while (!feof(fp))
 	{
 		fscanf_s(fp, "%f,%f,%f,%f,%s",
 			&tmp.features[0], &tmp.features[1], &tmp.features[2], &tmp.features[3], label_name, sizeof(label_name));
 
+		for (unsigned int i = 0; i < tmp.label.size(); i++)
+			tmp.label[i] = 0.0;
+
 		if (!strcmp(label_name, "Iris-setosa")) 
-			tmp.label = 0;
+			tmp.label[0] = 1.0;
 		if (!strcmp(label_name, "Iris-versicolor"))
-			tmp.label = 1;
+			tmp.label[1] = 1.0;
 		if (!strcmp(label_name, "Iris-virginica")) 
-			tmp.label = 2;
+			tmp.label[2] = 1.0;
 		
 		items.push_back(tmp);
 	}

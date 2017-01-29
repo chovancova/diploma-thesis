@@ -14,6 +14,7 @@ int main()
 	
 	fuzzy_init_struct.centers_count = 3;
 	fuzzy_init_struct.learning_rate = 0.01f;
+	fuzzy_init_struct.class_count = 3;
 
 	FuzzyClassiffication fuzzy_classiffication(&iris, fuzzy_init_struct);
 
@@ -70,18 +71,18 @@ int main()
 
 
 /**
-* Step A. Determination of number of intervals on each dimension. 
+* Step A. Determination of number of intervals on each dimension.		
 	* Step 1) Set the initial number of intervals I = 2. 
 	* Step 2) Locate the centers of intervals. (III-B)
-	* Step 3) Assign membership function for each interval.  (III-C)
-	* Step 4) Compute the total fuzzy entropy of all intervals for I and I-1 intervals. (II-C)
+	* Step 3) Assign membership function for each interval.  (III-C)							DONE
+	* Step 4) Compute the total fuzzy entropy of all intervals for I and I-1 intervals. (II-C) 
 	* Step 5) Does the total fuzzy entropy decrease? 
 	*			If yes, then partition again (I := I + 1) and go to Step 2;
 	*			else go to Step 6. 
 	* Step 6) Stop further partiotioning on this dimension and I-1 is the number of intervals. 
 *
 *
-* Step B. Determination of the Interval Locations 
+* Step B. Determination of the Interval Locations				DONE
 	*		(Determinig the center and width of each interval)
 	* Step 1) Set the initial number of clusters, I.
 	* Step 2) Set initial centers of clusters.
@@ -89,7 +90,7 @@ int main()
 	* Step 4) Recompute the cluster centers. 
 	* Step 5) Does any center change? Yes, Stop, Otherwise go to Step 3. 
 * 
-* Step C. Assign a membership function for each interval. 
+* Step C. Assign a membership function for each interval.		DONE
 	* Case I) The left-most interval. 
 	* Case II) The right-most interval. 
 	* Case III) The internal intervals. 

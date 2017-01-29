@@ -4,7 +4,7 @@ struct DataItem
 {
 	std::vector<float> features;
 	std::vector<float> features_normalised;
-	int label;
+	std::vector<float> label;
 };
 
 class IDataset 
@@ -70,7 +70,11 @@ inline void IDataset::print(unsigned index, bool print_original)
 			printf_s("%6.3f ", items[index].features_normalised[i]);
 	}
 
-	printf_s(" => %i \n", items[index].label);
+	printf_s(" => ");
+	for (unsigned int i = 0; i < items[index].label.size(); i++)
+		printf_s("%6.3f ", items[index].label[i]);
+
+	printf_s("\n");
 }
 
 inline void IDataset::normalise()

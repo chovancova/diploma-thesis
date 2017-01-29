@@ -19,7 +19,7 @@ class MembershipFunction
 	* Case III) The internal intervals.
 	*/
 	void process(std::vector<float> input);
-
+	float sum();
 	std::vector<std::vector<float>> get();
 	void print();
 

@@ -42,6 +42,16 @@ void MembershipFunction::process(std::vector<float> input)
 
 }
 
+
+float MembershipFunction::sum()
+{
+	float sum = 0.0;
+	for (unsigned int j = 0; j < result.size(); j++)
+		for (unsigned int i = 0; i < result[j].size(); i++)
+			sum+= result[j][i];
+	return sum;
+}
+
 std::vector<std::vector<float>> MembershipFunction::get()
 {
 	return result;
@@ -53,6 +63,7 @@ void MembershipFunction::print()
 	{
 		for (unsigned int dimension = 0; dimension < result[center].size(); dimension++)
 			printf("%6.3f ", result[center][dimension]);
+		printf("\n");
 		
 		/*
 		printf(" : ");
