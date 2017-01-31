@@ -16,6 +16,9 @@ FuzzyClassiffication::FuzzyClassiffication(IDataset* dataset, FuzzyClassifficati
 
 	unsigned centers_count = 5;
 	ProcessClassification(centers_count);
+	printf("number of intervals >>>> fuzzy entropy");
+	printf("\n");
+	DetermineNumberOfIntervals();
 }
 
 FuzzyClassiffication::~FuzzyClassiffication()
@@ -47,8 +50,7 @@ void FuzzyClassiffication::DetermineNumberOfIntervals()
 		float entropy = computeEntropy();
 		printf("entropy %f\n", entropy);
 		*/
-
-
+		
 		//if (nie je zlepsneie)
 		delete kmeans;
 		kmeans = nullptr;
@@ -176,12 +178,15 @@ float FuzzyClassiffication::compute_fuzzy_entropy()
 	for (unsigned int cluster_id = 0; cluster_id < kmeans->getSize(); cluster_id++) // F(A), F(B), F(C) -> center memership
 		fuzzy_entropy.push_back(compute_fuzzy_entropy_of_interval(cluster_id));					//P1 v clanku	
 	
-	printf("\n");
+	//printf("\n");
+
 	for (unsigned int center = 0; center < kmeans->getSize(); center++)
 	{
-		printf("%6.3f ", fuzzy_entropy[center]);
+		//printf("%6.3f ", fuzzy_entropy[center]);
 		result += fuzzy_entropy[center];
 	}
+	printf("%u", kmeans->getSize());
+
 	printf(" >>> %6.3f \n", result);
 
 	return result;
@@ -232,7 +237,8 @@ float FuzzyClassiffication::compute_fuzzy_entropy_of_interval(unsigned int clust
 
 
 
-	printf("[%u %6.3f] ", cluster_id, elements_count);
+	//printf("[%u %6.3f] ", cluster_id, elements_count);
+	
 
 
 	//v clanku ako P3
@@ -259,8 +265,8 @@ float FuzzyClassiffication::compute_fuzzy_entropy_of_interval(unsigned int clust
 	delete membership_function;
 
 	//pokutova funkcia -> cim menej elements_count, tym vyssia entropia
-	float strmost = 10.0;
-	result = result*strmost/(strmost + elements_count);
+	//float strmost = 10.0;
+	//result = result*strmost/(strmost + elements_count);
 
 	return result;
 }
