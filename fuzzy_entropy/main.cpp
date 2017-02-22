@@ -1,22 +1,33 @@
-#include "DatasetIris.h"
+#include "Dataset.h"
 #include "KMeans.h"
 #include "FuzzyClassiffication.h"
 
-int main()
+int main(int argc, char *argv[])
 {
-	DatasetIris iris;
+	if (argc != 3)
+	{
+		printf("Usage: %s DATASET_TYPE DATASET_FILE", argv[0]);
+		return 1;
+	}
+	std::string ds_type(argv[1]);
+	std::string ds_file(argv[2]);
 
-	iris.normalise();
-	iris.print();
-
-
+	Dataset *dataset = Dataset::create(ds_type, ds_file);
+	if (dataset == nullptr)
+	{
+		return 1;
+	}
+	
+	dataset->normalise();
+	dataset->print();
+	
 	struct FuzzyClassifficationInit fuzzy_init_struct;
 	
 	fuzzy_init_struct.centers_count = 3;
 	fuzzy_init_struct.learning_rate = 0.01f;
 	fuzzy_init_struct.class_count = 3;
 
-	FuzzyClassiffication fuzzy_classiffication(&iris, fuzzy_init_struct);
+	FuzzyClassiffication fuzzy_classiffication(dataset, fuzzy_init_struct);
 
 
 	/*

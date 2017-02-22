@@ -5,25 +5,31 @@
 #include <cstdarg>
 
 
-CFloatLog::CFloatLog(std::string file_name, bool verbose)
+Logger::Logger(std::string file_name, bool verbose)
 {
 	this->file_name = file_name;
 	this->verbose = verbose;
 
-	FILE *f = fopen(file_name.c_str(), "w");
+	f = fopen(file_name.c_str(), "w");
+	if(f<0)
+	{
+		perror("Fail to open log file. ");
+	}
+}
+
+
+Logger::~Logger()
+{
 	fclose(f);
 }
 
 
-CFloatLog::~CFloatLog()
+void Logger::add(unsigned int count, ...)
 {
-
-}
-
-
-void CFloatLog::add(unsigned int count, ...)
-{
-	FILE *f = fopen(file_name.c_str(), "a+");
+	if (f<0)
+	{
+		return;
+	}
 
 	va_list valist;
 
@@ -46,39 +52,45 @@ void CFloatLog::add(unsigned int count, ...)
 
 	va_end(valist);
 
-	fclose(f);
+	fflush(f);
 }
 
-void CFloatLog::put_value(float value)
+void Logger::put_value(float value)
 {
-	FILE *f = fopen(file_name.c_str(), "a+");
-
+	if (f<0)
+	{
+		return;
+	}
 	fprintf(f, "%6.3f\t ", value);
 
 	if (verbose)
 		printf("%6.3f\t ", value);
-	fclose(f);
+	fflush(f);
 }
 
-void CFloatLog::put_line()
+void Logger::put_line()
 {
-	FILE *f = fopen(file_name.c_str(), "a+");
-
+	if (f<0)
+	{
+		return;
+	}
 	fprintf(f, "\n");
 
 	if (verbose)
 		printf("\n");
-	fclose(f);
+	fflush(f);
 }
 
-void CFloatLog::put_separator(std::string separator)
+void Logger::put_separator(std::string separator)
 {
-	FILE *f = fopen(file_name.c_str(), "a+");
-
+	if (f<0)
+	{
+		return;
+	}
 	fprintf(f, "%s", separator.c_str());
 
 	if (verbose)
 		printf("%s", separator.c_str());
 
-	fclose(f);
+	fflush(f);
 }

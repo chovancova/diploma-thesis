@@ -1,10 +1,13 @@
 #pragma once
-#include "IDataset.h"
+#include "Dataset.h"
+
 class DatasetIris :
-	public IDataset
+	public Dataset
 {
 public:
 	DatasetIris();
 	~DatasetIris();
+
+	int load(const std::string& filename) override;
 };
 

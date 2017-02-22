@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "IDataset.h"
+#include "Dataset.h"
 
 struct KMeansResult
 {

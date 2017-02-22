@@ -1,15 +1,16 @@
 #pragma once
 #include <string>
 
-class CFloatLog
+class Logger
 {
 private:
+	FILE *f;
 	std::string file_name;
 	bool verbose;
 
 public:
-	CFloatLog(std::string file_name, bool verbose = false);
-	~CFloatLog();
+	Logger(std::string file_name, bool verbose = false);
+	~Logger();
 
 	void add(unsigned int count, ...);
 	void put_value(float value);

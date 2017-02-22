@@ -2,7 +2,7 @@
 #include "MembershipFunction.h"
 
 
-FuzzyClassiffication::FuzzyClassiffication(IDataset* dataset, FuzzyClassifficationInit init_struct)
+FuzzyClassiffication::FuzzyClassiffication(Dataset* dataset, FuzzyClassifficationInit init_struct)
 {
 	this->dataset = dataset;
 	this->init_struct = init_struct;
@@ -12,7 +12,7 @@ FuzzyClassiffication::FuzzyClassiffication(IDataset* dataset, FuzzyClassifficati
 
 	// DetermineNumberOfIntervals();
 
-	result_log = new CFloatLog("result_iris.txt", true);
+	result_log = new Logger("result_iris.txt", true);
 
 	unsigned centers_count = 5;
 	ProcessClassification(centers_count);
@@ -25,10 +25,16 @@ FuzzyClassiffication::~FuzzyClassiffication()
 {
 	if (kmeans != nullptr)
 	{
-		delete kmeans;
+		delete kmeans; 
 		kmeans = nullptr;
 	}
 
+	if (dataset != nullptr)
+	{
+		delete dataset; 
+		dataset = nullptr;
+	}
+	
 	delete result_log;
 }
 
@@ -85,13 +91,21 @@ void FuzzyClassiffication::ProcessClassification(unsigned int centers_count)
 
 		std::vector<std::vector<float>> membership_result = membership_function->get();
 
-		
-		for (unsigned int k = 0; k < membership_result[0].size(); k++)
+		for (auto &element : membership_result)
+		{
+			for (auto &feature : element)
+			{
+				result_log->put_value(feature);
+			}
+			result_log->put_separator(" | ");
+		}
+
+		/*for (unsigned int k = 0; k < membership_result[0].size(); k++)
 		{
 			for (unsigned int j = 0; j < membership_result.size(); j++)
 				result_log->put_value(membership_result[j][k]);
 			result_log->put_separator(" | ");
-		}
+		}*/
 
 		result_log->put_separator("=> ");
 

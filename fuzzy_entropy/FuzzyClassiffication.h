@@ -1,7 +1,9 @@
 #pragma once
-#include "IDataset.h"
+#include "Dataset.h"
 #include "KMeans.h"
 #include "FloatLog.h"
+
+class Dataset;
 
 struct FuzzyClassifficationInit
 {
@@ -13,18 +15,18 @@ struct FuzzyClassifficationInit
 class FuzzyClassiffication
 {
 	private:
-		class KMeans *kmeans;
-		class IDataset *dataset;
-		struct FuzzyClassifficationInit init_struct;
+		KMeans *kmeans;
+		Dataset *dataset;
+		FuzzyClassifficationInit init_struct;
 
 		std::vector<float> match_degree;
 		std::vector<unsigned int> scj;
 
 	private:
-		class CFloatLog *result_log;
+		class Logger *result_log;
 
 public:
-	FuzzyClassiffication(class IDataset *dataset, struct FuzzyClassifficationInit init_struct);
+	FuzzyClassiffication(Dataset *dataset, FuzzyClassifficationInit init_struct);
 	~FuzzyClassiffication();
 
 private:

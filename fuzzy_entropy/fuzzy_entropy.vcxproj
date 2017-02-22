@@ -143,14 +143,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Dataset.h" />
     <ClInclude Include="DatasetIris.h" />
     <ClInclude Include="FloatLog.h" />
     <ClInclude Include="FuzzyClassiffication.h" />
-    <ClInclude Include="IDataset.h" />
     <ClInclude Include="KMeans.h" />
     <ClInclude Include="MembershipFunction.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Dataset.cpp" />
     <ClCompile Include="DatasetIris.cpp" />
     <ClCompile Include="FloatLog.cpp" />
     <ClCompile Include="FuzzyClassiffication.cpp" />
