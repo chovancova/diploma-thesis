@@ -2,6 +2,53 @@
 
 \section{Získavanie znalostí z databáz }
 
+\section{Fuzzy prístupy}
+%z knihy od michal gregor - umela inteligencia
+
+Ľudské znalosti sú niekedy neurčité, nepresné a ako aj nekonzistentné. 
+Fuzzy prístupy umožňujú určitým spôsobom formalizovať a ďalej spracúvať vágne poznatky. Vágnosť možno považovať za typ nepresnosti. Takýto typ znalostí je ťažké a často aj nemožné vhodne formalizovať konvenčnými metódami. Fuzzy prístupy predstavujú jednu z možných ciest ako k nim pristupovať, a formalizovať neurčitosť. 
+\paragraph{}
+Teória fuzzy množín je zovšeobecnením klasickej teórie množín - fuzzy množiny sú vágne v tom či prvok patrí alebo nepatrí do množiny. 
+Na fuzzy množinách možno vykonávať určité operácie čiastočne analogické s tými, ktoré sú v klasickej teórie množín. 
+\paragraph{}
+Fuzzy logika predstavuje prístup, ktorý zovšeobecuje konvenčnú logiku a produkčné pravidlá zavedením tzv. lingvistických premenných a lingvistických pravidiel. 
+Fuzzy logika umožuje formulovať vágne pravidlá. 
+Fuzzy aritmetika rozširuje princípy klasickej aritmetiky na vágne - fuzzy - čísla. 
+
+\subsection{Teória fuzzy množín}
+
+V klasickej teórii množín prvok môže do množiny buď pratriť alebo nepatriť. Pre klasické množiny možno definovať tzv. charakteristickú funkciu. 
+
+Charakteristická funkcia klasickej množiny S je priradenie typu: 
+
+\begin{equation}\label{charfunkcia}
+\mu_S : U \longrightarrow \{0, 1\}
+\end{equation}
+
+Priradadenie hodnoty 0 - nepatrí, alebo hodnoty 1 - patrí - ku každému prvku x $\in$ U, pričom definičný obor charakteristickej funkcie U sa nazýva univerzum. Univerzum je množina všetkých hodnôt, o ktorých rozhodujeme či do danej množiny patria, alebo nepatria. Platí $S \subseteq U$. 
+
+Charakteristickú funkciu klasickej množiny možno definovať nasledovne: 
+%pozri a najdi tento zdroj - Ross, T.J. Fuzzy Logic with Engineering Applications. .. alebo pozri zdroje v knihe 14
+
+\begin{equation}\label{charfunkciafuzzy}
+\mu_S (X) = todo patri 1, 0 x \in S , x \notin S. 
+\end{equation}
+
+V teórii fuzzy množín sa zavádza rozšírenie tohto konceptu - prvok môže do množiny patriť aj čiastočne: viac alebo menej. Vágnosť je teda v otázke príslušnosti prvku ku množine. 
+
+\subsubsection{Stupeň príslušnosti a funkcia príslušnosti}
+
+
+
+
+
+\section{Fuzzifikácia}
+
+
+
+
+
+
 \section{Fuzzy logika }
 
 \section{Meranie Entropie}
@@ -16,14 +63,12 @@ To znamená, že pre diskrétne zdroje, informácie získané výberom symbolu s
 
 2. TODO 
 
-\begin{equation}\label{key}
+\begin{equation}\label{fuzzy}
 D_j = \frac{ \sum\limits_{r \in S_{C_{j}}(r_n)  } \: \mu_{\tilde{A}} (r) }{\sum\limits_{r \in X  } \mu_{\tilde{A}} (r) }
 \end{equation}
 
 
-\begin{equation}
-\sum_{r \in S_{C_{j}}(r_n)  } \: \mu_{\tilde{A}} (r) }
-\end{equation}
+
 
 Podelením (2.) číslom n získame priemerné množstvo informácie na symbol výstubu zdroja. To je známe ako priemerná informácia, neistota, alebo entropia definovaná nasledovne.
 Definícia 1:  Entropia H(X) náhodnej diskrétnej premennej X je definovaná ako 

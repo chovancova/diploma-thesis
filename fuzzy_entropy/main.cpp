@@ -4,13 +4,15 @@
 
 int main(int argc, char *argv[])
 {
-	if (argc != 3)
+	/*if (argc != 3)
 	{
 		printf("Usage: %s DATASET_TYPE DATASET_FILE", argv[0]);
 		return 1;
-	}
-	std::string ds_type(argv[1]);
-	std::string ds_file(argv[2]);
+	}*/
+	//std::string ds_type(argv[1]);
+	//std::string ds_file(argv[2]);
+	std::string ds_type("iris");
+	std::string ds_file("iris.data");
 
 	Dataset *dataset = Dataset::create(ds_type, ds_file);
 	if (dataset == nullptr)
