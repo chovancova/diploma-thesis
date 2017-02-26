@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6C1BE85D-DF31-4BF5-8806-2E4735B6F924}</ProjectGuid>
+    <ProjectGuid>{3FEB1B06-3CC0-46C5-BD09-3373B0753DE1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>FEBFCalgorithm</RootNamespace>
+    <RootNamespace>FEBFCfuzzy</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -142,20 +142,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="dataset_interface.h" />
-    <ClInclude Include="dataset_iris.h" />
-    <ClInclude Include="fuzzy_entropy.h" />
-    <ClInclude Include="k_means.h" />
-    <ClInclude Include="membership_function.h" />
-    <ClInclude Include="values_log.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="dataset_iris.cpp" />
-    <ClCompile Include="fuzzy_entropy.cpp" />
-    <ClCompile Include="k_means.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="membership_function.cpp" />
-    <ClCompile Include="values_log.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

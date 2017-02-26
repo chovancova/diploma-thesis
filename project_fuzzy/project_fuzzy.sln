@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fuzzy_entropia", "..\fuzzy_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FEBFC algorithm", "..\FEBFC algorithm\FEBFC algorithm.vcxproj", "{6C1BE85D-DF31-4BF5-8806-2E4735B6F924}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FEBFC fuzzy", "..\FEBFC fuzzy\FEBFC fuzzy.vcxproj", "{3FEB1B06-3CC0-46C5-BD09-3373B0753DE1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{6C1BE85D-DF31-4BF5-8806-2E4735B6F924}.Release|x64.Build.0 = Release|x64
 		{6C1BE85D-DF31-4BF5-8806-2E4735B6F924}.Release|x86.ActiveCfg = Release|Win32
 		{6C1BE85D-DF31-4BF5-8806-2E4735B6F924}.Release|x86.Build.0 = Release|Win32
+		{3FEB1B06-3CC0-46C5-BD09-3373B0753DE1}.Debug|x64.ActiveCfg = Debug|x64
+		{3FEB1B06-3CC0-46C5-BD09-3373B0753DE1}.Debug|x64.Build.0 = Debug|x64
+		{3FEB1B06-3CC0-46C5-BD09-3373B0753DE1}.Debug|x86.ActiveCfg = Debug|Win32
+		{3FEB1B06-3CC0-46C5-BD09-3373B0753DE1}.Debug|x86.Build.0 = Debug|Win32
+		{3FEB1B06-3CC0-46C5-BD09-3373B0753DE1}.Release|x64.ActiveCfg = Release|x64
+		{3FEB1B06-3CC0-46C5-BD09-3373B0753DE1}.Release|x64.Build.0 = Release|x64
+		{3FEB1B06-3CC0-46C5-BD09-3373B0753DE1}.Release|x86.ActiveCfg = Release|Win32
+		{3FEB1B06-3CC0-46C5-BD09-3373B0753DE1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

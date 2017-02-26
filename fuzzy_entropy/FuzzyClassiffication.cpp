@@ -14,7 +14,7 @@ FuzzyClassiffication::FuzzyClassiffication(Dataset* dataset, FuzzyClassifficatio
 
 	result_log = new Logger("result_iris.txt", true);
 
-	unsigned centers_count = 5;
+	unsigned centers_count = 2;
 	ProcessClassification(centers_count);
 	printf("number of intervals >>>> fuzzy entropy");
 	printf("\n");
@@ -245,8 +245,7 @@ float FuzzyClassiffication::compute_fuzzy_entropy_of_interval(unsigned int clust
 		}
 
 
-		//v clanku P4, zatial este len membership degree (treba vydelit)
-		match_degree.push_back(total_membership_degree);
+\		match_degree.push_back(total_membership_degree);
 	}
 
 
