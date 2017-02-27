@@ -1,23 +1,168 @@
 \chapter{Teoretické východiská práce} 
 
-\section{Získavanie znalostí z databáz }
+\section{Fuzzy dáta a expertné odhady}
+%todo pridat do zoznamu zdrojov a potom to tuto v tejto kapitole citovať
+%z knihy Projektovanie systémov pre podporu rozhodovania na základe neurčitých dát, Vitaly Levasheko, Elena Zaitseva, Štefan Kovalík, Vydala Žilinská univerzita v Žiline/Edis-vydavateľstvo ŽU, 2013, ISBN 978-80-554-0680-0
+%5 strana
+Metódy a algoritmy využívané v súčasných systémoch pre podporu rozhodovania by mali brať do úvahy možnú nestochastickú neurčitosť vstupných dát, spôsobenú nedostatočnou presnosťou merania. Jeden z prístupov, ktorý berie do úvahy neurčitosť, je vyjadrenie vstupných hodnôt pomocou neurčitých fuzzy dát alebo pomocou viachodnotových dát. 
+Matematickým aparátom spracovania neurčitých dát a viachodnotových dát je fuzzy logika a viac hodnotová logika. \cite{levashenkoProj}
+\paragraph{}
+%6 strana
+Neurčité dáta sa reprezentujú pomocou lingvistických premenných, ktorých hodnoty patria do konečnej množiny. \cite{levashenkoProj}
+%9 strana
+Lingvistické premenné sa javia ako jeden z často používaných spôsobov vyjadrenia hodnôt, opisovaných kvantitatívnymi 
+%10 strana
+alebo kvalitatívnymi veličinami. Kvalitatívne veličiny sa v mnohých prípadoch javia ako výsledok formalizácie expertných odhadov. \cite{levashenkoProj}
+%10 strana = kapitola 1.1 kapitola o fuzzy dáta a expertné odhady. 
+Každý objekt alebo proces sa opisuje skupinou ukazovateľov. V modeloch pre podporu rozhodovania sa využívajú ukazovatele, ktoré nadobúdajú hodnoty z množiny reálnych čísel. 
+Dôvody, ktoré sťažujú použitie reálnych čísiel sú nasledovné: \cite{levashenkoProj}
+%todo treba preštylizovat todo 
+\begin{enumerate}
+	\item Zložitosť presného merania hodnôt ukazovateľa. 
+	\item Nie sú algoritmy a metódy výpočtu presných hodnôt ukazovateľa. 
+	\item Zložitosť dostupnosti nameraných dát, súvisiaca s radom objektívnych a subjektívnych faktorov. 
+	\item Absencia nevyhnutnosti poznať presné hodnoty. 
+	\item Relatívne vysoké náklady na zmeranie presných hodnôt ukazovateľov. 
+\end{enumerate}
+%todo doslovne citovanie. treba prestylizovat  
+Reálne hodnoty jednotlivých ukazovateľov bez prihliadnutia na iné ukazovatele jednej strane nesú pre výber rozhodnutia zbytočne podrobnú informáciu o tomto ukazovateli, na druhej strane nemôžu byť základom pre výber rozhodnutia. \cite{levashenkoProj}
+%11 strana
+Z toho vyplýva, že sa ukazuje ako užitočné využiť približné, neurčité fuzzy hodnoty vstupných dát. 
+Použitie podobných fuzzy hodnôt umožňuje zaviesť do výskumu kvalitatívne opisy. Vo výsledku sa berie do úvahy neurčitosť úlohy rozhodovania, zabezpečuje sa adekvátny opis všetkých faktorov, ktoré majú vzťah danej, ale nie je možné zabezpečiť ich presný kvantitatívny opis. 
+\paragraph*{}
+Spracovanie neurčitej fuzzy informácie v rozhodovacích úlohách sa zabezpečuje aplikovaním lingvistického prístupu.\cite{levashenkoProj} %tuto este cituju Zadh1976, Lieb1993, Novak2005, Navara2007
+Matematickým aparátom ich formalizácie je teória fuzzy množín. 
 
+
+%todo prestylizovať todo
+Lingvistický prístup pri konštrukcii modelov rozhodovania umožňuje\cite{levashenkoProj}: 
+\begin{itemize}
+	\item využiť na opis elementov úlohy rozhodovania subjektívne odhady expertov, vyjadrené pomocou neurčitých fuzzy pojmov, vzťahov a výrokov profesionálneho jazyka;
+	\item formalizovať neurčité fuzzy opisy pomocou fuzzy množín a lingvistických premenných;
+	\item spracovávať neurčité fuzzy opisy prostredníctvom matematického aparátu teórie fuzzy logiky. 
+\end{itemize}
+
+Základ tohto prístupu tvoria pojmy neurčitej fuzzy premennej a lingvistickej premennej. 
+Medzi základné pojmy patrí definícia fuzzy množiny, fuzzy premennej, lingvistickej premennej, funkcie príslušnosti.\cite{levashenkoProj}
+
+% tieto pojmy asi su aj v Zadeh1965, Zadeh1996 , citujem ich doslovne z knihy = Projektovanie systemov.. 
+Nech $ X = \left\lbrace x \right\rbrace$ je množina prvkov x. 
+
+\paragraph*{Definícia 1.} 
+Fuzzy množina $A \subset X $ je predstavovaná množinou dvojíc $ \left\lbrace \left( x, \mu_A \left( x \right) \right) \right\rbrace  $, kde $ x \in X$ a $ \mu_A : X \longrightarrow \left\langle 0, 1\right\rangle $ je funkcia príslušnosti, ktorá predstavuje subjektívnu mieru príslušnosti elementu x k množine A. 
+Veličina $\mu_A\left( x\right) $ nadobúda hodnoty od nuly, ktorá označuje absolútnu nepríslušnosť po hodnotu jedna, ktorá hovorí o absolútnej príslušnosti elementu x do fuzzy množiny A. \cite{levashenkoProj, Zadeh1965}
+% toto bolo doslova asi citovane zo 
+%Zadeh L., Fuzzy sets. Information and Control, vol.8, 1965, pp. 338-353. 
+
+%12 strana knihy o projektovani systemov
+Ak je fuzzy množina A definovaná na konečnej univerzálnej množine 
+\\
+ $X = \left\lbrace x_1, x_2, ... , x_i, ..., x_n\right\rbrace $, potom je vhodné označiť ju nasledovne
+$$
+A = \left\lbrace 
+\left( x_1, \mu_A\left( x_1\right)  \right) , 
+\left( x_2, \mu_A\left( x_2\right)  \right) , ... , 
+\left( x_i, \mu_A\left( x_i\right)  \right) , ... , 
+\left( x_n, \mu_A\left( x_n\right)  \right) 
+ \right\rbrace , 
+$$ 
+kde $\left( x_i, \mu_A\left( x_i\right)  \right)$ - je dvojica tvorená elementov $x_i$ a jeho funkciou príslušnosti, nazývaná singleton. \cite{levashenkoProj}
+
+%%tieto definicie su na strane 12, a su citovane z knihy, a aj Kaufmann1985, Klir1995, Navara2011
+
+\paragraph*{Definícia 2. }
+Fuzzy premenná je definovaná trojicou $\left( \alpha, X, A \right) $, kde 
+$\alpha $ - je meno fuzzy premennej, 
+ $X=\left\lbrace x \right\rbrace$ - je množina, tvoriaca definičný obor premennej x, 
+ A - je fuzzy podmnožina fuzzy množiny X, pre každý prvok ktorej je definovaná funkcia $\mu_A\left( x\right)$, udávajúca stupeň príslušnosti daného elementu x do množiny A.  \cite{levashenkoProj}
+
+\paragraph*{Definícia 3.}
+Lingvistická premenná je definovaná päticou 
+$
+\left(
+\beta, T, X, G, M
+ \right) 
+$, kde 
+$\beta$ - je meno lingvistickej premennej; 
+T - je množina jej hodnôt $\left( termov \right) $, z ktorých každá je fuzzy premennou na množine X;
+G - je syntaktické pravidlo pre tvorbu nových mien hodnôt lingvistickej premennej $\beta$;
+M - je sémantická procedúra, umožňujúca transformovať novú hodnotu premennej $\beta$, určenú procedúrou G, na fuzzy premennú, t.j. vytvoriť zodpovedajúcu fuzzy množinu. \cite{levashenkoProj}
+
+
+\paragraph*{Definícia 4.}
+Funkcia príslušnosti $\mu_A\left( x\right)$ kvantitatívne určuje príslušnosť elementov základnej množiny uvažovaného priestoru $x \in X$ k fuzzy množine A. Hodnota A tejto funkcie značí, že element nepatrí do fuzzy množiny, hodnota 1 opisuje úplne patriaci element. Hodnoty medzi 0 a 1 charakterizujú neurčito zaradené elementy. \cite{levashenkoProj, Kaufman1985, Klir1995, Navara2011}
+%todo pridat to do zoznamu literatury, plus stiahnut, a pozriet ci su tam tie definicie
+%Kaufman1985
+%Kaufmann A., Gupta M., Induction to fuzzy arithmetic: theory and applications. New York : Van Nostrand Reinold Co., 1985, 361 p. 
+%Klir1995
+%Klir G., Yuan B., Fuzzy Sets and Fuzzy Logic. Theory and Applications. Prentice Hall, 1995, 591 p. 
+%Navara2011
+%Navara M., Computation with fuzzy quantities. Proc. of the 7th Conf. of the European Society for Fuzzy Logic and Technology (EUSFLAT), Aix-les-Bains, France, 2011, pp. 209-214.
+
+\paragraph*{}
+Lingvistická premenná sa od číselnej premennej líši tým, že jej hodnotami nie sú čísla, ale slová alebo výroky prirodzeného alebo formálneho jazyka. Je zrejmé, že takýto 
+%14 strana
+kvalitatívny popis s využitím slov je menej presný ako pomocou čísel. Napriek tomu použitie lingvistickej premennej umožňuje približne opísať zložité javy, ktoré nie je možné opísať pomocou obvyklých kvalitatívnych termínov. Dôležitý aspekt lingvistickej premennej spočíva v tom, že táto premenná má vyššiu úroveň ako fuzzy premenná v tom zmysle, že hodnotami lingvistickej premennej sú fuzzy premenné.  \cite{levashenkoProj}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\pagebreak
 \section{Fuzzy prístupy}
 %z knihy od michal gregor - umela inteligencia
+%na strane 11 a 12 cituje v clanku ref 13
+%NICKLESS, M. - SOTTARA, D. Approaches to Uncertain or Imprecise Rules - A Survey. In Rule Interchange and Applications, vol. 5858 of Lecture Notes in Computer Science, pp. 323-336. Springer, 2009. ISBN 9783642049842. 
 
-Ľudské znalosti sú niekedy neurčité, nepresné a ako aj nekonzistentné. 
-Fuzzy prístupy umožňujú určitým spôsobom formalizovať a ďalej spracúvať vágne poznatky. Vágnosť možno považovať za typ nepresnosti. Takýto typ znalostí je ťažké a často aj nemožné vhodne formalizovať konvenčnými metódami. Fuzzy prístupy predstavujú jednu z možných ciest ako k nim pristupovať, a formalizovať neurčitosť. 
-\paragraph{}
+%11 strana knihy o umelej inteligenciie z od gregora
+%doslovné citovanie
+Fuzzy prístupy možno považovať za odpoveď na požiadavku spracovania neurčitosti, resp. nepresnosti. Táto požiadavka je veľmi rozšírená - v určitej forme sa vyskytuje prakticky v každom reálnom systéme aplikujúcom metódy umelej inteligencie - predovšetkým sa však objavuje tam, kde systémy nejakým spôsobom interagujú s človekom alebo využívajú ľudské znalosti. 
+V súvislosti s neurčitosťou sa rozlišujú tri základné pojmy: \cite{gregorRef13}  %tuto cituje [13] (Niklesa) 
+%todo prestylizovat toto!!!
+\begin{itemize}
+	\item \textbf{Neurčitosť} - vyplýva z nedostatočnej znalosti faktorov alebo udalosti. O neurčitosti hovoríme, že je aleatórna, ak pramení z vnútorných vlastností nejakého náhodného javu - t.j. ju principiálne nemožno odstrániť. Ak neurčitosť vyplýva z neznalosti, tak je epistemická. 
+	\item \textbf{Nepresnosť} - O nepresnosti hovoríme, ak je znalosť faktov a udalosti taká kompletná ako len môže byť, ale spôsob ich vyjadrenia nie je presný alebo jednoznačný. 
+	\item \textbf{Nekonzistentnosť} - O nekonzistentnosti hovoríme, ak si znalosti, resp. známe fakty navzájom odporujú. 
+\end{itemize}
+
+%12 strana knihy umela inteligencia
+Ľudské znalosti vo väčšine prípadov zahŕňajú neurčitosti, nepresnosť, niekedy môžu byť aj nekonzistentné. 
+Fuzzy prístupy umožňujú určitým spôsobom formalizovať a ďalej spracúvať vágne poznatky. Vágnosť možno považovať za typ nepresnosti.
+%tuto on cituje 13
+%NICKLESS, M. - SOTTARA, D. Approaches to Uncertain or Imprecise Rules - A Survey. In Rule Interchange and Applications, vol. 5858 of Lecture Notes in Computer Science, pp. 323-336. Springer, 2009. ISBN 9783642049842. 
+ Takýto typ znalostí je ťažké a často aj nemožné vhodne formalizovať konvenčnými metódami. Fuzzy prístupy predstavujú jednu z možných ciest ako k nim pristupovať, a použiť na formalizáciu neurčitosti.  
+
 Teória fuzzy množín je zovšeobecnením klasickej teórie množín - fuzzy množiny sú vágne v tom či prvok patrí alebo nepatrí do množiny. 
 Na fuzzy množinách možno vykonávať určité operácie čiastočne analogické s tými, ktoré sú v klasickej teórie množín. 
-\paragraph{}
-Fuzzy logika predstavuje prístup, ktorý zovšeobecuje konvenčnú logiku a produkčné pravidlá zavedením tzv. lingvistických premenných a lingvistických pravidiel. 
-Fuzzy logika umožuje formulovať vágne pravidlá. 
-Fuzzy aritmetika rozširuje princípy klasickej aritmetiky na vágne - fuzzy - čísla. 
+
+Fuzzy logika predstavuje prístup, ktorý zovšeobecňuje konvenčnú logiku a produkčné pravidlá zavedením tzv. lingvistických premenných a lingvistických pravidiel. 
+Fuzzy logika umožňuje formulovať vágne pravidlá. 
+Fuzzy aritmetika rozširuje princípy klasickej aritmetiky na vágne - fuzzy - čísla. \cite{gregorUI} 
 
 \subsection{Teória fuzzy množín}
 
-V klasickej teórii množín prvok môže do množiny buď pratriť alebo nepatriť. Pre klasické množiny možno definovať tzv. charakteristickú funkciu. 
+V klasickej teórii množín prvok môže do množiny buď patriť alebo nepatriť. Pre klasické množiny možno definovať tzv. charakteristickú funkciu. 
 
 Charakteristická funkcia klasickej množiny S je priradenie typu 
 
@@ -25,32 +170,189 @@ Charakteristická funkcia klasickej množiny S je priradenie typu
 \mu_S : U \longrightarrow \{0, 1\}
 \end{equation}
 
-Priradadenie hodnoty 0 - nepatrí, alebo hodnoty 1 - patrí - ku každému prvku x $\in$ U, pričom definičný obor charakteristickej funkcie U sa nazýva univerzum. Univerzum je množina všetkých hodnôt, o ktorých rozhodujeme či do danej množiny patria, alebo nepatria. Platí $S \subseteq U$. 
+Priradenie hodnoty 0 - nepatrí, alebo hodnoty 1 - patrí - ku každému prvku x $\in$ U, pričom definičný obor charakteristickej funkcie U sa nazýva univerzum. Univerzum je množina všetkých hodnôt, o ktorých rozhodujeme či do danej množiny patria, alebo nepatria. Platí $S \subseteq U$. 
 
 Charakteristickú funkciu klasickej množiny možno definovať nasledovne
 %pozri a najdi tento zdroj - Ross, T.J. Fuzzy Logic with Engineering Applications. .. alebo pozri zdroje v knihe 14
 
 \begin{equation}\label{charfunkciafuzzy}
-\mu_S (X) = todo patri 1, 0 x \in S , x \notin S. 
+\mu_S (X) = 
+\begin{cases}
+1 &  x \in S, \\
+0 &  x \notin S.
+\end{cases}
 \end{equation}
 
 V teórii fuzzy množín sa zavádza rozšírenie tohto konceptu - prvok môže do množiny patriť aj čiastočne: viac alebo menej. Vágnosť je teda v otázke príslušnosti prvku ku množine. 
 
+%strana 13 knihy inteligencii
 \subsubsection{Stupeň príslušnosti a funkcia príslušnosti}
+Mieru do akej prvok patri do fuzzy množiny sa vyjadruje stupňom príslušnosti. Nech A je fuzzy množina. Stupeň príslušnosti prvku x ku množine A označujeme $\mu_A\left( x\right) $. 
+Hovoríme tiež, že $\mu_A\left( x\right) $ je funkcia príslušnosti fuzzy množiny A. 
+%toto bolo citované od neho = a on tam ma tento zdroj
+%ROSS, T.J. Fuzzy Logic with Engineering Applications. John Wiley & Sons, 2004, secound edition ed. ISBN 0-470-86075-8. 
+Funkcia príslušnosti je priradenie
+\begin{equation}\label{funPrislus}
+\mu_A : U \longrightarrow \left\langle 0, 1 \right\rangle 
+\end{equation}
+Obor hodnôt je teda v tomto prípade 
+\begin{equation}\label{funPrislus}
+\mu_A (X) : U \in \left\langle 0, 1 \right\rangle 
+\end{equation}
+
+Pritom rozlišujeme nasledujúce prípady: 
+\begin{itemize}
+	\item ak $\mu_A (x) = 0$, hovoríme, že prvok do množiny A nepatrí, 
+	\item ak $\mu_A (x) = 1$, hovoríme, že prvok do množiny A patrí, 
+	\item ak $\mu_A (x) \in (0, 1)$, hovoríme, že prvok patrí do množiny A čiastočne, so stupňom príslušnosti ak $\mu_A(x)$. 
+\end{itemize}
+
+Aj v tomto prípade sa dá použiť značenie $A\subseteq U$, čím sa rozumie, že množina A je definovaná na univerze U. 
+
+%strana 14 knihy umela inteligencia
+\subsubsection{Spojité a diskrétne fuzzy množiny}
+Fuzzy množiny možno rozdeliť podľa spojitosti na spojité a diskrétne. V prípade spojitých fuzzy množín je univerzum spojité. T.j. aj funkcia príslušnosti je spojitá. Naopak v prípade diskrétnych fuzzy množín sú univerzum aj funkcia príslušnosti diskrétne. Obor funkcie príslušnosti je spojitý v oboch prípadoch. 
+
+
+\subsubsection{Spôsoby zápisu fuzzy množín}
+Fuzzy množiny možno zapísať buď diskrétne alebo spojito. 
+
+%v knihe o umelej inteligencii je to vedene ako 1 ref. 
+%SPALEK.J - JANOTA. A - BLAŽOVIČOVÁ, M. - PŘIBYL, P. Rozhodovanie a riadenie s podporou umelej inteligencie. Žilinská univerzita v Žiline/EDIS, 2005. ISBN 80-8070-354-X. 
+V prípade, že ide o diskrétnu fuzzy množinu, možno použiť nasledujúci zápis \cite{gregorref1}
+
+\begin{equation}\label{disk0}
+A = \{\mu_A(x_1)/x_1, \mu_A(x_2)/x_2, ... , \mu_A(x_n)/x_n\}, 
+\end{equation}
+kde n je počet prvkov, $x_i in U : \forall_i = 1, 2, ..., n$ sú prvky univerza a $\mu_A(x_i)$sú ich stupne príslušnosti.
+
+%14,15 strana
+Ďalšia konvencia zápisu diskrétnych fuzzy množín je  \cite{gregorUI} 
+
+\begin{equation}\label{disk1}
+A = \{\mu_A(x_1)/x_1 + \mu_A(x_2)/x_2, ...  + \mu_A(x_n)/x_n\}, 
+\end{equation}
+
+\begin{equation}\label{disk2}
+A = \left\lbrace 
+\left( x_1; \mu_A\left( x_1\right)  \right) , 
+\left( x_2; \mu_A\left( x_2\right)  \right) , ... , 
+\left( x_n; \mu_A\left( x_n\right)  \right) 
+\right\rbrace , 
+\end{equation}
+
+\begin{equation}\label{disk3}
+A = 
+\sum\limits_{i=1} \mu_A(x_i)/x_i . 
+\end{equation}
+
+Spojité fuzzy množiny možno reprezentovať výrazom v tvare \cite{gregorref1}
+\begin{equation}\label{disk4}
+A = \int_{U}^{}  \mu_A(x)/xdx . 
+\end{equation}
+%16 strana
+\subsubsection{Singleton}
+Špeciálnym typom fuzzy množiny je tzv. singleton. Ide o taký typ fuzzy množiny, pre ktorý iba jeden bod univerza má stupeň príslušnosti väčší ako 0. 
+Nech teda A je fuzzy množina definovaná na univerze U. Potom fuzzy množinu A považujeme za singleton, ak existuje bod $x_0 \in U$ taký, že platí \cite{gregorUI} 
+\begin{equation}\label{singleton0}
+\mu_S (X) = 
+\begin{cases}
+b &  x = x_0 \\
+0 &  inak
+\end{cases}
+\end{equation}
+ $$ b \in \left(  0, 1 \right\rangle $$
+Singleton možno zapísať obdobným spôsobom ako diskrétnu fuzzy množinu a to je \cite{gregorUI} 
+\begin{equation}\label{singleton1}
+A = \left\lbrace b/x_0 \right\rbrace , 
+\end{equation}
+\begin{equation}\label{singleton2}
+A = \left\lbrace \left( x_0 ; b \right) \right\rbrace 
+\end{equation}
+
+%26 strana knihy o umelej inteligencii 
+\subsection{Fuzzy logika}
+\subsubsection{Lingvistická premenná}
+Lingvistická, resp. jazyková premenná je zvláštnym typom premennej, ktorá sa od numerických premenných odlišuje tým, že jej hodnoty - tzv. lingvistické hodnoty - nie sú čísla, ale slovné výrazy. Pritom každej lingvistickej hodnote je priradený význam, t. j. určitá fuzzy množina definovaná na spoločnom univerze. \cite{gregorUI}
+
+\subsubsection{Fuzzy inferenčný systém}
+Lingvistické premenné možno využiť na odvodzovanie a získať z nich výstupné ostré hodnoty (t.j. presné číselné hodnoty). 
+Inferenčný systém je štruktúra umožňujúca odvodzovať na základe vopred daných pravidiel a známych faktov nové fakty. V prípade fuzzy inferenčného systému (FIS) možno pri formulácii pravidiel navyše využiť lingvistické premenné a hodnoty. Medzi najznámejšie metódy fuzzy inferencie patrí Mandaniho inferencia. \cite{gregorUI}
+V prípade, že sa má fuzzy inferenčný systém použiť ako jadro regulátora, je potrebné, aby jeho vstupmi a výstupmi boli ostré hodnoty. FIS umožňujú aj prevod z ostrých (presne číselných) vstupov na lingvistické hodnoty a naopak. \cite{gregorUI}
+Bloková schéma na Obr. \ref{fig:fis} zobrazuje hlavné komponenty fuzzy inferenčného systému: F - fuzzifikácia, inferencia, báza pravidiel, D - defuzzifikácia. 
+%strana 28
+\begin{figure}[h]
+	\includegraphics[width=0.75\textwidth]{obrazky/obrazok1}
+	\centering
+	\caption{Fuzzy inferenčný systém - bloková schéma.\cite{gregorUI}}
+	\label{fig:fis}
+\end{figure}
+
+\subsubsection{Báza pravidiel}
+Fuzzy inferenčný systém pri odvodzovaní nových faktorov vychádza z určitých vopred daných pravidiel. Tie sú združené v báze pravidiel. Pravidlá majú vo všeobecnosti nasledujúci tvar \cite{gregorUI, gregorRef19, gregorref1}
+%tuto cituje 19 zdroj
+\begin{quote}\centering
+         \textbf{AK} (predpoklad)   \textbf{POTOM} (dôsledok), resp. \\
+         \textbf{IF} (antecedent)  \textbf{THEN} (consequent).
+\end{quote}
+Predpoklad sa pritom skladá z termov nasledujúceho tvaru \cite{gregorUI}
+\begin{equation}\label{baza1}
+X \hspace{0.2cm} is \hspace{0.2cm}  A_i , 
+\end{equation}
+kde X je lingvistická premenná a $A_i$ je i-tá lingvistická hodnota tejto premennej. 
+
+% 28-29 strana
+\subsubsection{Fuzzifikácia}
+Z blokovej schémy na Obr. \ref{fig:fis} je zrejmé, že do fuzzy inferenčného systému môžu vstupovať ostré hodnoty. Aby bolo možné vykonať porovnanie podľa (\ref{baza1}), ostrú vstupnú hodnotu je potrebné previesť na fuzzy množinu. Tento proces sa nazýva fuzzifikácia. Fuzzifikácia je prevod ostrej hodnoty x na fuzzy množinu $L_x$, pričom výstupom je často singleton \cite{gregorUI}
+\begin{equation}\label{fuzzysingle1}
+L_x = \left\lbrace1/x\right\rbrace .  
+\end{equation}
+Majme term v tvare podľa (\ref{baza1}). Ak ostrá hodnota premennej je x a jej fuzzifikovaná hodnota  $L_x$, potom takýto term možno vyhodnotiť jednoducho pomocou zvolenej T-normy (analógia prieniku). Ako T-norma sa v tomto prípade spravidla používa operátor minima  $T_m(a, b)=min(a, b)$. Ak sa aplikuje na dané operandy vznikne \cite{gregorUI}
+\begin{equation}\label{fuzzimin}
+\alpha_x = min(L_x, A^{i}) \forall x \in U, 
+\end{equation}
+kde $\alpha_x$ možno považovať za mieru platnosti tvrdenia (\ref{baza1}). 
+Vzhľadom na vlastnosti singletonov možno tento postup zjednodušiť na 
+\begin{equation}\label{fuzziminsingle}
+\alpha_x = \left\lbrace \mu_{A^i}(x)/x\right\rbrace , 
+\end{equation}
+Keďže $\alpha_x$ je tiež singleton, tak stačí, ak sa vyjadrí iba ako $\mu_{A^i}(x)$, čo je ostré číslo. 
+Fuzzifikácia v praxi je vyhodnotenie miery platnosti predpokladu X is A (\ref{baza1}) na základe znalosti ostrej hodnoty x premennej X. Miera platnosti takého predpokladu je pritom ekvivalentná stupňu príslušnosti ostrej hodnoty x ku fuzzy množine A, čiže  $\mu_{A}(x)$. \cite{gregorUI}  
+
+%treba definovať T=normu?????? 
+\pagebreak
 
 
 
 
 
-\section{Fuzzifikácia}
+
+
+
+\pagebreak
+\section{Transformácia číselných hodnôt na lingvistické premenné}
 
 
 
 
 
 
-\section{Fuzzy logika }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\pagebreak
 \section{Meranie Entropie}
 Entropia je meraná množstvom neistoty výsledku náhodného experimentu, alebo equivalene, meraním informácií keď sa pozoruje výsledok. Tento koncept bol zadefinovaný rôznymi spôsobmi [25]–[30] a zovšeobecnený v rozličných aplikovaných oblastiach, ako napríklad teória komunikácie, matematiky, štatistickej termodynamike a ekonómii [31]–[33]. Z pomedzi týchto rozličných definícií, Shannon prispel k najširšej a najfundamentálnejšej definícii entropie v informačnej teórii. V nasledujúcom texte najprv uvedieme Shannonovu entropiu a potom popíšeme štyry Luca-Termini axiómy [25], ktoré dobre-definovaná entropia musí spĺňať. Nakoniec navrhneme meranie fuzzy entropie, ktoré je rozšírenie Shannonovej definície.
 

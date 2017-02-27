@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DatasetIris">
+    <Position X="0.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAEA=</HashCode>
+      <FileName>DatasetIris.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FuzzyClassiffication">
+    <Position X="3" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>IAEAAAAAAAAAEAACACIAAAAAAAAIAAAAAAAAAEAAQAA=</HashCode>
+      <FileName>FuzzyClassiffication.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IDataset">
+    <Position X="0.75" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAIQAACAAAAgIQAAAAIAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>IDataset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMeans">
+    <Position X="5.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAkAAAAAIAAAAgEBAAQQAIAAEACAAAAAAAEAAABAAA=</HashCode>
+      <FileName>KMeans.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MembershipFunction">
+    <Position X="7.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAABAAAAAAAFBCAAQBIAAAAAAAAAAAAAAECAAAA=</HashCode>
+      <FileName>MembershipFunction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="FuzzyClassifficationInit">
+    <Position X="3" Y="3.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FuzzyClassiffication.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DataItem">
+    <Position X="0.75" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAABEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IDataset.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="KMeansResult">
+    <Position X="5.75" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>KMeans.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
