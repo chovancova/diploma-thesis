@@ -455,58 +455,213 @@ pre ktoré platia nerovnosti $d_i < d_{i+1}$, pre i = 0, 1, ... m-1.
 
 Pre metódy diskretizácie, ktoré pretínajú intervaly nemusí platiť nerovnosť. K takýmto metódam patrí fuzzy diskretizácia. 
 
-\subsection{Príklady metód}
-Tabuľka metód \ref{table:1}.... 
+\subsection{Príklady algoritmov metód diskretizácie}
+
+
+% Fig. 1 illustrates a comparison network where each node corresponds to a discretization algorithm and a directed vertex between two nodes indicates that the algorithm of the start node has been compared with the algorithm of the end node. The direction of the arrows is always from the newest method to the oldest, but it does not influence the results. The size of the node is correlated with the number of input and output vertices. We can see that most of the discretizers are represented by small nodes and that the graph is far from being complete, which has prompted the present paper.
+Obrázok  \ref{fig:obrazok2} ilustruje porovnávaciu sieť, v ktorej každý uzol zodpovedá algoritmu diskretizácie a smeruje na vrchol medzi dvoma uzlami. Označuje, že algoritmus počiatočného uzlu bol porovnávaný s algoritmom koncového uzla. Smer šípok je vždy od najnovšieho spôsobu až po najstaršie. Veľkosť uzla je v korelácii s počtom vstupných a výstupných vrcholov. \cite{Garcia2013} Obrázok \ref{fig:obrazok3} zobrazuje kategorizáciu hierarchie metód diskretizácie. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1\linewidth]{obrazky/obrazok2}
+	\caption{Porovnávacia sieť metód diskretizácie}
+	\label{fig:obrazok2}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[height=1.36\linewidth]{obrazky/obrazok3}
+	\caption{Taxonómia metód diskretizácie}
+	\label{fig:obrazok3}
+\end{figure}
+
+
 \begin{table}[h!]
 	\centering
-\begin{tabular} { |p{5cm}|p{10cm}| }
-	\hline 
-	\textbf{Metóda diskretizácie} & \textbf{Príklady} \\ 
-	\hline 
-	Statická & ChiMerge, MDLP, Chi2, RFDisc, UnDisc, CDisc, MEMDL, ImformDisc, ImpMDLP \\ 
-	\hline 
-	Dynamická & ID3, C45, MultiBayesian, MODLEM, ITFP \\ 
-	\hline 
-	Globálna  & EqualWidth, EqualFrequency, ChiMerge, Chi2, CAIM, RFDisc, UnDisc, ME-MDL, EBDA, ImforDisc \\ 
-	\hline 
-	Lokálna & MDLP, ID3, C4.5, ImpMDLP \\ 
-	\hline 
-	Jednorozmerná & Equal-Width, EqualFrequency, MDLP, UnDisc, EBDA, ME-MDL, ImformDisc \\ 
-	\hline 
-	Mnohorozmerná & MVD, Multi-MDL, UCPD, MIDCA, WEDA, RFDisc, SMD, CBD \\ 
-	\hline 
-	Neriadená (bez učiteľa)  & EqualWidth, EqualFrequency, MVD, UnDisc, FFD \\ 
-	\hline 
-	Riadená (s učiteľom) & ChiMerge, MDLP, ID3, C45, Chi2, WEDA, RFDisc, CDisc, EBDA, ME-MDL, ImforDis, ImpMDLP \\ 
-	\hline 
-	Priama & UCPD, WEDA \\ 
-	\hline 
-	Inkremetálna (postupná) & ChiMerge, ID3, CD45, Chi2, MVD, RFDisc, EBDA, ImpMDLP \\ 
-	\hline 
-	Neparametrická & MDLP, USD, CAIM \\ 
-	\hline 
-	Parametrická & ChiMerge, CADD \\ 
-	\hline 
-	Zlučovacia & ChiMerge, EBDA \\ 
-	\hline 
-	Rozdeľovacia & MDLP, RFDisc, CDisc, ME-MDL, ImpMDLP \\ 
+	\begin{tabular} { |p{5cm}|p{10cm}| }
+		\hline 
+		\textbf{Metóda diskretizácie} & \textbf{Príklady algoritmov} \\ 
+		\hline 
+		Statická & ChiMerge, MDLP, Chi2, RFDisc, UnDisc, CDisc, ME-MDL, ImformDisc, ImpMDLP \\ 
+		\hline 
+		Dynamická & ID3 a C45, MultiBayesian, MODLEM, ITFP \\ 
+		\hline 
+		Globálna  & EqualWidth a EqualFrequency, ChiMerge, Chi2, CAIM, RFDisc, UnDisc, ME-MDL, EBDA, ImforDisc \\ 
+		\hline 
+		Lokálna & MDLP, ID3 a C45, ImpMDLP \\ 
+		\hline 
+		Jednorozmerná & EqualWidth a EqualFrequency, MDLP, UnDisc, EBDA, ME-MDL, ImformDisc \\ 
+		\hline 
+		Mnohorozmerná & MVD, Multi-MDL, UCPD, MIDCA, WEDA, RFDisc, SMD, CBD \\ 
+		\hline 
+		Neriadená (bez učiteľa)  & EqualWidth a EqualFrequency, MVD, UnDisc, FFD \\ 
+		\hline 
+		Riadená (s učiteľom) & ChiMerge, MDLP, ID3 a C45, Chi2, WEDA, RFDisc, CDisc, EBDA, ME-MDL, ImforDisc, ImpMDLP \\ 
+		\hline 
+		Priama & UCPD, WEDA \\ 
+		\hline 
+		Inkremetálna (postupná) & ChiMerge, ID3 a CD45, Chi2, MVD, RFDisc, EBDA, ImpMDLP \\ 
+		\hline 
+		Neparametrická & MDLP, USD, CAIM \\ 
+		\hline 
+		Parametrická & ChiMerge, CADD \\ 
+		\hline 
+		Zlučovacia & ChiMerge, EBDA \\ 
+		\hline 
+		Rozdeľovacia & MDLP, RFDisc, CDisc, ME-MDL, ImpMDLP \\ 
 		\hline 	Súčasná & HBD, IDD \\ 
-	\hline 
-	Hybridná  & CADD, WEDA, ImforDisc \\ 
-	\hline 
-		Informačných ukazovateľov & ID3, C4.5, MDLP, DbEr, ME-MDL, ImforDisc, ImpMDLP, GINI \\ 
-	\hline 
-	Štatistických ukazovateľov & ChiMerge, Zeta, Chi2, EBDA, MODL \\ 
-	\hline 
-Frekvenčných charakteristík & EqualWidth, EqualFrequency, UnDisc \\ 
-	\hline 
-Presnosti klasifikácie & Valley, MBIterative, RFDisc \\ 
-	\hline 
-
-\end{tabular} 
-\caption{Tabuľka príkladov algoritmov jednotlivých metód diskretizácie.}
-\label{table:1}
+		\hline 
+		Hybridná  & CADD, WEDA, ImforDisc \\ 
+		\hline 
+		Informačných ukazovateľov & ID3 a C45, MDLP, DbEr, ME-MDL, ImforDisc, ImpMDLP, GINI \\ 
+		\hline 
+		Štatistických ukazovateľov & ChiMerge, Zeta, Chi2, EBDA, MODL \\ 
+		\hline 
+		Frekvenčných charakteristík & EqualWidth a EqualFrequency, UnDisc \\ 
+		\hline 
+		Presnosti klasifikácie & Valley, NBIterative, RFDisc \\ 
+		\hline 
+	\end{tabular} 
+	\caption{Tabuľka príkladov algoritmov jednotlivých metód diskretizácie.}
+	\label{table:1}
 \end{table}
+ 
+V tabuľke \ref{table:1} sú vypísané príklady algoritmov jednotlivých metód diskretizácie. 
+Vlastnosti niektorých známych algoritmov metódy diskretizácie. 
+\begin{itemize}
+	\item EqualWidth a EqualFrequency - globálny, jednorozmerný, založený na frekvenčných charakteristikách.\cite{Wong1987} 
+
+\item
+ChiMerge - statický, globálny, riadený, inkrementálny, parametrický, zlučovací, založený na štatistických ukazovateľov.
+\cite{Keber1992} 
+\item
+ID3 a C45 - dynamický, lokálny, riadený, inkrementálny, založený na informačných ukazovateľov. 
+\cite{Quinlan1993} 
+
+\item
+MDLP - statický, jednorozmerný, riadený, neparametrický, rozdeľovací, založený na informačných ukazovateľov.
+\cite{Fayyad1993} 
+\item
+Valley - založený na presnosti klasifikácie. 
+\cite{Ventura1994} 
+\item
+NBIterative - založený na presnosti klasifikácie. 
+\cite{Pazzani1995} 
+
+\item
+CADD - parametrický, hybridný. 
+\cite{Ching1995} 
+\item
+Chi2 - statický, globálny, riadený, inkrementálny, založený na štatistických ukazovateľov.
+\cite{Liu1997} 
+\item
+
+Zeta - založený na štatistických ukazovateľov. 
+%Ho1997
+\cite{Ho1997} 
+\item
+MultiBayesian - dynamický 
+%Monti1998
+\cite{Monti1998} 
+\item
+MODLEM - dynamický
+%Grzymala2001
+\cite{Grzymala2001} 
+\item
+MVD - mnohorozmerný, neriadný, inkrementálny. 
+%Bay2001
+\cite{Bay2001} 
+\item
+USD - neparametrický. 
+%Giraldez2002
+\cite{Giraldez2002} 
+\item
+CAIM - globálny, neparametrický. 
+%Kurgan2004
+\cite{Kurgan2004} 
+\item
+MIDCA - mnohorozmerný. 
+%Chao2005
+\cite{Chao2005} 
+\item
+UCPD - mnohorozmerný, priamy. 
+%Mehta2005
+\cite{Mehta2005} 
+\item
+Multi-MDLP - mnohorozmerný.
+%Ferrandiz2005
+\cite{Ferrandiz2005} 
+\item
+MODL - založený na štatistických ukazovateľov. 
+%Boulle2006
+\cite{Boulle2006} 
+\item
+ITFP - dynamický
+%Au2006
+\cite{Au2006} 
+\item
+HBD - súčasné zlučovanie/rozdeľovanie niektoľkých intervalov. 
+%Lee2007
+\cite{Lee2007} 
+\item
+WEDA - mnohorozmerný, riadený, priamy, hybridný. 
+%Flores2007
+\cite{Flores2007} 
+\item
+IDD - súčasné zlučovanie/rozdeľovanie niektoľkých intervalov. 
+%Ruiz2008
+\cite{Ruiz2008} 
+\item
+DbEr - založený na informačných ukazovateľov. 
+%Hu2008
+\cite{Hu2008} 
+\item
+RFDisc - statický, globálny, mnohorozmerný, riadený, inkrementálny, rozdeľovací, založený na presnosti klasifikácie.
+%Berrado2009
+\cite{Berrado2009} 
+\item
+UnDisc - statický, globálny, jednorozmerný, neriadný, založený na frekvenčných charakteristikách.
+%Jiang2009
+\cite{Jiang2009} 
+\item
+GINI 
+%Jin2009 - založený na pojmoch teórie informácie. 
+\cite{Jin2009} 
+\item
+FFD - neriadný. 
+%Yang2009a
+\cite{Yang2009a} 
+\item
+SMD - mnohorozmerný. 
+%Jiang2009
+\cite{Jiang2009} 
+\item
+CDisc - statický, riadený, rozdeľovací, 
+%Nemmiche2010
+\cite{Nemmiche2010} 
+\item
+ImforDisc - statický, globálny, jednorozmerný,  riadený, hybridný, založený na informačných ukazovateľov.
+%Zhu2010
+\cite{Zhu2010} 
+\item
+ImpMDLP - statický, lokálny, riadený, inkrementálny, rozdeľovací, založený na informačných ukazovateľov. 
+%Li2010a
+\cite{Li2010a} 
+\item
+ME-MDL - statický, globálny, jednorozmerný, riadený, rozdeľovací, založený na informačných ukazovateľov.
+%Gupta2010
+\cite{Gupta2010} 
+
+\item
+EBDA - globálny, jednorozmerný, riadený, inkrementálny, zlučovací, založený na štatistických ukazovateľov. 
+%Sang2010
+\cite{Sang2010} 
+\item
+CBD - mnohorozmerný. 
+%Garcia2010
+\cite{Garcia2010} 
+
+\end{itemize}
 
 
 
