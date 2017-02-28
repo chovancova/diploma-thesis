@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DataSets">
+    <Position X="3.25" Y="1" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAECABCGCggAFEEEgJASAAgBAAAQAAIEAQIAAAA=</HashCode>
+      <FileName>DataSets.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fuzzyfication">
+    <Position X="6.5" Y="1" Width="3" />
+    <TypeIdentifier>
+      <HashCode>CAhAAAAAAAIAABACAMABAAAQAABAAACAIAAAAAQAQIE=</HashCode>
+      <FileName>Fuzzyfication.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Logger">
+    <Position X="10.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQgAAAAAIAAAAAAAAAACAAAAAAAgAQCAAAgAACAAA=</HashCode>
+      <FileName>Logger.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sort">
+    <Position X="12.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAEAAAAAAAAg=</HashCode>
+      <FileName>QuickSort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Statistics">
+    <Position X="12.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAEAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Statistics.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

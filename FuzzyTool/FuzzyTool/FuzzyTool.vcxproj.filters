@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Dataset">
+      <UniqueIdentifier>{242d7698-4511-462e-b34f-0a5a3ae08779}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helper">
+      <UniqueIdentifier>{ce5110bf-995f-42b2-8820-0cf00357a567}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\DataSets">
+      <UniqueIdentifier>{2db1e050-3669-4d9c-bb42-404d80e6a72c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dataset">
+      <UniqueIdentifier>{8d624d98-71c6-47c1-9710-a36d72bf8d9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helper">
+      <UniqueIdentifier>{a2130dd7-95e1-4b7a-8270-1b8b7c81ce39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Fuzzy">
+      <UniqueIdentifier>{2b0f8202-3ed9-43fd-8e73-7790ea59a6ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Fuzzy">
+      <UniqueIdentifier>{02984cea-3f75-4121-a344-77f4cafdbf29}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Source Files\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="DataSets.cpp">
+      <Filter>Source Files\Dataset</Filter>
+    </ClCompile>
+    <ClCompile Include="DataSetsReadCripsFile.cpp">
+      <Filter>Source Files\Dataset</Filter>
+    </ClCompile>
+    <ClCompile Include="QuickSort.cpp">
+      <Filter>Source Files\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics.cpp">
+      <Filter>Source Files\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="TempFunctions.cpp">
+      <Filter>Source Files\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="Fuzzyfication.cpp">
+      <Filter>Source Files\Fuzzy</Filter>
+    </ClCompile>
+    <ClCompile Include="KMeansCluster.cpp">
+      <Filter>Source Files\Fuzzy</Filter>
+    </ClCompile>
+    <ClCompile Include="Entropy.cpp">
+      <Filter>Source Files\Fuzzy</Filter>
+    </ClCompile>
+    <ClCompile Include="FuzzyficationWriter.cpp">
+      <Filter>Source Files\Fuzzy</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Logger.h">
+      <Filter>Header Files\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="DataSets.h">
+      <Filter>Header Files\Dataset</Filter>
+    </ClInclude>
+    <ClInclude Include="QuickSort.h">
+      <Filter>Header Files\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistics.h">
+      <Filter>Header Files\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="TempFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Fuzzyfication.h">
+      <Filter>Header Files\Fuzzy</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\DataSets\heart.data">
+      <Filter>Resource Files\DataSets</Filter>
+    </None>
+    <None Include="..\DataSets\iris.data">
+      <Filter>Resource Files\DataSets</Filter>
+    </None>
+    <None Include="..\DataSets\yeast.data">
+      <Filter>Resource Files\DataSets</Filter>
+    </None>
+    <None Include="..\DataSets\wine.data">
+      <Filter>Resource Files\DataSets</Filter>
+    </None>
+    <None Include="..\DataSets\skin.data">
+      <Filter>Resource Files\DataSets</Filter>
+    </None>
+    <None Include="..\DataSets\seeds.data">
+      <Filter>Resource Files\DataSets</Filter>
+    </None>
+    <None Include="..\DataSets\winequalityred.data">
+      <Filter>Resource Files\DataSets</Filter>
+    </None>
+    <None Include="..\DataSets\winequalitywhite.data">
+      <Filter>Resource Files\DataSets</Filter>
+    </None>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+</Project>
