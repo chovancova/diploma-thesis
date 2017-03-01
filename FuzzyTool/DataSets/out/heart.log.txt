@@ -1,4 +1,4 @@
-FilenameFuzzy=..\DataSets\out\heart_2017-03-01-01-29-19.cm.txt
+FilenameFuzzy=..\DataSets\out\heart_2017-03-01-14-59-19.cm.txt
 cluster[0]=0.342400 cluster[1]=0.672146 
 c__2[0]=0.349138 c__2[1]=0.665990 
 countM[0]=116

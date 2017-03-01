@@ -21,10 +21,10 @@ int main(int argc, char* argv[])
 		bool isDatasetLoaded = InitializeDataset(id_dataset);
 
 		RunFuzzy(id_dataset);
-		cout << "Press any key to exit application. \n" << flush;
+		cout << "Press 1 to exit application. \n" << flush;
 		cout << "Press 0 key to show menu. \n" << flush;
 		cin >> end;
-		if (end != 0) { return 0; }
+		if (end == 1) { return 1; }
 		//getchar();
 	}
 }

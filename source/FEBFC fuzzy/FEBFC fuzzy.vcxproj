@@ -142,6 +142,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dataset_iris.cpp" />
+    <ClCompile Include="fuzzy_entropy.cpp" />
+    <ClCompile Include="k_means.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="membership_function.cpp" />
+    <ClCompile Include="values_log.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dataset_interface.h" />
+    <ClInclude Include="dataset_iris.h" />
+    <ClInclude Include="fuzzy_entropy.h" />
+    <ClInclude Include="k_means.h" />
+    <ClInclude Include="membership_function.h" />
+    <ClInclude Include="values_log.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,4 @@
-#define EPSILON 0.00001f
+﻿#define EPSILON 0.00001f
 #include <complex.h>
 #include <cmath>
 #include <cstdio>
@@ -32,7 +32,32 @@ float Fuzzyfication::ComputeDistance(float a, float b, int type_distance, int p)
 		}
 	}
 }
-
+//FCM is one of the most popular fuzzy clustering techniques, which was proposed by
+//Dunn[8] in 1973 and eventually modified by Bezdek[4] in 1981. It is an approach,
+//where the data points have their membership values with the cluster centers, which
+//will be updated iteratively.The FCM algorithm consists of the following steps :
+//
+//Step 1 : Let us suppose that M - dimensional N data points represented by xi
+//(i = 1, 2, . . ., N), are to be clustered.
+//
+//Step 2 : Assume the number of clusters to be made, that is, C, where 2 ≤ C ≤ N.
+//
+//Step 3 : Choose an appropriate level of cluster fuzziness f > 1.
+//
+//Step 4: Initialize the N × C × M sized membership matrix U, at random, such
+//that Uijm in [0, 1] and PC
+//j = 1 Uijm = 1.0, for each i and a fixed value of m.
+//
+//Step 5 : Determine the cluster centers CCjm, for j
+//th cluster and its mth dimension
+//by using the expression given below :
+//CCjm = sum(i in all N) U(f _ ijm) x(_im) / sum(i in N) U(f, ijm)
+//
+//Step 6 : Calculate the Euclidean distance between i
+//th data point and j
+//th cluster
+//center with respect to, say mth dimension like the following :
+//Dijm = k(xim − CCjm)k.
 float* Fuzzyfication::CenterFuzzy(unsigned int attribute, unsigned int NumberOfCenters, float m, unsigned int distance_type) const
 {
 	double temp;
@@ -159,7 +184,7 @@ float* Fuzzyfication::Center(unsigned int i, float* Result, unsigned long* NewRe
 	float *c, *sum, center, distance;
 
 	c = static_cast<float*>(new float[Intervals[i]]);
-	c = static_cast<float*>(CenterFuzzy(i, Intervals[i], 2.0f, 1));
+	c = static_cast<float*>(CenterFuzzy(i, Intervals[i], 2.0f, 3));
 	for (z = 0; z < Intervals[i]; z++) fprintf(LoggerFile, "cluster[%d]=%f ", z, c[z]);
 	fprintf(LoggerFile, "\n");
 
