@@ -53,7 +53,7 @@ DataSets::DataSets(unsigned int id_dataset)
 		outputAttributes = 1;
 		outputIntervals = 3;
 		break;
-	case _WINERED: strcpy(NameDataset, "winequalityred");
+	/*case _WINERED: strcpy(NameDataset, "winequalityred");
 		size_dataset = 1599;
 		inputAttributes = 11;
 		outputAttributes = 1;
@@ -64,7 +64,7 @@ DataSets::DataSets(unsigned int id_dataset)
 		inputAttributes = 11;
 		outputAttributes = 1;
 		outputIntervals = 7;
-		break;
+		break;*/
 	default:
 		{
 			std::cout << "Dataset not found.";
@@ -78,19 +78,19 @@ DataSets::DataSets(unsigned int id_dataset)
 	OutputAttr = outputAttributes;
 	OutputIntervals = outputIntervals;
 
-	//alocation of Items polygon
-	Items = static_cast<instance*>(new instance[DatasetSize]);
-	if (!Items)
+	//alocation of Features polygon
+	Features = static_cast<instance*>(new instance[DatasetSize]);
+	if (!Features)
 	{
-		MyError("Bad allocation of Items in DataSets().");
+		MyError("Bad allocation of Features in DataSets().");
 	}
 
 	for (unsigned long k = 0; k < DatasetSize; k++)
 	{
-		Items[k].Dimension = static_cast<float*>(new float[Attributes]);
-		if (!Items[k].Dimension)
+		Features[k].Dimension = static_cast<float*>(new float[Attributes]);
+		if (!Features[k].Dimension)
 		{
-			MyError("Bad allocation Items[k].Dimension in DataSets()");
+			MyError("Bad allocation Features[k].Dimension in DataSets()");
 		}
 	}
 
@@ -104,9 +104,9 @@ DataSets::~DataSets()
 {
 	for (unsigned long k = 0; k < DatasetSize; k++)
 	{
-		delete[] Items[k].Dimension;
+		delete[] Features[k].Dimension;
 	}
-	delete[] Items;
+	delete[] Features;
 	delete[] LingvisticAttr;
 	delete[] Min;
 	delete[] Max;
@@ -127,10 +127,10 @@ int DataSets::get_dataset_file(unsigned datasetId, FILE* file, bool& returns) co
 		return 1;
 	case _WINE: ReadCrispFileWine(file);
 		return 1;
-	case _WINERED: ReadCrispFileWineQuality(file);
+	/*case _WINERED: ReadCrispFileWineQuality(file);
 		return 1;
 	case _WINEWHITE: ReadCrispFileWineQuality(file);
-		return 1;
+		return 1;*/
 	case _YEAST: ReadCrispFileYeast(file);
 		return 1;
 	default:
@@ -189,10 +189,10 @@ int DataSets::WriteCrispFile(void) const
 	timeinfo = std::localtime(&rawtime);
 	std::strftime(buffer, 20, "%Y-%m-%d-%H-%M-%S", timeinfo);
 	std::puts(buffer);
-	
-	strcat(FileName, buffer);
-	strcat(FileName, "_");
 	strcat(FileName, NameDataset);
+	strcat(FileName, "_");
+	strcat(FileName, buffer);
+
 	strcat(FileName, ".crisp.txt");
 	fp = fopen(FileName, "w");
 	if (fp == nullptr)
@@ -210,7 +210,7 @@ int DataSets::WriteCrispFile(void) const
 	{
 		fprintf(fp, "k=%ld  ", k);
 		for (unsigned int i = 0; i < Attributes; i++)
-			fprintf(fp, "%f ", Items[k].Dimension[i]);
+			fprintf(fp, "%f ", Features[k].Dimension[i]);
 		fprintf(fp, "\n");
 	}
 	fprintf(fp, "End of Crisp File");
@@ -222,20 +222,20 @@ float DataSets::InitialError(unsigned int id_dataset) const
 {
 	try
 	{
-		unsigned long *classNoOI, maxClass;
-		unsigned int jb;
+		unsigned long *class_number_output_intervals =0, maxClass=0;
+		unsigned int jb = 0;
 
-		classNoOI = newUnLong(OutputIntervals, 0l, " classNoOI from InitialErrorDS");
-		for (unsigned long k = 0; k < DatasetSize; k++)
+		class_number_output_intervals = newUnLong(OutputIntervals, 0l, " classNoOI from InitialErrorDS");
+		for (unsigned long x = 0; x < DatasetSize; x++)
 		{
-			jb = Items[k].Dimension[InputAttr];
-			classNoOI[jb]++;
+			jb = Features[x].Dimension[InputAttr];
+				class_number_output_intervals[jb]++;
 		}
-		maxClass = classNoOI[0];
+		maxClass = class_number_output_intervals[0];
 		for (jb = 0; jb < OutputIntervals; jb++)
 		{
-			printf("classNoOI[jb=%d]=%d\n", jb, classNoOI[jb]);
-			if (classNoOI[jb] > maxClass) maxClass = classNoOI[jb];
+			printf("classNoOI[jb=%d]=%d\n", jb, class_number_output_intervals[jb]);
+			if (class_number_output_intervals[jb] > maxClass) maxClass = class_number_output_intervals[jb];
 		}
 		return (1 - float(maxClass) * 1.0f / DatasetSize);
 	}
@@ -252,15 +252,15 @@ void DataSets::Normalization() const
 	{
 		if (LingvisticAttr[i] == 0)
 		{
-			Min[i] = Items[0].Dimension[i];
-			Max[i] = Items[0].Dimension[i];
+			Min[i] = Features[0].Dimension[i];
+			Max[i] = Features[0].Dimension[i];
 			for (unsigned long k = 1; k < DatasetSize; k++)
 			{
-				if (Items[k].Dimension[i] < Min[i]) Min[i] = Items[k].Dimension[i];
-				if (Items[k].Dimension[i] > Max[i]) Max[i] = Items[k].Dimension[i];
+				if (Features[k].Dimension[i] < Min[i]) Min[i] = Features[k].Dimension[i];
+				if (Features[k].Dimension[i] > Max[i]) Max[i] = Features[k].Dimension[i];
 			}
 			for (unsigned long k = 0; k < DatasetSize; k++)
-				Items[k].Dimension[i] = (Items[k].Dimension[i] - Min[i]) / (Max[i] - Min[i]);
+				Features[k].Dimension[i] = (Features[k].Dimension[i] - Min[i]) / (Max[i] - Min[i]);
 		}
 	}
 }

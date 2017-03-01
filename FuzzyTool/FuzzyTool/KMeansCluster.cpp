@@ -5,6 +5,7 @@
 #include "Fuzzyfication.h"
 #include "TempFunctions.h"
 #include <iterator>
+
 float Fuzzyfication::ComputeDistance(float a, float b, int type_distance, int p) const
 {
 	switch (type_distance)
@@ -93,8 +94,8 @@ float* Fuzzyfication::CenterFuzzy(unsigned int attribute, unsigned int NumberOfC
 				for (unsigned int interval = 0; interval < intervals; interval++)
 					if (assigned[dataset_item] == false)
 					{
-						float distanceI = ComputeDistance(Items[dataset_item].Dimension[attribute], Centers[i], distance_type, 4);
-						float distanceJ = ComputeDistance(Items[dataset_item].Dimension[attribute], Centers[interval], distance_type, 4);
+						float distanceI = ComputeDistance(Features[dataset_item].Dimension[attribute], Centers[i], distance_type, 4);
+						float distanceJ = ComputeDistance(Features[dataset_item].Dimension[attribute], Centers[interval], distance_type, 4);
 
 						if (distanceI != 0 && distanceJ != 0)
 						{
@@ -120,7 +121,7 @@ float* Fuzzyfication::CenterFuzzy(unsigned int attribute, unsigned int NumberOfC
 			temp2 = 0;
 			for (unsigned long k = 0; k < DatasetSize; k++)
 			{
-				temp1 += pow(MembershipFunction[i][k], m) * Items[k].Dimension[attribute];
+				temp1 += pow(MembershipFunction[i][k], m) * Features[k].Dimension[attribute];
 				temp2 += pow(MembershipFunction[i][k], m);
 			}
 			Centers[i] = (temp2 == 0) ? 0 : temp1 / temp2;
@@ -130,7 +131,7 @@ float* Fuzzyfication::CenterFuzzy(unsigned int attribute, unsigned int NumberOfC
 		for (unsigned int i = 0; i < intervals; i++)
 			for (unsigned long k = 0; k < DatasetSize; k++)
 			{
-				float distanceNew = ComputeDistance(Items[k].Dimension[attribute], Centers[i], distance_type, 4);
+				float distanceNew = ComputeDistance(Features[k].Dimension[attribute], Centers[i], distance_type, 4);
 
 				current += pow(MembershipFunction[i][k], m) * pow(distanceNew, 2);
 			}
@@ -183,7 +184,10 @@ float* Fuzzyfication::Center(unsigned int i, float* Result, unsigned long* NewRe
 		stop = false;
 		for (q = 0; q < Intervals[i]; q++) // end of clastering
 		{
-			if (Nq[q] == 0) MyError("not possible situation: Nq[q]=0 in Center()");
+			if (Nq == 0)
+			{
+				MyError("not possible situation: Nq[q]=0 in Center()");
+			}
 			else
 			{
 				center = static_cast<float>(sum[q]) / static_cast<float>(Nq[q]);

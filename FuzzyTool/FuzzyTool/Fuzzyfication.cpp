@@ -1,6 +1,8 @@
 #include "Fuzzyfication.h"
 #include "TempFunctions.h"
 #include <cstring>
+#include <iostream>
+#include <ctime>
 
 
 /**
@@ -8,7 +10,7 @@
 * Set the initial number of Interval to 2.
 * \param id_dataset Number of dataset.
 */
-Fuzzyfication::Fuzzyfication(unsigned int id_dataset) : DataSets(id_dataset), Features(nullptr)
+Fuzzyfication::Fuzzyfication(unsigned int id_dataset) : DataSets(id_dataset), FuzzySetOnInterval(nullptr)
 {
 	IdDataset = id_dataset;
 
@@ -43,16 +45,25 @@ void Fuzzyfication::RunFuzzification()
 
 
 	unsigned long *NewResult, countResult;
-	unsigned int   temp_interval;
-	int            doesEntropyDecrease, end; 
-	float         *Result, *cluster, oldEntropy, newEntropy;
+	unsigned int temp_interval;
+	int doesEntropyDecrease;
+	float *Result, *cluster, oldEntropy, newEntropy;
 
 	//initialize new name for file
-	char           FilenameFuzzy[200];
+	char FilenameFuzzy[200];
 	strcpy(FilenameFuzzy, PATH_OUTPUT_FOLDER);
+
+	time_t rawtime;
+	std::tm* timeinfo;
+	char buffer[20];
+	time(&rawtime);
+	timeinfo = std::localtime(&rawtime);
+	std::strftime(buffer, 20, "%Y-%m-%d-%H-%M-%S", timeinfo);
+	std::puts(buffer);
 	strcat(FilenameFuzzy, NameDataset);
+	strcat(FilenameFuzzy, "_");
+	strcat(FilenameFuzzy, buffer);
 	strcat(FilenameFuzzy, ".cm.txt"); // cluster centers
-	
 	//DETERMINATION OF THE NUMBER OF INTERVALS
 	//Set initial number of intervals I = 2; 
 	CreateFeatures();
@@ -60,16 +71,16 @@ void Fuzzyfication::RunFuzzification()
 	fprintf(LoggerFile, "FilenameFuzzy=%s\n", FilenameFuzzy);
 
 	//For each dimension 
-	for (unsigned int i = 0; i<InputAttr; i++)   
+	for (unsigned int i = 0; i < InputAttr; i++)
 	{
 		printf("input attribute (dimension) = %d\n", i);
-		if (LingvisticAttr[i] != 0)   
+		if (LingvisticAttr[i] != 0)
 		{
 			Intervals[i] = LingvisticAttr[i];
-			for (unsigned long data_item = 0; data_item<DatasetSize; data_item++)
+			for (unsigned long x = 0; x < DatasetSize; x++)
 			{
-				temp_interval = (unsigned int)Items[data_item].Dimension[i];
-				Features[i][temp_interval][data_item] = 1.0f;
+				temp_interval = (unsigned int)Features[x].Dimension[i];
+				FuzzySetOnInterval[i][temp_interval][x] = 1.0f;
 			}
 		}
 		else //real - value attribute (discretization of attributes) 
@@ -82,14 +93,14 @@ void Fuzzyfication::RunFuzzification()
 			//Secound consideration, we emplooy the K-means clustering algorithm to find the interval centers, 
 			//after the interval centers are detrmined, it is easy to decide on the WIDTH of each interval 
 			doesEntropyDecrease = 0;
-			end = 0;
 			newEntropy = 1000000000.0;
 
-			Result = static_cast<float*>(newFloat(DatasetSize, 0.0, "Result )"));
-			NewResult = static_cast<unsigned long*>(newUnLong(DatasetSize, 0L, "NewResult "));
+			Result = (float*)(newFloat(DatasetSize, 0.0, "Result )"));
+			NewResult = (unsigned long*)(newUnLong(DatasetSize, 0L, "NewResult "));
 			countResult = CreateAscendingResult(i, Result, NewResult);
-	
-			do {
+
+			do
+			{
 				oldEntropy = newEntropy;
 				if (doesEntropyDecrease != 0)
 				{
@@ -97,36 +108,39 @@ void Fuzzyfication::RunFuzzification()
 				}
 				//DETERMINATION OF THE NUMBER OF INTERVALS
 				//Locate the centers of interval
-				cluster = (float*)Center(i, Result, NewResult, countResult); 
+				cluster = (float*)Center(i, Result, NewResult, countResult);
 				//Assighn memberhsip function for each interval 
 				AssignMembershipFunction(i, cluster);
 				delete[] cluster;
 				//Compute the total fuzzy entropy of all intervals for I and I-1 intervals. 
 				newEntropy = EntropyCalculate(i);
-				
+
 
 				fprintf(LoggerFile, "i=%d  NoI[i]=%d  Hnew=%f\n\n", i, Intervals[i], newEntropy);
-			
-				if(end == 1 || doesEntropyDecrease == -1 || Intervals[i]==countResult)
+
+				if (doesEntropyDecrease == -1 || Intervals[i] == countResult)
 				{
 					break;
 				}
 
-				if(newEntropy <= oldEntropy)
+				if (newEntropy <= oldEntropy)
 				{
 					doesEntropyDecrease = 1;
-				}else
-				{
-					doesEntropyDecrease = 1;
-					end = 1;
 				}
-																									
-			} while (1);
+				else
+				{
+					break;
+				}
+			}
+			while (true);
 			WriteFuzzyficationLogs();
+			std::cout << "Write Fuzzyfication Result to file.\n";
+			WriteFuzzyficationResult(FilenameFuzzy);
+
 			delete[] Result;
 			delete[] NewResult;
 		}
-	} 
+	}
 }
 
 
@@ -134,56 +148,59 @@ void Fuzzyfication::InitializeDataset() const
 {
 	ReadDataSets(IdDataset);
 	Normalization();
-	
 }
 
 
-void Fuzzyfication::AssignMembershipFunction(unsigned attribute, float* c) const
+/**
+ * Membership function assigmnment is a procedure for assigning a membership function to each interval. 
+ *
+ */
+void Fuzzyfication::AssignMembershipFunction(unsigned int attribute, float* center) const
 {
-	for (unsigned long data_item = 0; data_item<DatasetSize; data_item++)
+	//All X = x1..xn
+	for (unsigned long x = 0; x < DatasetSize; x++)
 	{
 		for (unsigned int interval = 0; interval < Intervals[attribute]; interval++)
 		{
-			Features[attribute][interval][data_item] = 0;
+			FuzzySetOnInterval[attribute][interval][x] = 0;
 		}
 
-		for (unsigned int interval = 0; interval<Intervals[attribute] - 1; interval++){
-			if ((Items[data_item].Dimension[attribute] >= c[interval])  // x >= c1
-				&& (Items[data_item].Dimension[attribute] <= c[interval + 1])) //x <= c2
+		for (unsigned int interval = 0; interval < Intervals[attribute] - 1; interval++)
+		{
+			if ((Features[x].Dimension[attribute] >= center[interval]) // x >= c1
+				&& (Features[x].Dimension[attribute] <= center[interval + 1])) //x <= c2
 			{
 				//the right-most interval , for x <= c2
-				Features[attribute][interval][data_item] =
-					(c[interval + 1] - Items[data_item].Dimension[attribute]) //(c4 - x) / (c4 - c3)
-					/ 
-					(c[interval + 1] - c[interval]);
+				FuzzySetOnInterval[attribute][interval][x] =
+					(center[interval + 1] - Features[x].Dimension[attribute]) //(c4 - x) / (c4 - c3)
+					/
+					(center[interval + 1] - center[interval]);
 
 				//the left most interval x > c1 
-				Features[attribute][interval + 1][data_item] = 
-					(Items[data_item].Dimension[attribute] - c[interval])   // (x - c1) / (c2 - c1)
-					/ 
-					(c[interval + 1] - c[interval]);
+				FuzzySetOnInterval[attribute][interval + 1][x] =
+					(Features[x].Dimension[attribute] - center[interval]) // (x - c1) / (c2 - c1)
+					/
+					(center[interval + 1] - center[interval]);
 			}
 		}
-		if (Items[data_item].Dimension[attribute] < c[0]) //x < c1
+		if (Features[x].Dimension[attribute] < center[0]) //x < c1
 		{
-			Features[attribute][0][data_item] = 1.0;
+			FuzzySetOnInterval[attribute][0][x] = 1.0;
 		}
-		if (Items[data_item].Dimension[attribute] > c[Intervals[attribute] - 1])  //x > c1 - 1
+		if (Features[x].Dimension[attribute] > center[Intervals[attribute] - 1]) //x > c1 - 1
 		{
-			Features[attribute][Intervals[attribute] - 1][data_item] = 1.0;  
+			FuzzySetOnInterval[attribute][Intervals[attribute] - 1][x] = 1.0;
 		}
-	}  
-
+	}
 }
-
-
 
 
 void Fuzzyfication::CreateFeatures()
 {
 	unsigned int attr, intervals;
 
-	for (attr = 0; attr < Attributes; attr++) {
+	for (attr = 0; attr < Attributes; attr++)
+	{
 		if (LingvisticAttr[attr] != 0)
 		{
 			Intervals[attr] = LingvisticAttr[attr];
@@ -195,94 +212,103 @@ void Fuzzyfication::CreateFeatures()
 		}
 	}
 
-	Features = static_cast<float***>(new float**[Attributes]);
-	if (!Features)
-		printf("Error allocation ***Features in CreateFeatures(). ");
+	FuzzySetOnInterval = (float***) new float**[Attributes];
+	if (!FuzzySetOnInterval)
+		printf("Error allocation ***FuzzySetOnInterval in CreateFeatures(). ");
 
-	for (attr = 0; attr< Attributes; attr++)
+	for (attr = 0; attr < Attributes; attr++)
 	{
-		Features[attr] = (float**) new float*[Intervals[attr]];
-		if (!Features[attr]) {
+		FuzzySetOnInterval[attr] = (float**) new float*[Intervals[attr]];
+		if (!FuzzySetOnInterval[attr])
+		{
 			printf("Error allocation of memory for **Feature[attr] in CreateFeatures()");
 		}
 
 		for (intervals = 0; intervals < Intervals[attr]; intervals++)
 		{
-			Features[attr][intervals] = (float*)newFloat(DatasetSize, 0.0, "Features[attr][intervals] in CreateFeatures()");
+			FuzzySetOnInterval[attr][intervals] = (float*)newFloat(DatasetSize, 0.0, "FuzzySetOnInterval[attr][intervals] in CreateFeatures()");
 		}
 	}
-
+	for (unsigned long x = 0; x < DatasetSize; x++) // Initialisation of Output Attribute
+	{
+		intervals = (unsigned int)Features[x].Dimension[InputAttr];
+		FuzzySetOnInterval[InputAttr][intervals][x] = 1.0;
+	}
 }
 
 void Fuzzyfication::ModifyFeatures(unsigned int attr, int interval_new_value) const
 {
-	for (unsigned int interval = 0; interval<Intervals[attr]; interval++)
-		delete[] Features[attr][interval];
-	delete[] Features[attr];
+	for (unsigned int interval = 0; interval < Intervals[attr]; interval++)
+		delete[] FuzzySetOnInterval[attr][interval];
+	delete[] FuzzySetOnInterval[attr];
 
 	Intervals[attr] += interval_new_value;
-	Features[attr] = static_cast<float**>(new float*[Intervals[attr]]);
-	if (!Features[attr])
+	FuzzySetOnInterval[attr] = static_cast<float**>(new float*[Intervals[attr]]);
+	if (!FuzzySetOnInterval[attr])
 	{
-		MyError("**Features[attr] in ModifyFeatures()");
+		MyError("**FuzzySetOnInterval[attr] in ModifyFeatures()");
 	}
 	for (unsigned int interval = 0; interval < Intervals[attr]; interval++)
 	{
-		Features[attr][interval] = (float*)newFloat(DatasetSize, 0.0, "Features[attr][interval] in ModifyFeatures()");
+		FuzzySetOnInterval[attr][interval] = (float*)newFloat(DatasetSize, 0.0, "FuzzySetOnInterval[attr][interval] in ModifyFeatures()");
 	}
 }
 
 void Fuzzyfication::DeleteFeatures() const
 {
-	for (unsigned int i = 0; i<Attributes; i++)
+	for (unsigned int i = 0; i < Attributes; i++)
 	{
 		for (unsigned int j = 0; j < Intervals[i]; j++)
 		{
-			delete[] Features[i][j];
+			delete[] FuzzySetOnInterval[i][j];
 		}
-		delete[] Features[i];
+		delete[] FuzzySetOnInterval[i];
 	}
-	delete[] Features;
+	delete[] FuzzySetOnInterval;
 }
 
 
-unsigned long Fuzzyfication::CreateAscendingResult(unsigned int i, float *Result, unsigned long *NewResult) const
+unsigned long Fuzzyfication::CreateAscendingResult(unsigned int i, float* Result, unsigned long* NewResult) const
 {
-	unsigned int  newItem;
+	unsigned int newItem;
 	unsigned long numberOfElements = 1;
-	Result[0] = Items[0].Dimension[i];
+	Result[0] = Features[0].Dimension[i];
 	NewResult[0] = 1;
-	for (unsigned long k = 1; k<DatasetSize; k++)
+	for (unsigned long k = 1; k < DatasetSize; k++)
 	{
 		newItem = 1;
-		for (unsigned long q = 0; q<numberOfElements; q++)
-			if (Items[k].Dimension[i] == Result[q])
+		for (unsigned long q = 0; q < numberOfElements; q++)
+			if (Features[k].Dimension[i] == Result[q])
 			{
-				newItem = 0; NewResult[q]++;
+				newItem = 0;
+				NewResult[q]++;
 			}
 		if (newItem == 1)
 		{
-			Result[numberOfElements] = Items[k].Dimension[i]; NewResult[numberOfElements] = 1; numberOfElements++;
+			Result[numberOfElements] = Features[k].Dimension[i];
+			NewResult[numberOfElements] = 1;
+			numberOfElements++;
 		}
 	}
 	SortAscendingOrder(Result, NewResult, numberOfElements);
-	return(numberOfElements);
+	return (numberOfElements);
 }
 
 
-
-void Fuzzyfication::SortAscendingOrder(float *Result, unsigned long *NewResult, unsigned long numberOfElements)
+void Fuzzyfication::SortAscendingOrder(float* Result, unsigned long* NewResult, unsigned long numberOfElements)
 {
 	unsigned long i;
 	unsigned long index = 0L;
 	unsigned long value;
-	float         min;
+	float min;
 
-	do {
+	do
+	{
 		min = Result[index];
 		i = index;
 
-		for (unsigned long k = index + 1; k<numberOfElements; k++) {
+		for (unsigned long k = index + 1; k < numberOfElements; k++)
+		{
 			if (Result[k] < min)
 			{
 				min = Result[k];
@@ -299,21 +325,28 @@ void Fuzzyfication::SortAscendingOrder(float *Result, unsigned long *NewResult, 
 		NewResult[index] = value;
 
 		index++;
-	} while (index < numberOfElements - 1);
+	}
+	while (index < numberOfElements - 1);
 }
 
 
-void Fuzzyfication::SortAscendingOrder(float *PointsOfCut, unsigned int numberOfCutPoints)
+void Fuzzyfication::SortAscendingOrder(float* PointsOfCut, unsigned int numberOfCutPoints)
 {
 	unsigned int i, num, index = 0;
 	float min;
-	do {
+	do
+	{
 		min = PointsOfCut[index];
 		num = index;
-		for (i = index + 1; i<numberOfCutPoints; i++)
-			if (PointsOfCut[i] < min) { min = PointsOfCut[i]; num = i; }
+		for (i = index + 1; i < numberOfCutPoints; i++)
+			if (PointsOfCut[i] < min)
+			{
+				min = PointsOfCut[i];
+				num = i;
+			}
 		PointsOfCut[num] = PointsOfCut[index];
 		PointsOfCut[index] = min;
 		index++;
-	} while (index < numberOfCutPoints - 1);
+	}
+	while (index < numberOfCutPoints - 1);
 }

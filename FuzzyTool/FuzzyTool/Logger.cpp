@@ -10,7 +10,7 @@ Logger::Logger(std::string file_name, bool verbose)
 	this->verbose = verbose;
 
 	f = fopen(file_name.c_str(), "w");
-	if (f<0)
+	if (f < 0)
 	{
 		perror("Fail to open log file. ");
 	}
@@ -25,7 +25,7 @@ Logger::~Logger()
 
 void Logger::add(unsigned int count, ...) const
 {
-	if (f<0)
+	if (f < 0)
 	{
 		return;
 	}
@@ -56,7 +56,7 @@ void Logger::add(unsigned int count, ...) const
 
 void Logger::put_value(float value) const
 {
-	if (f<0)
+	if (f < 0)
 	{
 		return;
 	}
@@ -69,7 +69,7 @@ void Logger::put_value(float value) const
 
 void Logger::put_line() const
 {
-	if (f<0)
+	if (f < 0)
 	{
 		return;
 	}
@@ -82,7 +82,7 @@ void Logger::put_line() const
 
 void Logger::put_separator(std::string separator) const
 {
-	if (f<0)
+	if (f < 0)
 	{
 		return;
 	}

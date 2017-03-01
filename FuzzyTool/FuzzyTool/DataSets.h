@@ -8,9 +8,9 @@
 #define _SEEDS 3
 #define _SKIN  4       
 #define _WINE  5
-#define _WINERED     6
-#define _WINEWHITE   7  
-#define _YEAST       8
+//#define _WINERED     6
+//#define _WINEWHITE   7  
+#define _YEAST       6
 
 // -------------------------------------------------------------
 #define PATH_INPUT_FOLDER   "..\\DataSets\\data\\"
@@ -36,14 +36,14 @@ public:
 	unsigned int OutputIntervals;
 	///<summary>Number of non numeric attributes. Attributes types - Ordered, Binary, Nominal. </summary>
 	unsigned int* LingvisticAttr;
-	///<summary>Items  -X-axis is size of dataset , Y-axis is number of attributes, </summary>
-	instance* Items;
+	///<summary>Features  -X-axis is size of dataset , Y-axis is number of attributes, </summary>
+	instance* Features;
 	///<summary>NameDataset of dataset.</summary>
 	char NameDataset[50];
 	float* Min;
 	float* Max;
 private:
-	int get_dataset_file(unsigned datasetId, FILE* file, bool& returns) const;	
+	int get_dataset_file(unsigned datasetId, FILE* file, bool& returns) const;
 	///<summary>Read iris dataset from file.</summary>
 	int ReadCrispFileIris(FILE* fp) const;
 	///<summary>Read heart dataset from file.</summary>
@@ -52,8 +52,8 @@ private:
 	int ReadCrispFileYeast(FILE* fp) const;
 	///<summary>Read wine dataset from file.</summary>
 	int ReadCrispFileWine(FILE* fp) const;
-	///<summary>Read wine quality dataset from file.</summary>
-	int ReadCrispFileWineQuality(FILE* fp) const;
+	/*///<summary>Read wine quality dataset from file.</summary>
+	int ReadCrispFileWineQuality(FILE* fp) const;*/
 	///<summary>Read skin dataset from file.</summary>
 	int ReadCrispFileSkin(FILE* fp) const;
 	///<summary>Read seed dataset from file.</summary>
@@ -82,16 +82,19 @@ public:
 	{
 		return NameDataset;
 	}
+
 	///<summary> <return>Return number of values in dataset.</return> </summary>
 	unsigned long GetSizeOfDataset() const
 	{
 		return DatasetSize;
 	}
+
 	///<summary> <return>Return number of attributes in dataset.</return> </summary>
 	unsigned int GetNumberOfAttributes() const
 	{
 		return Attributes;
 	}
+
 	///<summary> <return>Return initial error of dataset.</return> </summary>
 	float InitialError(unsigned int id_dataset) const;
 	void Normalization() const;

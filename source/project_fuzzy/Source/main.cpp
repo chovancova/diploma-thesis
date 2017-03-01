@@ -7,9 +7,7 @@ void run_data_sets(unsigned int numDB)
 	float        error;
 	DataSets initialData(numDB);
 	initialData.ReadDataSets(numDB);
-	initialData.WriteCrispFile();     // ********* Check of initial data
-
-	initialData.InitialError(numDB); 
+//	initialData.WriteCrispFile();     // ********* Check of initial data
 
 	error = initialData.InitialError(numDB);
 

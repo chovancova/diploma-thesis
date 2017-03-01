@@ -1,4 +1,5 @@
 #include "QuickSort.h"
+
 /*-------------------------- QuickSort ----------------------------------------------
 Triedenie pomocneho pola sortArray
 ------------------------------------------------------------------------------------*/
@@ -9,10 +10,11 @@ void Sort::QuickSort(double** sortArray, unsigned long start, unsigned long end,
 	i = start;
 	j = end;
 	median = sortArray[1][(start + end) / 2];
-	do {
-		while ((sortArray[1][i]< median) && (i < TotalSets)) i++;
-		while ((sortArray[1][j]> median) && (j >= 0)) j--;
-		if (i<j)
+	do
+	{
+		while ((sortArray[1][i] < median) && (i < TotalSets)) i++;
+		while ((sortArray[1][j] > median) && (j >= 0)) j--;
+		if (i < j)
 		{
 			exchangeVektK = sortArray[0][i];
 			exchangeValue = sortArray[1][i];
@@ -28,13 +30,16 @@ void Sort::QuickSort(double** sortArray, unsigned long start, unsigned long end,
 			i++;
 			j--;
 		}
-		else {
-			if (i == j) {
+		else
+		{
+			if (i == j)
+			{
 				i++;
 				if (j != 0) j--;
 			}
 		}
-	} while (i <= j);
+	}
+	while (i <= j);
 
 	if (start < j)
 		QuickSort(sortArray, start, j, TotalSets);
@@ -50,10 +55,11 @@ void Sort::QuickSort(double* array, unsigned long start, unsigned long end, unsi
 	i = start;
 	j = end;
 	median = array[(start + end) / 2];
-	do {
-		while ((array[i]< median) && (i < TotalSets)) i++;
-		while ((array[j]> median) && (j >= 0)) j--;
-		if (i<j)
+	do
+	{
+		while ((array[i] < median) && (i < TotalSets)) i++;
+		while ((array[j] > median) && (j >= 0)) j--;
+		if (i < j)
 		{
 			exchangeValue = array[i];
 			array[i] = array[j];
@@ -61,13 +67,16 @@ void Sort::QuickSort(double* array, unsigned long start, unsigned long end, unsi
 			i++;
 			j--;
 		}
-		else {
-			if (i == j) {
+		else
+		{
+			if (i == j)
+			{
 				i++;
 				if (j != 0) j--;
 			}
 		}
-	} while (i <= j);
+	}
+	while (i <= j);
 	if (start < j) QuickSort(array, start, j, TotalSets);
 	if (i < end) QuickSort(array, i, end, TotalSets);
 }
@@ -84,7 +93,7 @@ void Sort::QuickSort(double* array, unsigned long start, unsigned long end, unsi
 void Sort::quicksort2A(double* arrayMinor, double* arrayMain, unsigned long size, unsigned long start, unsigned long end)
 {
 	unsigned long i, j;
-	double        median, exchangeVarVekt, exchangeVar;
+	double median, exchangeVarVekt, exchangeVar;
 
 	i = start;
 	j = end;
@@ -107,13 +116,13 @@ void Sort::quicksort2A(double* arrayMinor, double* arrayMain, unsigned long size
 			i++;
 			j--;
 		}
-		else
-			if (i == j)
-			{
-				i++;
-				if (j != 0) j--;
-			}
-	} while (i <= j);
+		else if (i == j)
+		{
+			i++;
+			if (j != 0) j--;
+		}
+	}
+	while (i <= j);
 	if (start < j) quicksort2A(arrayMinor, arrayMain, size, start, j);
 	if (i < end) quicksort2A(arrayMinor, arrayMain, size, i, end);
 }

@@ -4,7 +4,7 @@
 class Logger
 {
 private:
-	FILE *f;
+	FILE* f;
 	std::string file_name;
 	bool verbose;
 
@@ -17,4 +17,3 @@ public:
 	void put_line() const;
 	void put_separator(std::string separator = ",") const;
 };
-

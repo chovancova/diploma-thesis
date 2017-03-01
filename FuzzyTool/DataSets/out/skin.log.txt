@@ -1,0 +1,15 @@
+FilenameFuzzy=..\DataSets\out\skin.cm.txt
+cluster[0]=0.213744 cluster[1]=0.667842 
+c__2[0]=0.221481 c__2[1]=0.660038 
+M[sector=0][ja=0][jb=0]=0.000000 
+M[sector=0][ja=1][jb=0]=0.000000 
+M[sector=1][ja=0][jb=0]=0.000000 
+M[sector=1][ja=1][jb=0]=0.000000 
+countM[0]=94761
+countM[1]=150296
+dimension=0, jb=0, p=0.000000 New Entropy =0.000000
+dimension=0, jb=0, p=0.000000 New Entropy =0.000000
+dimension=1, jb=0, p=0.000000 New Entropy =0.000000
+dimension=1, jb=0, p=0.000000 New Entropy =0.000000
+i=0  NoI[i]=2  Hnew=0.000000
+

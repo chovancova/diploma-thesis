@@ -9,17 +9,24 @@ using namespace std;
 int LoadDatasetIdFromConsole();
 bool InitializeDataset(int id_dataset);
 
-void RunFuzzy( int id_dataset);
+void RunFuzzy(int id_dataset);
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
-	int id_dataset = LoadDatasetIdFromConsole();
-	bool isDatasetLoaded = InitializeDataset(id_dataset);
+	int end = 0;
 
-	RunFuzzy( id_dataset); 
+	while (true)
+	{
+		int id_dataset = LoadDatasetIdFromConsole();
+		bool isDatasetLoaded = InitializeDataset(id_dataset);
 
-	cout << "Press any key to exit application. \n" << flush;
-	getchar();
+		RunFuzzy(id_dataset);
+		cout << "Press any key to exit application. \n" << flush;
+		cout << "Press 0 key to show menu. \n" << flush;
+		cin >> end;
+		if (end != 0) { return 0; }
+		//getchar();
+	}
 }
 
 bool InitializeDataset(int id_dataset)
@@ -29,7 +36,7 @@ bool InitializeDataset(int id_dataset)
 		float error;
 		DataSets initialData(id_dataset);
 		int result = initialData.ReadDataSets(id_dataset);
-		if (result<0)
+		if (result < 0)
 		{
 			cout << "Press any key to exit application. ";
 			getchar();
@@ -47,10 +54,8 @@ bool InitializeDataset(int id_dataset)
 		cout << "Write crisp data to file. ";
 		getchar();
 		initialData.WriteCrispFile();*/
-		
+
 		printf("Total values in dataset = %d  \nInitial Error =%f", initialData.GetSizeOfDataset(), error);
-		getchar();
-		getchar();
 		return true;
 	}
 	return false;
@@ -69,9 +74,9 @@ int LoadDatasetIdFromConsole()
 		<< "3  - Seeds\n"
 		<< "4  - Skin\n"
 		<< "5  - Wine\n"
-		<< "6  - Wine quality red\n"
-		<< "7  - Wine equality white\n"
-		<< "8  - Yeast\n"
+	/*	<< "6  - Wine quality red\n"
+		<< "7  - Wine equality white\n"*/
+		<< "6  - Yeast\n"
 		<< "0  - None\n"
 		<< "\n";
 
@@ -89,12 +94,15 @@ int LoadDatasetIdFromConsole()
 	return id_dataset;
 }
 
-void RunFuzzy( int id_dataset)
+void RunFuzzy(int id_dataset)
 {
 	Fuzzyfication fuzzy(id_dataset);
+	cout << "Read Data Sets.\n";
 	fuzzy.ReadDataSets(id_dataset);
+	cout << "Write Crisp File.\n";
 	fuzzy.WriteCrispFile();
+	cout << "Run Fuzzification.\n";
 	fuzzy.RunFuzzification();
-	fuzzy.WriteFuzzyficationResult("result.txt");
+
 	printf("Fuzzyfication is done.");
 }

@@ -13,7 +13,7 @@ public:
 	///		X-axis is number of attributes
 	///		Y-axis is number of intervals , 
 	///		Z-axis is size of dataset.</summary>
-	float*** Features;
+	float*** FuzzySetOnInterval;
 	unsigned int* Intervals;
 	unsigned int IdDataset;
 
@@ -33,31 +33,27 @@ public:
 	//Writter
 	int WriteFuzzyficationResult(char* filename) const;
 	int WriteFuzzyficationLogs() const;
-	
 private:
-	void   AssignMembershipFunction(unsigned int i, float* c) const;
+	void AssignMembershipFunction(unsigned int i, float* c) const;
 
 	//work with features, results and so on. 
-	 void CreateFeatures();
-	 void ModifyFeatures(unsigned int attr, int interval_new_value) const;
-	 void DeleteFeatures() const;
+	void CreateFeatures();
+	void ModifyFeatures(unsigned int attr, int interval_new_value) const;
+	void DeleteFeatures() const;
 
 
 	//Ascending Result
-	 unsigned long CreateAscendingResult(unsigned int i, float *Result, unsigned long *NewResult) const;
-	 static void   SortAscendingOrder(float *PointsOfCut, unsigned int numberOfCutPoints);
-	 static void   SortAscendingOrder(float *Result, unsigned long *NewResult, unsigned long numberOfElements);
+	unsigned long CreateAscendingResult(unsigned int i, float* Result, unsigned long* NewResult) const;
+	static void SortAscendingOrder(float* PointsOfCut, unsigned int numberOfCutPoints);
+	static void SortAscendingOrder(float* Result, unsigned long* NewResult, unsigned long numberOfElements);
 
-	 //K-means clusters
-	 float *Center(unsigned int i, float *Result, unsigned long *NewResult, unsigned long countResult) const;
-	 float *CenterFuzzy(unsigned int attribute, unsigned int number_clusters, float m, unsigned int distance_type) const;
-	 float  ComputeDistance(float a, float b, int distType, int p) const;
+	//K-means clusters
+	float* Center(unsigned int i, float* Result, unsigned long* NewResult, unsigned long countResult) const;
+	float* CenterFuzzy(unsigned int attribute, unsigned int number_clusters, float m, unsigned int distance_type) const;
+	float ComputeDistance(float a, float b, int distType, int p) const;
 
-	 //Entropy
-	 float  EntropyCalculate(unsigned int i);
-
-
-
+	//Entropy
+	float EntropyCalculate(unsigned int i);
 };
 
 #endif
