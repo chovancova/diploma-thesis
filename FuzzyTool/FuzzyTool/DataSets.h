@@ -78,19 +78,19 @@ public:
 	/// </summary>
 	int WriteCrispFile() const;
 	///<summary><return>Return name of dataset.</return> </summary>
-	char* ReturnNameDB()
+	char* GetNameDataset()
 	{
 		return NameDataset;
 	}
 
 	///<summary> <return>Return number of values in dataset.</return> </summary>
-	unsigned long GetSizeOfDataset() const
+	unsigned long GetDatasetSize() const
 	{
 		return DatasetSize;
 	}
 
 	///<summary> <return>Return number of attributes in dataset.</return> </summary>
-	unsigned int GetNumberOfAttributes() const
+	unsigned int GetAttributes() const
 	{
 		return Attributes;
 	}

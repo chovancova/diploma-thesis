@@ -16,16 +16,16 @@ Fuzzyfication::Fuzzyfication(unsigned int id_dataset) : DataSets(id_dataset), Fu
 
 	///<code>Set the initial number of interval I = 2.</code> 
 	Intervals = newUnInt(Attributes, 2, "Intervals in Fuzzy()");
-	char NameLoggerFile[99];
-	strcpy(NameLoggerFile, PATH_OUTPUT_FOLDER);
-	strcat(NameLoggerFile, NameDataset);
-	strcat(NameLoggerFile, ".log.txt");
+	char file_name[99];
+	strcpy(file_name, PATH_OUTPUT_FOLDER);
+	strcat(file_name, NameDataset);
+	strcat(file_name, ".log.txt");
 
-	LoggerFile = fopen(NameLoggerFile, "w");
+	LogFile = fopen(file_name, "w");
 
-	if (LoggerFile == nullptr)
+	if (LogFile == nullptr)
 	{
-		MyError("Error LoggerFile in Fuzzyfication()\n");
+		MyError("Error LogFile in Fuzzyfication()\n");
 	}
 }
 
@@ -36,7 +36,7 @@ Fuzzyfication::~Fuzzyfication()
 {
 	delete[] Intervals;
 
-	fclose(LoggerFile);
+	fclose(LogFile);
 }
 
 void Fuzzyfication::RunFuzzification()
@@ -44,31 +44,31 @@ void Fuzzyfication::RunFuzzification()
 	InitializeDataset();
 
 
-	unsigned long *NewResult, countResult;
+	unsigned long *new_result, count_result;
 	unsigned int temp_interval;
-	int doesEntropyDecrease;
-	float *Result, *cluster, oldEntropy, newEntropy;
+	int does_entropy_decrease;
+	float *result, *cluster, old_entropy, new_entropy;
 
 	//initialize new name for file
-	char FilenameFuzzy[200];
-	strcpy(FilenameFuzzy, PATH_OUTPUT_FOLDER);
+	char filename_fuzzy[200];
+	strcpy(filename_fuzzy, PATH_OUTPUT_FOLDER);
 
-	time_t rawtime;
-	std::tm* timeinfo;
+	time_t raw_time;
+	std::tm* time_info;
 	char buffer[20];
-	time(&rawtime);
-	timeinfo = std::localtime(&rawtime);
-	std::strftime(buffer, 20, "%Y-%m-%d-%H-%M-%S", timeinfo);
+	time(&raw_time);
+	time_info = std::localtime(&raw_time);
+	std::strftime(buffer, 20, "%Y-%m-%d-%H-%M-%S", time_info);
 	std::puts(buffer);
-	strcat(FilenameFuzzy, NameDataset);
-	strcat(FilenameFuzzy, "_");
-	strcat(FilenameFuzzy, buffer);
-	strcat(FilenameFuzzy, ".cm.txt"); // cluster centers
+	strcat(filename_fuzzy, NameDataset);
+	strcat(filename_fuzzy, "_");
+	strcat(filename_fuzzy, buffer);
+	strcat(filename_fuzzy, ".cm.txt"); // cluster centers
 	//DETERMINATION OF THE NUMBER OF INTERVALS
 	//Set initial number of intervals I = 2; 
 	CreateFeatures();
 
-	fprintf(LoggerFile, "FilenameFuzzy=%s\n", FilenameFuzzy);
+	fprintf(LogFile, "FilenameFuzzy=%s\n", filename_fuzzy);
 
 	//For each dimension 
 	for (unsigned int i = 0; i < InputAttr; i++)
@@ -92,40 +92,40 @@ void Fuzzyfication::RunFuzzification()
 			//First, the number of intervals on eaxh dimension needs to be dermined. 
 			//Secound consideration, we emplooy the K-means clustering algorithm to find the interval centers, 
 			//after the interval centers are detrmined, it is easy to decide on the WIDTH of each interval 
-			doesEntropyDecrease = 0;
-			newEntropy = 1000000000.0;
+			does_entropy_decrease = 0;
+			new_entropy = 1000000000.0;
 
-			Result = (float*)(newFloat(DatasetSize, 0.0, "Result )"));
-			NewResult = (unsigned long*)(newUnLong(DatasetSize, 0L, "NewResult "));
-			countResult = CreateAscendingResult(i, Result, NewResult);
+			result = (float*)(newFloat(DatasetSize, 0.0, "Result )"));
+			new_result = (unsigned long*)(newUnLong(DatasetSize, 0L, "NewResult "));
+			count_result = CreateAscendingResult(i, result, new_result);
 
 			do
 			{
-				oldEntropy = newEntropy;
-				if (doesEntropyDecrease != 0)
+				old_entropy = new_entropy;
+				if (does_entropy_decrease != 0)
 				{
-					ModifyFeatures(i, doesEntropyDecrease);
+					ModifyFeatures(i, does_entropy_decrease);
 				}
 				//DETERMINATION OF THE NUMBER OF INTERVALS
 				//Locate the centers of interval
-				cluster = (float*)Center(i, Result, NewResult, countResult);
+				cluster = (float*)Center(i, result, new_result, count_result);
 				//Assighn memberhsip function for each interval 
 				AssignMembershipFunction(i, cluster);
 				delete[] cluster;
 				//Compute the total fuzzy entropy of all intervals for I and I-1 intervals. 
-				newEntropy = EntropyCalculate(i);
+				new_entropy = EntropyCalculate(i);
 
 
-				fprintf(LoggerFile, "i=%d  NoI[i]=%d  Hnew=%f\n\n", i, Intervals[i], newEntropy);
+				fprintf(LogFile, "i=%d  NoI[i]=%d  Hnew=%f\n\n", i, Intervals[i], new_entropy);
 
-				if (doesEntropyDecrease == -1 || Intervals[i] == countResult)
+				if (does_entropy_decrease == -1 || Intervals[i] == count_result)
 				{
 					break;
 				}
 
-				if (newEntropy <= oldEntropy)
+				if (new_entropy <= old_entropy)
 				{
-					doesEntropyDecrease = 1;
+					does_entropy_decrease = 1;
 				}
 				else
 				{
@@ -135,10 +135,10 @@ void Fuzzyfication::RunFuzzification()
 			while (true);
 			WriteFuzzyficationLogs();
 			std::cout << "Write Fuzzyfication Result to file.\n";
-			WriteFuzzyficationResult(FilenameFuzzy);
+			WriteFuzzyficationResult(filename_fuzzy);
 
-			delete[] Result;
-			delete[] NewResult;
+			delete[] result;
+			delete[] new_result;
 		}
 	}
 }
@@ -270,32 +270,32 @@ void Fuzzyfication::DeleteFeatures() const
 
 unsigned long Fuzzyfication::CreateAscendingResult(unsigned int i, float* Result, unsigned long* NewResult) const
 {
-	unsigned int newItem;
-	unsigned long numberOfElements = 1;
+	unsigned int new_item;
+	unsigned long number_of_elements = 1;
 	Result[0] = Features[0].Dimension[i];
 	NewResult[0] = 1;
 	for (unsigned long k = 1; k < DatasetSize; k++)
 	{
-		newItem = 1;
-		for (unsigned long q = 0; q < numberOfElements; q++)
+		new_item = 1;
+		for (unsigned long q = 0; q < number_of_elements; q++)
 			if (Features[k].Dimension[i] == Result[q])
 			{
-				newItem = 0;
+				new_item = 0;
 				NewResult[q]++;
 			}
-		if (newItem == 1)
+		if (new_item == 1)
 		{
-			Result[numberOfElements] = Features[k].Dimension[i];
-			NewResult[numberOfElements] = 1;
-			numberOfElements++;
+			Result[number_of_elements] = Features[k].Dimension[i];
+			NewResult[number_of_elements] = 1;
+			number_of_elements++;
 		}
 	}
-	SortAscendingOrder(Result, NewResult, numberOfElements);
-	return (numberOfElements);
+	SortAscendingOrder(Result, NewResult, number_of_elements);
+	return (number_of_elements);
 }
 
 
-void Fuzzyfication::SortAscendingOrder(float* Result, unsigned long* NewResult, unsigned long numberOfElements)
+void Fuzzyfication::SortAscendingOrder(float* result, unsigned long* new_result, unsigned long number_of_elements)
 {
 	unsigned long i;
 	unsigned long index = 0L;
@@ -304,49 +304,49 @@ void Fuzzyfication::SortAscendingOrder(float* Result, unsigned long* NewResult, 
 
 	do
 	{
-		min = Result[index];
+		min = result[index];
 		i = index;
 
-		for (unsigned long k = index + 1; k < numberOfElements; k++)
+		for (unsigned long k = index + 1; k < number_of_elements; k++)
 		{
-			if (Result[k] < min)
+			if (result[k] < min)
 			{
-				min = Result[k];
+				min = result[k];
 				i = k;
 			}
 		}
 
-		Result[i] = Result[index];
-		Result[index] = min;
+		result[i] = result[index];
+		result[index] = min;
 
-		value = NewResult[i];
+		value = new_result[i];
 
-		NewResult[i] = NewResult[index];
-		NewResult[index] = value;
+		new_result[i] = new_result[index];
+		new_result[index] = value;
 
 		index++;
 	}
-	while (index < numberOfElements - 1);
+	while (index < number_of_elements - 1);
 }
 
 
-void Fuzzyfication::SortAscendingOrder(float* PointsOfCut, unsigned int numberOfCutPoints)
+void Fuzzyfication::SortAscendingOrder(float* cut_points, unsigned int number_of_cutting_points)
 {
 	unsigned int i, num, index = 0;
 	float min;
 	do
 	{
-		min = PointsOfCut[index];
+		min = cut_points[index];
 		num = index;
-		for (i = index + 1; i < numberOfCutPoints; i++)
-			if (PointsOfCut[i] < min)
+		for (i = index + 1; i < number_of_cutting_points; i++)
+			if (cut_points[i] < min)
 			{
-				min = PointsOfCut[i];
+				min = cut_points[i];
 				num = i;
 			}
-		PointsOfCut[num] = PointsOfCut[index];
-		PointsOfCut[index] = min;
+		cut_points[num] = cut_points[index];
+		cut_points[index] = min;
 		index++;
 	}
-	while (index < numberOfCutPoints - 1);
+	while (index < number_of_cutting_points - 1);
 }

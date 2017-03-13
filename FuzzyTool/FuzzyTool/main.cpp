@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 	while (true)
 	{
 		int id_dataset = LoadDatasetIdFromConsole();
-		bool isDatasetLoaded = InitializeDataset(id_dataset);
+		bool is_dataset_loaded = InitializeDataset(id_dataset);
 
 		RunFuzzy(id_dataset);
 		cout << "Press 1 to exit application. \n" << flush;
@@ -34,8 +34,8 @@ bool InitializeDataset(int id_dataset)
 	if (id_dataset >= 0)
 	{
 		float error;
-		DataSets initialData(id_dataset);
-		int result = initialData.ReadDataSets(id_dataset);
+		DataSets initial_data(id_dataset);
+		int result = initial_data.ReadDataSets(id_dataset);
 		if (result < 0)
 		{
 			cout << "Press any key to exit application. ";
@@ -44,7 +44,7 @@ bool InitializeDataset(int id_dataset)
 			return false;
 		}
 
-		error = initialData.InitialError(id_dataset);
+		error = initial_data.InitialError(id_dataset);
 		cout << "Write crisp data to file. ";
 		/*getchar();
 		initialData.WriteCrispFile();     
@@ -55,7 +55,7 @@ bool InitializeDataset(int id_dataset)
 		getchar();
 		initialData.WriteCrispFile();*/
 
-		printf("Total values in dataset = %d  \nInitial Error =%f", initialData.GetSizeOfDataset(), error);
+		printf("Total values in dataset = %d  \nInitial Error =%f", initial_data.GetDatasetSize(), error);
 		return true;
 	}
 	return false;

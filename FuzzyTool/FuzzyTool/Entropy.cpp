@@ -73,7 +73,7 @@ float Fuzzyfication::EntropyCalculate(unsigned int attr)
 				sum_mu[class_m][ja] += MU[class_m][ja][jb];
 
 	for (class_m = 0; class_m < Intervals[attr]; class_m++)
-		fprintf(LoggerFile, "countM[%d]=%d\n", class_m, countM[class_m]);
+		fprintf(LogFile, "countM[%d]=%d\n", class_m, countM[class_m]);
 
 	//  Fuzzy Entropy Calculation
 	// The fuzzy entropy FE on the universal uset X for the elements within an interval 
@@ -86,7 +86,7 @@ float Fuzzyfication::EntropyCalculate(unsigned int attr)
 			{
 				p = static_cast<float>(sum_mu[class_m][ja] == 0) ? 0 : (MU[class_m][ja][jb] / sum_mu[class_m][ja]);
 				new_entropy -= (MU[class_m][ja][jb] == 0) ? 0 : p * log2(p);
-				//	fprintf(LoggerFile, "dimension=%d, jb=%d, p=%f New Entropy =%f\n", class_m, jb, p, new_entropy);
+				//	fprintf(LogFile, "dimension=%d, jb=%d, p=%f New Entropy =%f\n", class_m, jb, p, new_entropy);
 			}
 
 		total_fuzzy_entropy += new_entropy * (float)countM[class_m] / DatasetSize;

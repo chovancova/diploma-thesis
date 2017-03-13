@@ -7,7 +7,7 @@
 class Fuzzyfication : public DataSets
 {
 public:
-	FILE* LoggerFile;
+	FILE* LogFile;
 
 	///<summary>Result- polygon - [X][Y][Z]
 	///		X-axis is number of attributes

@@ -10,48 +10,48 @@
 DataSets::DataSets(unsigned int id_dataset)
 {
 	unsigned int attributes;
-	unsigned int inputAttributes = 0;
-	unsigned int outputAttributes = 0;
-	unsigned int outputIntervals = 0;
+	unsigned int input_attributes = 0;
+	unsigned int output_attributes = 0;
+	unsigned int output_intervals = 0;
 	unsigned long size_dataset = 0; //Number of Instances
 
 	switch (id_dataset)
 	{
 	case _HEART: strcpy(NameDataset, "heart");
 		size_dataset = 270;
-		inputAttributes = 13;
-		outputAttributes = 1;
-		outputIntervals = 2;
+		input_attributes = 13;
+		output_attributes = 1;
+		output_intervals = 2;
 		break;
 	case _IRIS: strcpy(NameDataset, "iris");
 		size_dataset = 150;
-		inputAttributes = 4;
-		outputAttributes = 1;
-		outputIntervals = 3;
+		input_attributes = 4;
+		output_attributes = 1;
+		output_intervals = 3;
 		break;
 	case _YEAST: strcpy(NameDataset, "yeast");
 		size_dataset = 1484;
-		inputAttributes = 8;
-		outputAttributes = 1;
-		outputIntervals = 10;
+		input_attributes = 8;
+		output_attributes = 1;
+		output_intervals = 10;
 		break;
 	case _SKIN: strcpy(NameDataset, "skin");
 		size_dataset = 245057;
-		inputAttributes = 3;
-		outputAttributes = 1;
-		outputIntervals = 2;
+		input_attributes = 3;
+		output_attributes = 1;
+		output_intervals = 2;
 		break;
 	case _SEEDS: strcpy(NameDataset, "seeds");
 		size_dataset = 210;
-		inputAttributes = 7;
-		outputAttributes = 1;
-		outputIntervals = 3;
+		input_attributes = 7;
+		output_attributes = 1;
+		output_intervals = 3;
 		break;
 	case _WINE: strcpy(NameDataset, "wine");
 		size_dataset = 178;
-		inputAttributes = 13;
-		outputAttributes = 1;
-		outputIntervals = 3;
+		input_attributes = 13;
+		output_attributes = 1;
+		output_intervals = 3;
 		break;
 	/*case _WINERED: strcpy(NameDataset, "winequalityred");
 		size_dataset = 1599;
@@ -71,12 +71,12 @@ DataSets::DataSets(unsigned int id_dataset)
 			break;
 		}
 	}
-	attributes = inputAttributes + outputAttributes;
+	attributes = input_attributes + output_attributes;
 	DatasetSize = size_dataset;
 	Attributes = attributes;
-	InputAttr = inputAttributes;
-	OutputAttr = outputAttributes;
-	OutputIntervals = outputIntervals;
+	InputAttr = input_attributes;
+	OutputAttr = output_attributes;
+	OutputIntervals = output_intervals;
 
 	//alocation of Features polygon
 	Features = static_cast<instance*>(new instance[DatasetSize]);
@@ -95,7 +95,7 @@ DataSets::DataSets(unsigned int id_dataset)
 	}
 
 	LingvisticAttr = newUnInt(Attributes, 0, "LingvisticAttr in DataSets()");
-	LingvisticAttr[inputAttributes] = outputIntervals;
+	LingvisticAttr[input_attributes] = output_intervals;
 	Min = newFloat(InputAttr, 0, "Min in DataSets()");
 	Max = newFloat(InputAttr, 0, "Max in DataSets()");
 }
@@ -112,10 +112,10 @@ DataSets::~DataSets()
 	delete[] Max;
 }
 
-int DataSets::get_dataset_file(unsigned datasetId, FILE* file, bool& returns) const
+int DataSets::get_dataset_file(unsigned id_dataset, FILE* file, bool& returns) const
 {
 	returns = false;
-	switch (datasetId)
+	switch (id_dataset)
 	{
 	case _IRIS: ReadCrispFileIris(file);
 		return 1;
@@ -177,10 +177,10 @@ int DataSets::ReadDataSets(unsigned int datasetId) const
 
 int DataSets::WriteCrispFile(void) const
 {
-	char FileName[200];
+	char file_name[200];
 
 	FILE* fp;
-	strcpy(FileName, PATH_OUTPUT_FOLDER);
+	strcpy(file_name, PATH_OUTPUT_FOLDER);
 
 	time_t rawtime;
 	std::tm* timeinfo;
@@ -189,12 +189,12 @@ int DataSets::WriteCrispFile(void) const
 	timeinfo = std::localtime(&rawtime);
 	std::strftime(buffer, 20, "%Y-%m-%d-%H-%M-%S", timeinfo);
 	std::puts(buffer);
-	strcat(FileName, NameDataset);
-	strcat(FileName, "_");
-	strcat(FileName, buffer);
+	strcat(file_name, NameDataset);
+	strcat(file_name, "_");
+	strcat(file_name, buffer);
 
-	strcat(FileName, ".crisp.txt");
-	fp = fopen(FileName, "w");
+	strcat(file_name, ".crisp.txt");
+	fp = fopen(file_name, "w");
 	if (fp == nullptr)
 	{
 		printf("Error FileName in WriteCrispFile()");

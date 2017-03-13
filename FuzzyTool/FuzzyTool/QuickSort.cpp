@@ -3,30 +3,30 @@
 /*-------------------------- QuickSort ----------------------------------------------
 Triedenie pomocneho pola sortArray
 ------------------------------------------------------------------------------------*/
-void Sort::QuickSort(double** sortArray, unsigned long start, unsigned long end, unsigned long TotalSets)
+void Sort::QuickSort(double** sort_Array, unsigned long start, unsigned long end, unsigned long total_sets)
 {
 	unsigned long i, j;
-	double median, exchangeVektK, exchangeValue, exchangeClassValue;
+	double median, exchange_vekt_k, exchange_value, exchange_class_value;
 	i = start;
 	j = end;
-	median = sortArray[1][(start + end) / 2];
+	median = sort_Array[1][(start + end) / 2];
 	do
 	{
-		while ((sortArray[1][i] < median) && (i < TotalSets)) i++;
-		while ((sortArray[1][j] > median) && (j >= 0)) j--;
+		while ((sort_Array[1][i] < median) && (i < total_sets)) i++;
+		while ((sort_Array[1][j] > median) && (j >= 0)) j--;
 		if (i < j)
 		{
-			exchangeVektK = sortArray[0][i];
-			exchangeValue = sortArray[1][i];
-			exchangeClassValue = sortArray[2][i];
+			exchange_vekt_k = sort_Array[0][i];
+			exchange_value = sort_Array[1][i];
+			exchange_class_value = sort_Array[2][i];
 
-			sortArray[0][i] = sortArray[0][j];
-			sortArray[1][i] = sortArray[1][j];
-			sortArray[2][i] = sortArray[2][j];
+			sort_Array[0][i] = sort_Array[0][j];
+			sort_Array[1][i] = sort_Array[1][j];
+			sort_Array[2][i] = sort_Array[2][j];
 
-			sortArray[0][j] = exchangeVektK;
-			sortArray[1][j] = exchangeValue;
-			sortArray[2][j] = exchangeClassValue;
+			sort_Array[0][j] = exchange_vekt_k;
+			sort_Array[1][j] = exchange_value;
+			sort_Array[2][j] = exchange_class_value;
 			i++;
 			j--;
 		}
@@ -42,28 +42,28 @@ void Sort::QuickSort(double** sortArray, unsigned long start, unsigned long end,
 	while (i <= j);
 
 	if (start < j)
-		QuickSort(sortArray, start, j, TotalSets);
+		QuickSort(sort_Array, start, j, total_sets);
 	if (i < end)
-		QuickSort(sortArray, i, end, TotalSets);
+		QuickSort(sort_Array, i, end, total_sets);
 }
 
 /**** quicksort2A ****/
-void Sort::QuickSort(double* array, unsigned long start, unsigned long end, unsigned long TotalSets)
+void Sort::QuickSort(double* array, unsigned long start, unsigned long end, unsigned long total_sets)
 {
 	unsigned long i, j;
-	double median, exchangeValue;
+	double median, exchange_value;
 	i = start;
 	j = end;
 	median = array[(start + end) / 2];
 	do
 	{
-		while ((array[i] < median) && (i < TotalSets)) i++;
+		while ((array[i] < median) && (i < total_sets)) i++;
 		while ((array[j] > median) && (j >= 0)) j--;
 		if (i < j)
 		{
-			exchangeValue = array[i];
+			exchange_value = array[i];
 			array[i] = array[j];
-			array[j] = exchangeValue;
+			array[j] = exchange_value;
 			i++;
 			j--;
 		}
@@ -77,8 +77,8 @@ void Sort::QuickSort(double* array, unsigned long start, unsigned long end, unsi
 		}
 	}
 	while (i <= j);
-	if (start < j) QuickSort(array, start, j, TotalSets);
-	if (i < end) QuickSort(array, i, end, TotalSets);
+	if (start < j) QuickSort(array, start, j, total_sets);
+	if (i < end) QuickSort(array, i, end, total_sets);
 }
 
 // Specialny quicksort, ktory triedi dve polia arrayMinor a arrayMain.
@@ -90,29 +90,29 @@ void Sort::QuickSort(double* array, unsigned long start, unsigned long end, unsi
 //				size  	   - velkost poli arrayMinor, arrayMain (musia byt rovnako velke)
 //				start 	   - Od ktoreho indexu pola sa ma zacat triedit. (Ak sa ma pretriedit cele pole, treba nastavit na zaciatku na nulu)
 //				end		   - po ktory index sa ma pole pretriedit. (Ak sa ma pretriedit cele pole, treba nastavit na zaciatku na size-1)
-void Sort::quicksort2A(double* arrayMinor, double* arrayMain, unsigned long size, unsigned long start, unsigned long end)
+void Sort::quicksort2A(double* minor_array, double* main_array, unsigned long size, unsigned long start, unsigned long end)
 {
 	unsigned long i, j;
-	double median, exchangeVarVekt, exchangeVar;
+	double median, exchange_var_vekt, exchange_var;
 
 	i = start;
 	j = end;
-	median = arrayMain[(start + end) / 2];
+	median = main_array[(start + end) / 2];
 	do
 	{
-		while ((arrayMain[i] < median) && (i < size)) i++;
-		while ((arrayMain[j] > median) && (j >= 0)) j--;
+		while ((main_array[i] < median) && (i < size)) i++;
+		while ((main_array[j] > median) && (j >= 0)) j--;
 
 		if (i < j)
 		{
-			exchangeVar = arrayMain[i];
-			exchangeVarVekt = arrayMinor[i];
+			exchange_var = main_array[i];
+			exchange_var_vekt = minor_array[i];
 
-			arrayMain[i] = arrayMain[j];
-			arrayMinor[i] = arrayMinor[j];
+			main_array[i] = main_array[j];
+			minor_array[i] = minor_array[j];
 
-			arrayMain[j] = exchangeVar;
-			arrayMinor[j] = exchangeVarVekt;
+			main_array[j] = exchange_var;
+			minor_array[j] = exchange_var_vekt;
 			i++;
 			j--;
 		}
@@ -123,6 +123,6 @@ void Sort::quicksort2A(double* arrayMinor, double* arrayMain, unsigned long size
 		}
 	}
 	while (i <= j);
-	if (start < j) quicksort2A(arrayMinor, arrayMain, size, start, j);
-	if (i < end) quicksort2A(arrayMinor, arrayMain, size, i, end);
+	if (start < j) quicksort2A(minor_array, main_array, size, start, j);
+	if (i < end) quicksort2A(minor_array, main_array, size, i, end);
 }

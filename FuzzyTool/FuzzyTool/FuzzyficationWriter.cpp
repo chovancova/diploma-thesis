@@ -51,33 +51,33 @@ int Fuzzyfication::WriteFuzzyficationResult(char* filename) const
 
 int Fuzzyfication::WriteFuzzyficationLogs() const
 {
-	fprintf(LoggerFile, "\n\nDataset size: %ld\nNumber of Input Attributes: %d \t Output Attr:  %d\n", DatasetSize,InputAttr, OutputAttr);
+	fprintf(LogFile, "\n\nDataset size: %ld\nNumber of Input Attributes: %d \t Output Attr:  %d\n", DatasetSize,InputAttr, OutputAttr);
 	
-	fprintf(LoggerFile, "\n Intervals: ");
+	fprintf(LogFile, "\n Intervals: ");
 	
 	for (unsigned int i = 0; i < Attributes; i++)
 	{
-		fprintf(LoggerFile, "%4d ", Intervals[i]);
+		fprintf(LogFile, "%4d ", Intervals[i]);
 	}   
 	
-	fprintf(LoggerFile, "\n Input Attributters: ");
+	fprintf(LogFile, "\n Input Attributters: ");
 
 	for (unsigned int i = 0; i<InputAttr; i++)
 	{		
-		fprintf(LoggerFile, "%4.2f ", 1.0);      
+		fprintf(LogFile, "%4.2f ", 1.0);      
 	}
 
-	fprintf(LoggerFile, "\n Temp Results : ");
+	fprintf(LogFile, "\n Temp Results : ");
 	
 	for (unsigned long k = 0; k<DatasetSize; k++)
 	{
 		for (unsigned int i = 0; i<Attributes; i++)
 		{
 			for (unsigned int j = 0; j<Intervals[i]; j++)
-				fprintf(LoggerFile, "%7.4f ", FuzzySetOnInterval[i][j][k]);
-			fprintf(LoggerFile, " \t ");
+				fprintf(LogFile, "%7.4f ", FuzzySetOnInterval[i][j][k]);
+			fprintf(LogFile, " \t ");
 		}
-		fprintf(LoggerFile, "\n");
+		fprintf(LogFile, "\n");
 	}
 	return 1;
 }
