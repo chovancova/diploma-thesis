@@ -163,7 +163,7 @@ int DataSets::ReadCrispFileSeeds(FILE* fp) const
 {
 	for (unsigned long k = 0; k < DatasetSize; k++)
 	{
-		fscanf(fp, "%f,%f,%f,%f,%f,%f,%f,%f",
+		fscanf(fp, "%f  %f  %f  %f  %f  %f  %f  %f",
 		       &Features[k].Dimension[0],
 		       &Features[k].Dimension[1],
 		       &Features[k].Dimension[2],
