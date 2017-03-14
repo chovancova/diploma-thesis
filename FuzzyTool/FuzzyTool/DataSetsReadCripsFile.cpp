@@ -177,6 +177,7 @@ int DataSets::ReadCrispFileSeeds(FILE* fp) const
 	}
 	return 1;
 }
+
 //
 //// --------------------------   ReadCrispFile  - WINERED & WINEWHITE --------------------------
 //int DataSets::ReadCrispFileWineQuality(FILE* fp) const

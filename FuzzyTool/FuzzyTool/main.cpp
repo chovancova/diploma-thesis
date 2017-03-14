@@ -4,6 +4,7 @@
 
 #include "DataSets.h"
 #include "Fuzzyfication.h"
+#include <sstream>
 using namespace std;
 
 int LoadDatasetIdFromConsole();
@@ -69,7 +70,6 @@ bool InitializeDataset(int id_dataset)
 
 int LoadDatasetIdFromConsole()
 {
-	int id_dataset = 0;
 	cout << "Fuzzification Tool \n";
 	cout << "\n";
 	cout << "Available datasets: \n"
@@ -85,18 +85,35 @@ int LoadDatasetIdFromConsole()
 		<< "6  - Yeast\n"
 		<< "0  - None\n"
 		<< "\n";
+	// How to get a number.
+	int id_dataset = 0;
+	string input = "";
+	cout << "\nEnter Dataset ID: " << flush;
 
-	while (id_dataset == 0)
+	getline(cin, input);
+	cout << "You entered: " << input << endl << endl;
+	
+	while(true)
 	{
-		cout << "\nEnter Dataset ID: " << flush;
-		cin >> id_dataset;
-		if (id_dataset == 0) { break; }
-		if (id_dataset > 7 || id_dataset < 0)
+		if (id_dataset < 7 && id_dataset > 0)
 		{
-			cout << "Wrong Input.\n";
-			id_dataset = 0;
+			break;
+		}
+		while (true) {
+			cout << "Please enter a valid number: ";
+			getline(cin, input);
+
+			// This code converts from string to number safely.
+			stringstream myStream(input);
+			if (myStream >> id_dataset)
+			{
+				break;
+			}
+			cout << "Invalid number, please try again" << endl;
+			cout << "You entered: " << id_dataset << endl << endl;
 		}
 	}
+
 	return id_dataset;
 }
 
