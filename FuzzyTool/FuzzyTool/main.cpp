@@ -19,19 +19,25 @@ int main(int argc, char* argv[])
 	{
 		int id_dataset = LoadDatasetIdFromConsole();
 		bool is_dataset_loaded = InitializeDataset(id_dataset);
-
-		RunFuzzy(id_dataset);
+		if(is_dataset_loaded)
+		{
+			RunFuzzy(id_dataset);
+		}
 		cout << "Press 1 to exit application. \n" << flush;
-		cout << "Press 0 key to show menu. \n" << flush;
+		cout << "Press any key to show menu. \n" << flush;
 		cin >> end;
-		if (end == 1) { return 1; }
-		//getchar();
+		if (end == 1)
+		{
+			return 1;
+		}
+		
+		//
 	}
 }
 
 bool InitializeDataset(int id_dataset)
 {
-	if (id_dataset >= 0)
+	if (id_dataset > 0)
 	{
 		float error;
 		DataSets initial_data(id_dataset);
@@ -74,8 +80,8 @@ int LoadDatasetIdFromConsole()
 		<< "3  - Seeds\n"
 		<< "4  - Skin\n"
 		<< "5  - Wine\n"
-	/*	<< "6  - Wine quality red\n"
-		<< "7  - Wine equality white\n"*/
+		/*	<< "6  - Wine quality red\n"
+			<< "7  - Wine equality white\n"*/
 		<< "6  - Yeast\n"
 		<< "0  - None\n"
 		<< "\n";
@@ -85,7 +91,7 @@ int LoadDatasetIdFromConsole()
 		cout << "\nEnter Dataset ID: " << flush;
 		cin >> id_dataset;
 		if (id_dataset == 0) { break; }
-		if (id_dataset > 8 || id_dataset < 0)
+		if (id_dataset > 7 || id_dataset < 0)
 		{
 			cout << "Wrong Input.\n";
 			id_dataset = 0;
