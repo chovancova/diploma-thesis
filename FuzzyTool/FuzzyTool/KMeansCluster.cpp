@@ -6,7 +6,7 @@
 #include "TempFunctions.h"
 #include <iterator>
 
-float Fuzzyfication::ComputeDistance(float a, float b, int type_distance, int p) const
+float Fuzzyfication::compute_distance(float a, float b, int type_distance, int p) const
 {
 	switch (type_distance)
 	{
@@ -58,7 +58,7 @@ float Fuzzyfication::ComputeDistance(float a, float b, int type_distance, int p)
 //th cluster
 //center with respect to, say mth dimension like the following :
 //Dijm = k(xim − CCjm)k.
-float* Fuzzyfication::CenterFuzzy(unsigned int attribute, unsigned int NumberOfCenters, float m, unsigned int distance_type) const
+float* Fuzzyfication::center_fuzzy(unsigned int attribute, unsigned int NumberOfCenters, float m, unsigned int distance_type) const
 {
 	double temp;
 	double temp1;
@@ -68,7 +68,7 @@ float* Fuzzyfication::CenterFuzzy(unsigned int attribute, unsigned int NumberOfC
 	unsigned int intervals;//Number Of Intervals
 	intervals = NumberOfCenters;
 
-	centers = static_cast<float*>(newFloat(intervals, 0.0, "CenterFuzzy "));
+	centers = static_cast<float*>(newFloat(intervals, 0.0, "center_fuzzy "));
 	membership_function = static_cast<float**>(new float*[intervals]);
 
 	if (!membership_function)
@@ -119,8 +119,8 @@ float* Fuzzyfication::CenterFuzzy(unsigned int attribute, unsigned int NumberOfC
 				for (unsigned int interval = 0; interval < intervals; interval++)
 					if (assigned[dataset_item] == false)
 					{
-						float distanceI = ComputeDistance(Features[dataset_item].Dimension[attribute], centers[i], distance_type, 4);
-						float distanceJ = ComputeDistance(Features[dataset_item].Dimension[attribute], centers[interval], distance_type, 4);
+						float distanceI = compute_distance(Features[dataset_item].Dimension[attribute], centers[i], distance_type, 4);
+						float distanceJ = compute_distance(Features[dataset_item].Dimension[attribute], centers[interval], distance_type, 4);
 
 						if (distanceI != 0 && distanceJ != 0)
 						{
@@ -156,7 +156,7 @@ float* Fuzzyfication::CenterFuzzy(unsigned int attribute, unsigned int NumberOfC
 		for (unsigned int i = 0; i < intervals; i++)
 			for (unsigned long k = 0; k < DatasetSize; k++)
 			{
-				float distanceNew = ComputeDistance(Features[k].Dimension[attribute], centers[i], distance_type, 4);
+				float distanceNew = compute_distance(Features[k].Dimension[attribute], centers[i], distance_type, 4);
 
 				current += pow(membership_function[i][k], m) * pow(distanceNew, 2);
 			}
@@ -173,7 +173,7 @@ float* Fuzzyfication::CenterFuzzy(unsigned int attribute, unsigned int NumberOfC
 }
 
 
-float* Fuzzyfication::Center(unsigned int i, float* Result, unsigned long* NewResult, unsigned long countResult) const
+float* Fuzzyfication::center(unsigned int i, float* Result, unsigned long* NewResult, unsigned long countResult) const
 {
 	unsigned int q; //cluster
 	unsigned int* total_patterns; //Nq is total number of patterns within the same cluster q. 
@@ -184,19 +184,19 @@ float* Fuzzyfication::Center(unsigned int i, float* Result, unsigned long* NewRe
 	float *c, *sum, center, distance;
 
 	c = static_cast<float*>(new float[Intervals[i]]);
-	c = static_cast<float*>(CenterFuzzy(i, Intervals[i], 2.0f, 3));
+	c = static_cast<float*>(center_fuzzy(i, Intervals[i], 2.0f, 3));
 	for (z = 0; z < Intervals[i]; z++) fprintf(LogFile, "cluster[%d]=%f ", z, c[z]);
 	fprintf(LogFile, "\n");
 
 	iteration = 0;
 	do //**********************************************************
 	{
-		sum = newFloat(Intervals[i], 0.0, "sum in Center()");
-		total_patterns = newUnInt(Intervals[i], 0, "Nq  in Center()");
+		sum = newFloat(Intervals[i], 0.0, "sum in center()");
+		total_patterns = newUnInt(Intervals[i], 0, "Nq  in center()");
 		for (unsigned long k = 0; k < countResult; k++)
 		{
 			distance = fabs(Result[k] - c[0]);
-			for (q = 0; q < Intervals[i]; q++) // minimal ComputeDistance calculate
+			for (q = 0; q < Intervals[i]; q++) // minimal compute_distance calculate
 				if (distance >= fabs(Result[k] - c[q]))
 				{
 					distance = fabs(Result[k] - c[q]);
@@ -211,7 +211,7 @@ float* Fuzzyfication::Center(unsigned int i, float* Result, unsigned long* NewRe
 		{
 			if (total_patterns == 0)
 			{
-				MyError("not possible situation: Nq[q]=0 in Center()");
+				MyError("not possible situation: Nq[q]=0 in center()");
 			}
 			else
 			{
@@ -229,7 +229,7 @@ float* Fuzzyfication::Center(unsigned int i, float* Result, unsigned long* NewRe
 		{
 			if (c[q] == c[q + 1])
 			{
-				MyError("UnReal situation: c[q]=c[q+1] in Center()");
+				MyError("UnReal situation: c[q]=c[q+1] in center()");
 			}
 		}
 		delete[] sum;
@@ -238,7 +238,7 @@ float* Fuzzyfication::Center(unsigned int i, float* Result, unsigned long* NewRe
 	while ((stop) && (iteration < LIMIT_ITTERATION));
 
 
-	SortAscendingOrder(c, Intervals[i]);
+	sort_ascending_order(c, Intervals[i]);
 
 	for (z = 0; z < Intervals[i]; z++)fprintf(LogFile, "c__2[%d]=%f ", z, c[z]);
 	fprintf(LogFile, "\n");

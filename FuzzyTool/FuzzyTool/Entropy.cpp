@@ -2,7 +2,7 @@
 #include "TempFunctions.h"
 #include <cmath>
 
-float Fuzzyfication::EntropyCalculate(unsigned int attr)
+float Fuzzyfication::entropy_calculate(unsigned int attr)
 {
 	//1) Let X = {r1, ... , rn} be a universal set with elements ri distributed in pattern space where i = 1..n. 
 	//2) Let A be a fuzzy set defined on a interval of pattern space which kontains k elements (k < n). 
@@ -24,7 +24,7 @@ float Fuzzyfication::EntropyCalculate(unsigned int attr)
 	MU = (float***) new float**[Intervals[attr]];
 	sum_mu = (float**) new float*[Intervals[attr]];
 
-	if (!MU || !sum_mu) MyError("Error allocation of (M and sumM) in EntropyCalculate()");
+	if (!MU || !sum_mu) MyError("Error allocation of (M and sumM) in entropy_calculate()");
 	for (class_m = 0; class_m < Intervals[attr]; class_m++)
 	{
 		sum_mu[class_m] = (float*)(newFloat(Intervals[attr], 0, "sumM(EntropyCalc)"));

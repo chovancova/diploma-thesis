@@ -66,7 +66,7 @@ void Fuzzyfication::RunFuzzification()
 	strcat(filename_fuzzy, ".cm.txt"); // cluster centers
 	//DETERMINATION OF THE NUMBER OF INTERVALS
 	//Set initial number of intervals I = 2; 
-	CreateFeatures();
+	create_features();
 
 	fprintf(LogFile, "FilenameFuzzy=%s\n", filename_fuzzy);
 
@@ -97,23 +97,23 @@ void Fuzzyfication::RunFuzzification()
 
 			result = (float*)(newFloat(DatasetSize, 0.0, "Result )"));
 			new_result = (unsigned long*)(newUnLong(DatasetSize, 0L, "NewResult "));
-			count_result = CreateAscendingResult(i, result, new_result);
+			count_result = create_ascending_result(i, result, new_result);
 
 			do
 			{
 				old_entropy = new_entropy;
 				if (does_entropy_decrease != 0)
 				{
-					ModifyFeatures(i, does_entropy_decrease);
+					modify_features(i, does_entropy_decrease);
 				}
 				//DETERMINATION OF THE NUMBER OF INTERVALS
 				//Locate the centers of interval
-				cluster = (float*)Center(i, result, new_result, count_result);
+				cluster = (float*)center(i, result, new_result, count_result);
 				//Assighn memberhsip function for each interval 
-				AssignMembershipFunction(i, cluster);
+				assign_membership_function(i, cluster);
 				delete[] cluster;
 				//Compute the total fuzzy entropy of all intervals for I and I-1 intervals. 
-				new_entropy = EntropyCalculate(i);
+				new_entropy = entropy_calculate(i);
 
 
 				fprintf(LogFile, "i=%d  NoI[i]=%d  Hnew=%f\n\n", i, Intervals[i], new_entropy);
@@ -155,7 +155,7 @@ void Fuzzyfication::InitializeDataset() const
  * Membership function assigmnment is a procedure for assigning a membership function to each interval. 
  *
  */
-void Fuzzyfication::AssignMembershipFunction(unsigned int attribute, float* center) const
+void Fuzzyfication::assign_membership_function(unsigned int attribute, float* center) const
 {
 	//All X = x1..xn
 	for (unsigned long x = 0; x < DatasetSize; x++)
@@ -195,7 +195,7 @@ void Fuzzyfication::AssignMembershipFunction(unsigned int attribute, float* cent
 }
 
 
-void Fuzzyfication::CreateFeatures()
+void Fuzzyfication::create_features()
 {
 	unsigned int attr, intervals;
 
@@ -214,19 +214,19 @@ void Fuzzyfication::CreateFeatures()
 
 	FuzzySetOnInterval = (float***) new float**[Attributes];
 	if (!FuzzySetOnInterval)
-		printf("Error allocation ***FuzzySetOnInterval in CreateFeatures(). ");
+		printf("Error allocation ***FuzzySetOnInterval in create_features(). ");
 
 	for (attr = 0; attr < Attributes; attr++)
 	{
 		FuzzySetOnInterval[attr] = (float**) new float*[Intervals[attr]];
 		if (!FuzzySetOnInterval[attr])
 		{
-			printf("Error allocation of memory for **Feature[attr] in CreateFeatures()");
+			printf("Error allocation of memory for **Feature[attr] in create_features()");
 		}
 
 		for (intervals = 0; intervals < Intervals[attr]; intervals++)
 		{
-			FuzzySetOnInterval[attr][intervals] = (float*)newFloat(DatasetSize, 0.0, "FuzzySetOnInterval[attr][intervals] in CreateFeatures()");
+			FuzzySetOnInterval[attr][intervals] = (float*)newFloat(DatasetSize, 0.0, "FuzzySetOnInterval[attr][intervals] in create_features()");
 		}
 	}
 	for (unsigned long x = 0; x < DatasetSize; x++) // Initialisation of Output Attribute
@@ -236,7 +236,7 @@ void Fuzzyfication::CreateFeatures()
 	}
 }
 
-void Fuzzyfication::ModifyFeatures(unsigned int attr, int interval_new_value) const
+void Fuzzyfication::modify_features(unsigned int attr, int interval_new_value) const
 {
 	for (unsigned int interval = 0; interval < Intervals[attr]; interval++)
 		delete[] FuzzySetOnInterval[attr][interval];
@@ -246,15 +246,15 @@ void Fuzzyfication::ModifyFeatures(unsigned int attr, int interval_new_value) co
 	FuzzySetOnInterval[attr] = static_cast<float**>(new float*[Intervals[attr]]);
 	if (!FuzzySetOnInterval[attr])
 	{
-		MyError("**FuzzySetOnInterval[attr] in ModifyFeatures()");
+		MyError("**FuzzySetOnInterval[attr] in modify_features()");
 	}
 	for (unsigned int interval = 0; interval < Intervals[attr]; interval++)
 	{
-		FuzzySetOnInterval[attr][interval] = (float*)newFloat(DatasetSize, 0.0, "FuzzySetOnInterval[attr][interval] in ModifyFeatures()");
+		FuzzySetOnInterval[attr][interval] = (float*)newFloat(DatasetSize, 0.0, "FuzzySetOnInterval[attr][interval] in modify_features()");
 	}
 }
 
-void Fuzzyfication::DeleteFeatures() const
+void Fuzzyfication::delete_features() const
 {
 	for (unsigned int i = 0; i < Attributes; i++)
 	{
@@ -268,7 +268,7 @@ void Fuzzyfication::DeleteFeatures() const
 }
 
 
-unsigned long Fuzzyfication::CreateAscendingResult(unsigned int i, float* Result, unsigned long* NewResult) const
+unsigned long Fuzzyfication::create_ascending_result(unsigned int i, float* Result, unsigned long* NewResult) const
 {
 	unsigned int new_item;
 	unsigned long number_of_elements = 1;
@@ -290,12 +290,12 @@ unsigned long Fuzzyfication::CreateAscendingResult(unsigned int i, float* Result
 			number_of_elements++;
 		}
 	}
-	SortAscendingOrder(Result, NewResult, number_of_elements);
+	sort_ascending_order(Result, NewResult, number_of_elements);
 	return (number_of_elements);
 }
 
 
-void Fuzzyfication::SortAscendingOrder(float* result, unsigned long* new_result, unsigned long number_of_elements)
+void Fuzzyfication::sort_ascending_order(float* result, unsigned long* new_result, unsigned long number_of_elements)
 {
 	unsigned long i;
 	unsigned long index = 0L;
@@ -330,7 +330,7 @@ void Fuzzyfication::SortAscendingOrder(float* result, unsigned long* new_result,
 }
 
 
-void Fuzzyfication::SortAscendingOrder(float* cut_points, unsigned int number_of_cutting_points)
+void Fuzzyfication::sort_ascending_order(float* cut_points, unsigned int number_of_cutting_points)
 {
 	unsigned int i, num, index = 0;
 	float min;

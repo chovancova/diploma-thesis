@@ -17,8 +17,6 @@ public:
 	unsigned int* Intervals;
 	unsigned int IdDataset;
 
-
-public:
 	/**
 	* \brief Initialize datasets, fuzzification,
 	* Set the initial number of Interval to 2.
@@ -26,7 +24,7 @@ public:
 	*/
 	explicit Fuzzyfication(unsigned int id_dataset);
 	~Fuzzyfication();
-
+	bool determination_number_of_intervals(unsigned long* new_result, unsigned long count_result, int& does_entropy_decrease, float* result, float* cluster, float old_entropy, float& new_entropy, unsigned i);
 	void RunFuzzification();
 	void InitializeDataset() const;
 
@@ -34,26 +32,26 @@ public:
 	int WriteFuzzyficationResult(char* filename) const;
 	int WriteFuzzyficationLogs() const;
 private:
-	void AssignMembershipFunction(unsigned int i, float* c) const;
+	void assign_membership_function(unsigned int i, float* c) const;
 
 	//work with features, results and so on. 
-	void CreateFeatures();
-	void ModifyFeatures(unsigned int attr, int interval_new_value) const;
-	void DeleteFeatures() const;
+	void create_features();
+	void modify_features(unsigned int attr, int interval_new_value) const;
+	void delete_features() const;
 
 
 	//Ascending Result
-	unsigned long CreateAscendingResult(unsigned int i, float* Result, unsigned long* NewResult) const;
-	static void SortAscendingOrder(float* PointsOfCut, unsigned int numberOfCutPoints);
-	static void SortAscendingOrder(float* Result, unsigned long* NewResult, unsigned long numberOfElements);
+	unsigned long create_ascending_result(unsigned int i, float* Result, unsigned long* NewResult) const;
+	static void sort_ascending_order(float* PointsOfCut, unsigned int numberOfCutPoints);
+	static void sort_ascending_order(float* Result, unsigned long* NewResult, unsigned long numberOfElements);
 
 	//K-means clusters
-	float* Center(unsigned int i, float* Result, unsigned long* NewResult, unsigned long countResult) const;
-	float* CenterFuzzy(unsigned int attribute, unsigned int number_clusters, float m, unsigned int distance_type) const;
-	float ComputeDistance(float a, float b, int distType, int p) const;
+	float* center(unsigned int i, float* Result, unsigned long* NewResult, unsigned long countResult) const;
+	float* center_fuzzy(unsigned int attribute, unsigned int number_clusters, float m, unsigned int distance_type) const;
+	float compute_distance(float a, float b, int distType, int p) const;
 
 	//Entropy
-	float EntropyCalculate(unsigned int i);
+	float entropy_calculate(unsigned int i);
 };
 
 #endif
