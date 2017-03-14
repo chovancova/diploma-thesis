@@ -7,13 +7,12 @@
 #include "TempFunctions.h"
 #include <ctime>
 
-DataSets::DataSets(unsigned int id_dataset)
+void DataSets::initialize_attributes(unsigned id_dataset, unsigned& attributes, unsigned& input_attributes, unsigned& output_attributes, unsigned& output_intervals, unsigned long& size_dataset)
 {
-	unsigned int attributes;
-	unsigned int input_attributes = 0;
-	unsigned int output_attributes = 0;
-	unsigned int output_intervals = 0;
-	unsigned long size_dataset = 0; //Number of Instances
+	input_attributes = 0;
+	output_attributes = 0;
+	output_intervals = 0;
+	size_dataset = 0;
 
 	switch (id_dataset)
 	{
@@ -54,28 +53,38 @@ DataSets::DataSets(unsigned int id_dataset)
 		output_intervals = 3;
 		break;
 		/*case _WINERED: strcpy(NameDataset, "winequalityred");
-			size_dataset = 1599;
-			inputAttributes = 11;
-			outputAttributes = 1;
-			outputIntervals = 6;
-			break;
-		case _WINEWHITE: strcpy(NameDataset, "winequalitywhite");
-			size_dataset = 4898;
-			inputAttributes = 11;
-			outputAttributes = 1;
-			outputIntervals = 7;
-			break;*/
+		size_dataset = 1599;
+		inputAttributes = 11;
+		outputAttributes = 1;
+		outputIntervals = 6;
+		break;
+	case _WINEWHITE: strcpy(NameDataset, "winequalitywhite");
+		size_dataset = 4898;
+		inputAttributes = 11;
+		outputAttributes = 1;
+		outputIntervals = 7;
+		break;*/
 	default:
 		{
 			std::cout << "Dataset not found.";
 			break;
 		}
 	}
+}
+
+DataSets::DataSets(unsigned int id_dataset)
+{
+	unsigned attributes;
+	unsigned input_attributes;
+	unsigned output_attributes;
+	unsigned output_intervals;
+	unsigned long size_dataset;
+	initialize_attributes(id_dataset, attributes, input_attributes, output_attributes, output_intervals, size_dataset);
 	attributes = input_attributes + output_attributes;
 	DatasetSize = size_dataset;
 	Attributes = attributes;
-	InputAttr = input_attributes;
-	OutputAttr = output_attributes;
+	InputAttributes = input_attributes;
+	OutputAttributes = output_attributes;
 	OutputIntervals = output_intervals;
 
 	//alocation of Features polygon
@@ -94,10 +103,10 @@ DataSets::DataSets(unsigned int id_dataset)
 		}
 	}
 
-	LingvisticAttr = newUnInt(Attributes, 0, "LingvisticAttr in DataSets()");
-	LingvisticAttr[input_attributes] = output_intervals;
-	Min = newFloat(InputAttr, 0, "Min in DataSets()");
-	Max = newFloat(InputAttr, 0, "Max in DataSets()");
+	LingvisticAttributes = newUnInt(Attributes, 0, "LingvisticAttributes in DataSets()");
+	LingvisticAttributes[input_attributes] = output_intervals;
+	min_ = newFloat(InputAttributes, 0, "min_ in DataSets()");
+	max_ = newFloat(InputAttributes, 0, "max_ in DataSets()");
 }
 
 DataSets::~DataSets()
@@ -107,9 +116,9 @@ DataSets::~DataSets()
 		delete[] Features[k].Dimension;
 	}
 	delete[] Features;
-	delete[] LingvisticAttr;
-	delete[] Min;
-	delete[] Max;
+	delete[] LingvisticAttributes;
+	delete[] min_;
+	delete[] max_;
 }
 
 int DataSets::get_dataset_file(unsigned id_dataset, FILE* file, bool& returns) const
@@ -117,21 +126,21 @@ int DataSets::get_dataset_file(unsigned id_dataset, FILE* file, bool& returns) c
 	returns = false;
 	switch (id_dataset)
 	{
-	case _IRIS: ReadCrispFileIris(file);
+	case _IRIS: read_crisp_file_iris(file);
 		return 1;
-	case _HEART: ReadCrispFileHeart(file);
+	case _HEART: read_crisp_file_heart(file);
 		return 1;
-	case _SEEDS: ReadCrispFileSeeds(file);
+	case _SEEDS: read_crisp_file_seeds(file);
 		return 1;
-	case _SKIN: ReadCrispFileSkin(file);
+	case _SKIN: read_crisp_file_skin(file);
 		return 1;
-	case _WINE: ReadCrispFileWine(file);
+	case _WINE: read_crisp_file_wine(file);
 		return 1;
 		/*case _WINERED: ReadCrispFileWineQuality(file);
 			return 1;
 		case _WINEWHITE: ReadCrispFileWineQuality(file);
 			return 1;*/
-	case _YEAST: ReadCrispFileYeast(file);
+	case _YEAST: read_crisp_file_yeast(file);
 		return 1;
 	default:
 		{
@@ -203,7 +212,7 @@ int DataSets::WriteCrispFile(void) const
 	};
 
 	for (unsigned int i = 0; i < Attributes; i++)
-		fprintf(fp, "%d ", LingvisticAttr[i]);
+		fprintf(fp, "%d ", LingvisticAttributes[i]);
 	fprintf(fp, "\n");
 
 	for (unsigned long k = 0; k < DatasetSize; k++)
@@ -218,17 +227,17 @@ int DataSets::WriteCrispFile(void) const
 	return 1;
 }
 
-float DataSets::InitialError(unsigned int id_dataset) const
+float DataSets::InitialError() const
 {
 	try
 	{
-		unsigned long *class_number_output_intervals = 0, maxClass = 0;
-		unsigned int jb = 0;
+		unsigned long *class_number_output_intervals, maxClass;
+		unsigned int jb;
 
 		class_number_output_intervals = newUnLong(OutputIntervals, 0l, " classNoOI from InitialErrorDS");
 		for (unsigned long x = 0; x < DatasetSize; x++)
 		{
-			jb = Features[x].Dimension[InputAttr];
+			jb = Features[x].Dimension[InputAttributes];
 			class_number_output_intervals[jb]++;
 		}
 		maxClass = class_number_output_intervals[0];
@@ -248,19 +257,19 @@ float DataSets::InitialError(unsigned int id_dataset) const
 
 void DataSets::Normalization() const
 {
-	for (unsigned int i = 0; i < InputAttr; i++)
+	for (unsigned int i = 0; i < InputAttributes; i++)
 	{
-		if (LingvisticAttr[i] == 0)
+		if (LingvisticAttributes[i] == 0)
 		{
-			Min[i] = Features[0].Dimension[i];
-			Max[i] = Features[0].Dimension[i];
+			min_[i] = Features[0].Dimension[i];
+			max_[i] = Features[0].Dimension[i];
 			for (unsigned long k = 1; k < DatasetSize; k++)
 			{
-				if (Features[k].Dimension[i] < Min[i]) Min[i] = Features[k].Dimension[i];
-				if (Features[k].Dimension[i] > Max[i]) Max[i] = Features[k].Dimension[i];
+				if (Features[k].Dimension[i] < min_[i]) min_[i] = Features[k].Dimension[i];
+				if (Features[k].Dimension[i] > max_[i]) max_[i] = Features[k].Dimension[i];
 			}
 			for (unsigned long k = 0; k < DatasetSize; k++)
-				Features[k].Dimension[i] = (Features[k].Dimension[i] - Min[i]) / (Max[i] - Min[i]);
+				Features[k].Dimension[i] = (Features[k].Dimension[i] - min_[i]) / (max_[i] - min_[i]);
 		}
 	}
 }

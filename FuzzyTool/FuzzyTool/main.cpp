@@ -7,20 +7,21 @@
 #include <sstream>
 using namespace std;
 
-int LoadDatasetIdFromConsole();
-bool InitializeDataset(int id_dataset);
+int load_dataset_id_from_console();
+bool initialize_dataset(int id_dataset);
 
 void RunFuzzy(int id_dataset);
 
 int main(int argc, char* argv[])
 {
 	int end = 0;
-
+	int id_dataset;
+	bool is_dataset_loaded;
 	while (true)
 	{
-		int id_dataset = LoadDatasetIdFromConsole();
-		bool is_dataset_loaded = InitializeDataset(id_dataset);
-		if(is_dataset_loaded)
+		 id_dataset = load_dataset_id_from_console();
+		 is_dataset_loaded = initialize_dataset(id_dataset);
+		if (is_dataset_loaded)
 		{
 			RunFuzzy(id_dataset);
 		}
@@ -31,12 +32,10 @@ int main(int argc, char* argv[])
 		{
 			return 1;
 		}
-		
-		//
 	}
 }
 
-bool InitializeDataset(int id_dataset)
+bool initialize_dataset(int id_dataset)
 {
 	if (id_dataset > 0)
 	{
@@ -51,7 +50,7 @@ bool InitializeDataset(int id_dataset)
 			return false;
 		}
 
-		error = initial_data.InitialError(id_dataset);
+		error = initial_data.InitialError();
 		cout << "Write crisp data to file. ";
 		/*getchar();
 		initialData.WriteCrispFile();     
@@ -68,7 +67,7 @@ bool InitializeDataset(int id_dataset)
 	return false;
 }
 
-int LoadDatasetIdFromConsole()
+int load_dataset_id_from_console()
 {
 	cout << "Fuzzification Tool \n";
 	cout << "\n";
@@ -88,18 +87,19 @@ int LoadDatasetIdFromConsole()
 	// How to get a number.
 	int id_dataset = 0;
 	string input = "";
-	cout << "\nEnter Dataset ID: " << flush;
+	/*cout << "\nEnter Dataset ID: " << flush;
 
 	getline(cin, input);
 	cout << "You entered: " << input << endl << endl;
-	
-	while(true)
+*/
+	while (true)
 	{
 		if (id_dataset < 7 && id_dataset > 0)
 		{
 			break;
 		}
-		while (true) {
+		while (true)
+		{
 			cout << "Please enter a valid number: ";
 			getline(cin, input);
 
@@ -125,7 +125,7 @@ void RunFuzzy(int id_dataset)
 	cout << "Write Crisp File.\n";
 	fuzzy.WriteCrispFile();
 	cout << "Run Fuzzification.\n";
-	fuzzy.RunFuzzification();
+	fuzzy.RunFuzzification(1);
 
 	printf("Fuzzyfication is done.");
 }

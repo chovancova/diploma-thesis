@@ -21,7 +21,7 @@ Fuzzyfication::Fuzzyfication(unsigned int id_dataset) : DataSets(id_dataset), Fu
 	strcat(file_name, NameDataset);
 	strcat(file_name, ".log.txt");
 
-	LogFile = fopen(file_name, "w");
+	LogFile = fopen(file_name, "a+");
 
 	if (LogFile == nullptr)
 	{
@@ -30,7 +30,7 @@ Fuzzyfication::Fuzzyfication(unsigned int id_dataset) : DataSets(id_dataset), Fu
 }
 
 /**
- * \brief Descrutor fo fuzzyfication class. 
+ * \brief Desctructor fo fuzzyfication class. 
  */
 Fuzzyfication::~Fuzzyfication()
 {
@@ -39,103 +39,81 @@ Fuzzyfication::~Fuzzyfication()
 	fclose(LogFile);
 }
 
-void Fuzzyfication::RunFuzzification()
+void Fuzzyfication::RunFuzzification(unsigned int method)
 {
-	InitializeDataset();
+	switch (method)
+	{
+	case 1: run_fuzzification_febfc();
+		break;
+	default: run_fuzzification_febfc();
+		break;
+	}
+}
 
+void Fuzzyfication::run_fuzzification_febfc()
+{
+	char filename_fuzzy[200];
+	initialize_filename(filename_fuzzy);
+	
+	fprintf(LogFile, "**********************************************************************************\n");
+	fprintf(LogFile, "File name of fuzzy results:\t %s\n", filename_fuzzy);
+
+	initialize_dataset();
 
 	unsigned long *new_result, count_result;
-	unsigned int temp_interval;
 	int does_entropy_decrease;
 	float *result, *cluster, old_entropy, new_entropy;
 
-	//initialize new name for file
-	char filename_fuzzy[200];
-	strcpy(filename_fuzzy, PATH_OUTPUT_FOLDER);
+	/////////////////////////////////////////////STEP 1////////////////////////////////////////////////
 
-	time_t raw_time;
-	std::tm* time_info;
-	char buffer[20];
-	time(&raw_time);
-	time_info = std::localtime(&raw_time);
-	std::strftime(buffer, 20, "%Y-%m-%d-%H-%M-%S", time_info);
-	std::puts(buffer);
-	strcat(filename_fuzzy, NameDataset);
-	strcat(filename_fuzzy, "_");
-	strcat(filename_fuzzy, buffer);
-	strcat(filename_fuzzy, ".cm.txt"); // cluster centers
 	//DETERMINATION OF THE NUMBER OF INTERVALS
 	//Set initial number of intervals I = 2; 
-	create_features();
-
-	fprintf(LogFile, "FilenameFuzzy=%s\n", filename_fuzzy);
+	febfc_step_1_create_features();
 
 	//For each dimension 
-	for (unsigned int i = 0; i < InputAttr; i++)
+	for (unsigned int dimension = 0; dimension < InputAttributes; dimension++)
 	{
-		printf("input attribute (dimension) = %d\n", i);
-		if (LingvisticAttr[i] != 0)
+		print_to_console_dimension(dimension);
+
+		if (LingvisticAttributes[dimension] != 0)
 		{
-			Intervals[i] = LingvisticAttr[i];
-			for (unsigned long x = 0; x < DatasetSize; x++)
-			{
-				temp_interval = (unsigned int)Features[x].Dimension[i];
-				FuzzySetOnInterval[i][temp_interval][x] = 1.0f;
-			}
+			set_lingvistic_attributes(dimension);
 		}
 		else //real - value attribute (discretization of attributes) 
 		{
-			//to produce intrevals on each dimension 
-			//to generate several triangular membership function for each real value attribute
-			//a process also referred as the DISCRETIZATION OF ATTRIBUTES
-			//some points need to be considered. 
-			//First, the number of intervals on eaxh dimension needs to be dermined. 
-			//Secound consideration, we emplooy the K-means clustering algorithm to find the interval centers, 
-			//after the interval centers are detrmined, it is easy to decide on the WIDTH of each interval 
-			does_entropy_decrease = 0;
-			new_entropy = 1000000000.0;
-
-			result = (float*)(newFloat(DatasetSize, 0.0, "Result )"));
-			new_result = (unsigned long*)(newUnLong(DatasetSize, 0L, "NewResult "));
-			count_result = create_ascending_result(i, result, new_result);
-
-			do
+			initialize_variables_for_entropy_result(new_result, count_result, does_entropy_decrease, result, new_entropy, dimension);
+		do
 			{
 				old_entropy = new_entropy;
 				if (does_entropy_decrease != 0)
 				{
-					modify_features(i, does_entropy_decrease);
+					modify_features(dimension, does_entropy_decrease);
 				}
+				/////////////////////////////////////////////STEP 2////////////////////////////////////////////////
 				//DETERMINATION OF THE NUMBER OF INTERVALS
 				//Locate the centers of interval
-				cluster = (float*)center(i, result, new_result, count_result);
+				cluster = (float*)febfc_step_2_locate_center_of_interval(dimension, result, new_result, count_result);
+
+				/////////////////////////////////////////////STEP 3////////////////////////////////////////////////
 				//Assighn memberhsip function for each interval 
-				assign_membership_function(i, cluster);
+				febfc_step_3_assign_membership_function(dimension, cluster);
+
 				delete[] cluster;
+				/////////////////////////////////////////////STEP 4////////////////////////////////////////////////
 				//Compute the total fuzzy entropy of all intervals for I and I-1 intervals. 
-				new_entropy = entropy_calculate(i);
+				new_entropy = febfc_step_4_compute_total_fuzzy_entropy(dimension);
 
+				print_to_log_file_new_entropy(new_entropy, dimension);
 
-				fprintf(LogFile, "i=%d  NoI[i]=%d  Hnew=%f\n\n", i, Intervals[i], new_entropy);
-
-				if (does_entropy_decrease == -1 || Intervals[i] == count_result)
-				{
-					break;
-				}
-
-				if (new_entropy <= old_entropy)
-				{
-					does_entropy_decrease = 1;
-				}
-				else
-				{
-					break;
-				}
-			}
-			while (true);
+				/////////////////////////////////////////////STEP 5////////////////////////////////////////////////
+				if (febfc_step_5_does_entropy_decrese(count_result, does_entropy_decrease, old_entropy, new_entropy, dimension)) break;
+			} while (true);
+		
 			WriteFuzzyficationLogs();
+			
 			std::cout << "Write Fuzzyfication Result to file.\n";
-			WriteFuzzyficationResult(filename_fuzzy);
+			
+			print_to_cm_file_results(filename_fuzzy);
 
 			delete[] result;
 			delete[] new_result;
@@ -144,18 +122,75 @@ void Fuzzyfication::RunFuzzification()
 }
 
 
-void Fuzzyfication::InitializeDataset() const
+
+
+
+
+void Fuzzyfication::set_lingvistic_attributes(unsigned int dimension) const
+{
+	unsigned int temp_interval;
+	Intervals[dimension] = LingvisticAttributes[dimension];
+	for (unsigned long x = 0; x < DatasetSize; x++)
+	{
+		temp_interval = (unsigned int)Features[x].Dimension[dimension];
+		FuzzySetOnInterval[dimension][temp_interval][x] = 1.0f;
+	}
+}
+
+void Fuzzyfication::initialize_variables_for_entropy_result(unsigned long*& new_result, unsigned long& count_result, int& does_entropy_decrease, float*& result, float& new_entropy, unsigned dimension) const
+{
+	does_entropy_decrease = 0;
+	new_entropy = 1000000000.0;
+	result = (float*)(newFloat(DatasetSize, 0.0, "Result )"));
+	new_result = (unsigned long*)(newUnLong(DatasetSize, 0L, "NewResult "));
+
+	count_result = create_ascending_result(dimension, result, new_result);
+}
+
+bool Fuzzyfication::febfc_step_5_does_entropy_decrese(unsigned long count_result, int& does_entropy_decrease, float old_entropy, float new_entropy, unsigned dimension) const
+{
+	if (does_entropy_decrease == -1 || Intervals[dimension] == count_result)
+	{
+		return true;
+	}
+
+	if (new_entropy <= old_entropy)
+	{
+		does_entropy_decrease = 1;
+	}
+	else
+	{
+		return true;
+	}
+	return false;
+}
+
+void Fuzzyfication::print_to_log_file_new_entropy(float new_entropy, unsigned dimension) const
+{
+	fprintf(LogFile, "\nDimension:\t %d  \nNumber of interval in dimension:\t %d  \nNew Entropy:\t %f\n\n", dimension, Intervals[dimension], new_entropy);
+}
+
+void Fuzzyfication::print_to_console_dimension(unsigned dimension)
+{
+	printf("\nInput attributes (dimension):\t %d\n", dimension);
+}
+
+
+void Fuzzyfication::initialize_dataset() const
 {
 	ReadDataSets(IdDataset);
 	Normalization();
 }
 
 
-/**
+/***
  * Membership function assigmnment is a procedure for assigning a membership function to each interval. 
- *
  */
-void Fuzzyfication::assign_membership_function(unsigned int attribute, float* center) const
+ //-------------------------------III.C--MEMBERSHIP FUNCTION ASSIGMENT---------------------------------------
+ //-------------------------------CASE 1 - THE LEFT-MOST INTERVAL -------------------------------------------
+ //-------------------------------CASE 2 - THE RIGHT-MOST INTERVAL -------------------------------------------
+ //-------------------------------CASE 3 - THE INTERNAL INTERVAL -------------------------------------------
+void Fuzzyfication::febfc_step_3_assign_membership_function(unsigned int attribute, float* center) const
 {
 	//All X = x1..xn
 	for (unsigned long x = 0; x < DatasetSize; x++)
@@ -167,15 +202,17 @@ void Fuzzyfication::assign_membership_function(unsigned int attribute, float* ce
 
 		for (unsigned int interval = 0; interval < Intervals[attribute] - 1; interval++)
 		{
-			if ((Features[x].Dimension[attribute] >= center[interval]) // x >= c1
-				&& (Features[x].Dimension[attribute] <= center[interval + 1])) //x <= c2
+			if ((Features[x].Dimension[attribute] >= center[interval])			// x >= c1
+				&& (Features[x].Dimension[attribute] <= center[interval + 1]))  //x <= c2
 			{
+				//-------------------------------CASE 2 - THE RIGHT-MOST INTERVAL -------------------------------------------
 				//the right-most interval , for x <= c2
 				FuzzySetOnInterval[attribute][interval][x] =
 					(center[interval + 1] - Features[x].Dimension[attribute]) //(c4 - x) / (c4 - c3)
 					/
 					(center[interval + 1] - center[interval]);
 
+				//-------------------------------CASE 1 - THE LEFT-MOST INTERVAL -------------------------------------------
 				//the left most interval x > c1 
 				FuzzySetOnInterval[attribute][interval + 1][x] =
 					(Features[x].Dimension[attribute] - center[interval]) // (x - c1) / (c2 - c1)
@@ -183,10 +220,13 @@ void Fuzzyfication::assign_membership_function(unsigned int attribute, float* ce
 					(center[interval + 1] - center[interval]);
 			}
 		}
+
+		//-------------------------------CASE 3 - THE INTERNAL INTERVAL -------------------------------------------
 		if (Features[x].Dimension[attribute] < center[0]) //x < c1
 		{
 			FuzzySetOnInterval[attribute][0][x] = 1.0;
 		}
+
 		if (Features[x].Dimension[attribute] > center[Intervals[attribute] - 1]) //x > c1 - 1
 		{
 			FuzzySetOnInterval[attribute][Intervals[attribute] - 1][x] = 1.0;
@@ -195,15 +235,15 @@ void Fuzzyfication::assign_membership_function(unsigned int attribute, float* ce
 }
 
 
-void Fuzzyfication::create_features()
+void Fuzzyfication::febfc_step_1_create_features()
 {
 	unsigned int attr, intervals;
 
 	for (attr = 0; attr < Attributes; attr++)
 	{
-		if (LingvisticAttr[attr] != 0)
+		if (LingvisticAttributes[attr] != 0)
 		{
-			Intervals[attr] = LingvisticAttr[attr];
+			Intervals[attr] = LingvisticAttributes[attr];
 		}
 		else
 		{
@@ -214,25 +254,25 @@ void Fuzzyfication::create_features()
 
 	FuzzySetOnInterval = (float***) new float**[Attributes];
 	if (!FuzzySetOnInterval)
-		printf("Error allocation ***FuzzySetOnInterval in create_features(). ");
+		printf("Error allocation ***FuzzySetOnInterval in febfc_step_1_create_features(). ");
 
 	for (attr = 0; attr < Attributes; attr++)
 	{
 		FuzzySetOnInterval[attr] = (float**) new float*[Intervals[attr]];
 		if (!FuzzySetOnInterval[attr])
 		{
-			printf("Error allocation of memory for **Feature[attr] in create_features()");
+			printf("Error allocation of memory for **Feature[attr] in febfc_step_1_create_features()");
 		}
 
 		for (intervals = 0; intervals < Intervals[attr]; intervals++)
 		{
-			FuzzySetOnInterval[attr][intervals] = (float*)newFloat(DatasetSize, 0.0, "FuzzySetOnInterval[attr][intervals] in create_features()");
+			FuzzySetOnInterval[attr][intervals] = (float*)newFloat(DatasetSize, 0.0, "FuzzySetOnInterval[attr][intervals] in febfc_step_1_create_features()");
 		}
 	}
 	for (unsigned long x = 0; x < DatasetSize; x++) // Initialisation of Output Attribute
 	{
-		intervals = (unsigned int)Features[x].Dimension[InputAttr];
-		FuzzySetOnInterval[InputAttr][intervals][x] = 1.0;
+		intervals = (unsigned int)Features[x].Dimension[InputAttributes];
+		FuzzySetOnInterval[InputAttributes][intervals][x] = 1.0;
 	}
 }
 
@@ -268,24 +308,24 @@ void Fuzzyfication::delete_features() const
 }
 
 
-unsigned long Fuzzyfication::create_ascending_result(unsigned int i, float* Result, unsigned long* NewResult) const
+unsigned long Fuzzyfication::create_ascending_result(unsigned int dimension, float* Result, unsigned long* NewResult) const
 {
 	unsigned int new_item;
 	unsigned long number_of_elements = 1;
-	Result[0] = Features[0].Dimension[i];
+	Result[0] = Features[0].Dimension[dimension];
 	NewResult[0] = 1;
 	for (unsigned long k = 1; k < DatasetSize; k++)
 	{
 		new_item = 1;
 		for (unsigned long q = 0; q < number_of_elements; q++)
-			if (Features[k].Dimension[i] == Result[q])
+			if (Features[k].Dimension[dimension] == Result[q])
 			{
 				new_item = 0;
 				NewResult[q]++;
 			}
 		if (new_item == 1)
 		{
-			Result[number_of_elements] = Features[k].Dimension[i];
+			Result[number_of_elements] = Features[k].Dimension[dimension];
 			NewResult[number_of_elements] = 1;
 			number_of_elements++;
 		}
@@ -349,4 +389,22 @@ void Fuzzyfication::sort_ascending_order(float* cut_points, unsigned int number_
 		index++;
 	}
 	while (index < number_of_cutting_points - 1);
+}
+
+
+void Fuzzyfication::initialize_filename(char (&filename_fuzzy)[200])
+{
+	strcpy(filename_fuzzy, PATH_OUTPUT_FOLDER);
+
+	time_t raw_time;
+	std::tm* time_info;
+	char buffer[20];
+	time(&raw_time);
+	time_info = std::localtime(&raw_time);
+	std::strftime(buffer, 20, "%Y-%m-%d-%H-%M-%S", time_info);
+	std::puts(buffer);
+	strcat(filename_fuzzy, NameDataset);
+	strcat(filename_fuzzy, "_");
+	strcat(filename_fuzzy, buffer);
+	strcat(filename_fuzzy, ".cm.txt"); // cluster centers
 }

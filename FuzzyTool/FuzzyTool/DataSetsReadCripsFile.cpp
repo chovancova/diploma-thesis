@@ -3,7 +3,7 @@
 #include <cstring>
 
 // --------------------------   ReadCrispFile  - IRIS  -----------------------
-int DataSets::ReadCrispFileIris(FILE* fp) const
+int DataSets::read_crisp_file_iris(FILE* fp) const
 {
 	char Label[20];
 	for (unsigned long k = 0; k < DatasetSize; k++)
@@ -17,22 +17,22 @@ int DataSets::ReadCrispFileIris(FILE* fp) const
 
 		if (!strcmp(Label, "Iris-setosa"))
 		{
-			Features[k].Dimension[InputAttr] = 0.0;
+			Features[k].Dimension[InputAttributes] = 0.0;
 		}
 		if (!strcmp(Label, "Iris-versicolor"))
 		{
-			Features[k].Dimension[InputAttr] = 1.0;
+			Features[k].Dimension[InputAttributes] = 1.0;
 		}
 		if (!strcmp(Label, "Iris-virginica"))
 		{
-			Features[k].Dimension[InputAttr] = 2.0;
+			Features[k].Dimension[InputAttributes] = 2.0;
 		}
 	}
 	return 1;
 }
 
 // --------------------------   ReadCrispFile  - HEART  --------------------------
-int DataSets::ReadCrispFileHeart(FILE* fp) const
+int DataSets::read_crisp_file_heart(FILE* fp) const
 {
 	for (unsigned long k = 0; k < DatasetSize; k++)
 	{
@@ -63,20 +63,20 @@ int DataSets::ReadCrispFileHeart(FILE* fp) const
 		if (Features[k].Dimension[12] == 7) { Features[k].Dimension[12] = 2.0; }
 	}
 
-	LingvisticAttr[1] = 2; // Dimension[2] - sex
-	LingvisticAttr[2] = 4; // Dimension[3] - chest pain type (1-4)
-	LingvisticAttr[5] = 2; // Dimension[6] - fasting blood sugar > 120 mg/dl
-	LingvisticAttr[6] = 3; // Dimension[7] - hresting electrocardiographic results (0,1,2)
-	LingvisticAttr[8] = 2; // Dimension[9] - exercise induced angina
-	LingvisticAttr[10] = 3; // Dimension[11] - the slope of the peak exercise ST segment
-	LingvisticAttr[11] = 4; // Dimension[12] - number of major vessels (0-3) colored by flourosopy
-	LingvisticAttr[12] = 3; // Dimension[13] - thal: 0->3 (normal); 1->6 (fixed defect); 2->7 (reversable defect)
+	LingvisticAttributes[1] = 2; // Dimension[2] - sex
+	LingvisticAttributes[2] = 4; // Dimension[3] - chest pain type (1-4)
+	LingvisticAttributes[5] = 2; // Dimension[6] - fasting blood sugar > 120 mg/dl
+	LingvisticAttributes[6] = 3; // Dimension[7] - hresting electrocardiographic results (0,1,2)
+	LingvisticAttributes[8] = 2; // Dimension[9] - exercise induced angina
+	LingvisticAttributes[10] = 3; // Dimension[11] - the slope of the peak exercise ST segment
+	LingvisticAttributes[11] = 4; // Dimension[12] - number of major vessels (0-3) colored by flourosopy
+	LingvisticAttributes[12] = 3; // Dimension[13] - thal: 0->3 (normal); 1->6 (fixed defect); 2->7 (reversable defect)
 	return 1;
 }
 
 
 // --------------------------   ReadCrispFile - Yeast    --------------------------
-int DataSets::ReadCrispFileYeast(FILE* fp) const
+int DataSets::read_crisp_file_yeast(FILE* fp) const
 {
 	char Label[15], DescriptionTemp[15];
 	for (unsigned long k = 0; k < DatasetSize; k++)
@@ -96,25 +96,25 @@ int DataSets::ReadCrispFileYeast(FILE* fp) const
 		if (Features[k].Dimension[4] == 0.50) Features[k].Dimension[4] = 0.0;
 		if (Features[k].Dimension[5] == 0.50) Features[k].Dimension[5] = 1.0;
 		if (Features[k].Dimension[5] == 0.83) Features[k].Dimension[5] = 2.0;
-		if (!strcmp(Label, "CYT")) Features[k].Dimension[InputAttr] = 0.0;
-		if (!strcmp(Label, "NUC")) Features[k].Dimension[InputAttr] = 1.0;
-		if (!strcmp(Label, "MIT")) Features[k].Dimension[InputAttr] = 2.0;
-		if (!strcmp(Label, "ME3")) Features[k].Dimension[InputAttr] = 3.0;
-		if (!strcmp(Label, "ME2")) Features[k].Dimension[InputAttr] = 4.0;
-		if (!strcmp(Label, "ME1")) Features[k].Dimension[InputAttr] = 5.0;
-		if (!strcmp(Label, "EXC")) Features[k].Dimension[InputAttr] = 6.0;
-		if (!strcmp(Label, "VAC")) Features[k].Dimension[InputAttr] = 7.0;
-		if (!strcmp(Label, "POX")) Features[k].Dimension[InputAttr] = 8.0;
-		if (!strcmp(Label, "ERL")) Features[k].Dimension[InputAttr] = 9.0;
+		if (!strcmp(Label, "CYT")) Features[k].Dimension[InputAttributes] = 0.0;
+		if (!strcmp(Label, "NUC")) Features[k].Dimension[InputAttributes] = 1.0;
+		if (!strcmp(Label, "MIT")) Features[k].Dimension[InputAttributes] = 2.0;
+		if (!strcmp(Label, "ME3")) Features[k].Dimension[InputAttributes] = 3.0;
+		if (!strcmp(Label, "ME2")) Features[k].Dimension[InputAttributes] = 4.0;
+		if (!strcmp(Label, "ME1")) Features[k].Dimension[InputAttributes] = 5.0;
+		if (!strcmp(Label, "EXC")) Features[k].Dimension[InputAttributes] = 6.0;
+		if (!strcmp(Label, "VAC")) Features[k].Dimension[InputAttributes] = 7.0;
+		if (!strcmp(Label, "POX")) Features[k].Dimension[InputAttributes] = 8.0;
+		if (!strcmp(Label, "ERL")) Features[k].Dimension[InputAttributes] = 9.0;
 	}
 
-	LingvisticAttr[4] = 2; //  0.5   1.0
-	LingvisticAttr[5] = 3; //  0.0   0.5  0.83
+	LingvisticAttributes[4] = 2; //  0.5   1.0
+	LingvisticAttributes[5] = 3; //  0.0   0.5  0.83
 	return 1;
 }
 
 // --------------------------   ReadCrispFile - WINE    ----------------------
-int DataSets::ReadCrispFileWine(FILE* fp) const
+int DataSets::read_crisp_file_wine(FILE* fp) const
 {
 	for (unsigned long k = 0; k < DatasetSize; k++)
 	{
@@ -135,14 +135,14 @@ int DataSets::ReadCrispFileWine(FILE* fp) const
 		       &Features[k].Dimension[11],
 		       &Features[k].Dimension[12]);
 
-		--Features[k].Dimension[InputAttr]; //  InputAttr == 13
+		--Features[k].Dimension[InputAttributes]; //  InputAttributes == 13
 	}
 	return 1;
 }
 
 
 // --------------------------   ReadCrispFile  - SKIN  --------------------------
-int DataSets::ReadCrispFileSkin(FILE* fp) const
+int DataSets::read_crisp_file_skin(FILE* fp) const
 {
 	//70	81	119	1
 	for (unsigned long k = 0; k < DatasetSize; k++)
@@ -159,7 +159,7 @@ int DataSets::ReadCrispFileSkin(FILE* fp) const
 }
 
 // --------------------------   ReadCrispFile  - Seeds   -----------------------
-int DataSets::ReadCrispFileSeeds(FILE* fp) const
+int DataSets::read_crisp_file_seeds(FILE* fp) const
 {
 	for (unsigned long k = 0; k < DatasetSize; k++)
 	{

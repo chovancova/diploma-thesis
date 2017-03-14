@@ -1,7 +1,31 @@
 #include "Fuzzyfication.h"
 #include "TempFunctions.h"
 
-int Fuzzyfication::WriteFuzzyficationResult(char* filename) const
+void Fuzzyfication::print_to_file_number_of_interval_for_each_attributes(FILE* file) const
+{
+	for (unsigned int attr = 0; attr < Attributes; attr++)
+	{
+		fprintf(file, "%4d ", Intervals[attr]);
+	}
+}
+
+void Fuzzyfication::print_to_file_fuzzification_result_all_attributes(FILE* file) const
+{
+	for (unsigned long dataset_value = 0; dataset_value < DatasetSize; dataset_value++)
+	{
+		for (unsigned int attr = 0; attr < Attributes; attr++)
+		{
+			for (unsigned int interval = 0; interval < Intervals[attr]; interval++)
+			{
+				fprintf(file, "%f ", FuzzySetOnInterval[attr][interval][dataset_value]);
+			}
+			fprintf(file, "\t");
+		}
+		fprintf(file, "\n");
+	}
+}
+
+int Fuzzyfication::print_to_cm_file_results(char* filename) const
 {
 	FILE* file;
 	file = fopen(filename, "w");
@@ -11,73 +35,34 @@ int Fuzzyfication::WriteFuzzyficationResult(char* filename) const
 		return -1;
 	}
 
+	//print dataset size, number of input attributes,  number of output attributes
+	fprintf(file, "%ld\n%d %d\n", DatasetSize, InputAttributes, OutputAttributes);
 
-	fprintf(file, "%ld\n%d %d\n", DatasetSize, InputAttr, OutputAttr);
+	//print number of interval for each attributes. 
+	print_to_file_number_of_interval_for_each_attributes(file);
+	fprintf(file, "\n\n");
 
-	for (unsigned int attr = 0; attr < Attributes; attr++)
-	{
-		fprintf(file, "%4d ", Intervals[attr]);
-	}
-	fprintf(file, "\n");
-
-
-	for (unsigned int attr = 0; attr < InputAttr; attr++)
-	{
-		fprintf(file, "%4.2f ", 1.0);
-	}
-
-	fprintf(file, "\n");
-	//	printf("\n");
-
-	//Write all attributes 
-	for (unsigned long dataset_value = 0; dataset_value < DatasetSize; dataset_value++)
-	{
-		for (unsigned int attr = 0; attr < Attributes; attr++)
-		{
-			for (unsigned int interval = 0; interval < Intervals[attr]; interval++)
-			{
-				fprintf(file, "%f ", FuzzySetOnInterval[attr][interval][dataset_value]);
-				///	printf("%f ", FuzzySetOnInterval[attr][interval][dataset_value]);
-			}
-			fprintf(file, "\t");
-			//printf( "\n");
-		}
-		fprintf(file, "\n");
-		//printf( "\n");
-	}
+	//Write fuzzification values for all attributes 
+	print_to_file_fuzzification_result_all_attributes(file);
 	fclose(file);
 	return 1;
 }
 
 int Fuzzyfication::WriteFuzzyficationLogs() const
 {
-	fprintf(LogFile, "\n\nDataset size: %ld\nNumber of Input Attributes: %d \t Output Attr:  %d\n", DatasetSize, InputAttr, OutputAttr);
+	fprintf(LogFile, "\n ----------------------------------- TEMPORARY RESULTS ------------------------------------------: \n");
 
-	fprintf(LogFile, "\n Intervals: ");
+	fprintf(LogFile, "Dataset size:\t\t\t%ld\nNumber of Input Attributes:\t\t\t%d\nOutput Attr:\t\t\t%d\n", DatasetSize, InputAttributes, OutputAttributes);
 
-	for (unsigned int i = 0; i < Attributes; i++)
-	{
-		fprintf(LogFile, "%4d ", Intervals[i]);
-	}
+	//print number of interval for each attributes. 
+	fprintf(LogFile, "Intervals: \n");
+	print_to_file_number_of_interval_for_each_attributes(LogFile);
 
-	fprintf(LogFile, "\n Input Attributters: ");
+	fprintf(LogFile, "\n");
+	//Write fuzzification values for all attributes 
+	print_to_file_fuzzification_result_all_attributes(LogFile);
 
-	for (unsigned int i = 0; i < InputAttr; i++)
-	{
-		fprintf(LogFile, "%4.2f ", 1.0);
-	}
+	fprintf(LogFile, "\n -----------------------------------------------------------------------------------------------: \n");
 
-	fprintf(LogFile, "\n Temp Results : ");
-
-	for (unsigned long k = 0; k < DatasetSize; k++)
-	{
-		for (unsigned int i = 0; i < Attributes; i++)
-		{
-			for (unsigned int j = 0; j < Intervals[i]; j++)
-				fprintf(LogFile, "%7.4f ", FuzzySetOnInterval[i][j][k]);
-			fprintf(LogFile, " \t ");
-		}
-		fprintf(LogFile, "\n");
-	}
 	return 1;
 }

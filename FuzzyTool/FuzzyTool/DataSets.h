@@ -29,35 +29,38 @@ public:
 	///<summary>Number of attributes of dataset.</summary>
 	unsigned int Attributes;
 	///<summary>Number of input attributes of dataset.</summary>
-	unsigned int InputAttr;
+	unsigned int InputAttributes;
 	///<summary>Number of output attributes of dataset.</summary>
-	unsigned int OutputAttr;
+	unsigned int OutputAttributes;
 	///<summary>Number of output intervals of dataset.</summary>
 	unsigned int OutputIntervals;
 	///<summary>Number of non numeric attributes. Attributes types - Ordered, Binary, Nominal. </summary>
-	unsigned int* LingvisticAttr;
+	unsigned int* LingvisticAttributes;
 	///<summary>Features  -X-axis is size of dataset , Y-axis is number of attributes, </summary>
 	instance* Features;
 	///<summary>NameDataset of dataset.</summary>
 	char NameDataset[50];
-	float* Min;
-	float* Max;
+
 private:
+	float* min_;
+	float* max_;
 	int get_dataset_file(unsigned datasetId, FILE* file, bool& returns) const;
 	///<summary>Read iris dataset from file.</summary>
-	int ReadCrispFileIris(FILE* fp) const;
+	int read_crisp_file_iris(FILE* fp) const;
 	///<summary>Read heart dataset from file.</summary>
-	int ReadCrispFileHeart(FILE* fp) const;
+	int read_crisp_file_heart(FILE* fp) const;
 	///<summary>Read yeast dataset from file.</summary>
-	int ReadCrispFileYeast(FILE* fp) const;
+	int read_crisp_file_yeast(FILE* fp) const;
 	///<summary>Read wine dataset from file.</summary>
-	int ReadCrispFileWine(FILE* fp) const;
+	int read_crisp_file_wine(FILE* fp) const;
 	/*///<summary>Read wine quality dataset from file.</summary>
 	int ReadCrispFileWineQuality(FILE* fp) const;*/
 	///<summary>Read skin dataset from file.</summary>
-	int ReadCrispFileSkin(FILE* fp) const;
+	int read_crisp_file_skin(FILE* fp) const;
 	///<summary>Read seed dataset from file.</summary>
-	int ReadCrispFileSeeds(FILE* fp) const;
+	int read_crisp_file_seeds(FILE* fp) const;	
+	void initialize_attributes(unsigned id_dataset, unsigned& attributes, unsigned& input_attributes, unsigned& output_attributes, unsigned& output_intervals, unsigned long& size_dataset);
+
 public:
 	/// <summary>  
 	/// Initialize dataset - number of attributes, .
@@ -77,11 +80,6 @@ public:
 	/// and values of loaded dataset to file.   
 	/// </summary>
 	int WriteCrispFile() const;
-	///<summary><return>Return name of dataset.</return> </summary>
-	char* GetNameDataset()
-	{
-		return NameDataset;
-	}
 
 	///<summary> <return>Return number of values in dataset.</return> </summary>
 	unsigned long GetDatasetSize() const
@@ -89,14 +87,8 @@ public:
 		return DatasetSize;
 	}
 
-	///<summary> <return>Return number of attributes in dataset.</return> </summary>
-	unsigned int GetAttributes() const
-	{
-		return Attributes;
-	}
-
 	///<summary> <return>Return initial error of dataset.</return> </summary>
-	float InitialError(unsigned int id_dataset) const;
+	float InitialError() const;
 	void Normalization() const;
 };
 
