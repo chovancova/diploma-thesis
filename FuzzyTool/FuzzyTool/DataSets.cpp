@@ -53,18 +53,18 @@ DataSets::DataSets(unsigned int id_dataset)
 		output_attributes = 1;
 		output_intervals = 3;
 		break;
-	/*case _WINERED: strcpy(NameDataset, "winequalityred");
-		size_dataset = 1599;
-		inputAttributes = 11;
-		outputAttributes = 1;
-		outputIntervals = 6;
-		break;
-	case _WINEWHITE: strcpy(NameDataset, "winequalitywhite");
-		size_dataset = 4898;
-		inputAttributes = 11;
-		outputAttributes = 1;
-		outputIntervals = 7;
-		break;*/
+		/*case _WINERED: strcpy(NameDataset, "winequalityred");
+			size_dataset = 1599;
+			inputAttributes = 11;
+			outputAttributes = 1;
+			outputIntervals = 6;
+			break;
+		case _WINEWHITE: strcpy(NameDataset, "winequalitywhite");
+			size_dataset = 4898;
+			inputAttributes = 11;
+			outputAttributes = 1;
+			outputIntervals = 7;
+			break;*/
 	default:
 		{
 			std::cout << "Dataset not found.";
@@ -127,10 +127,10 @@ int DataSets::get_dataset_file(unsigned id_dataset, FILE* file, bool& returns) c
 		return 1;
 	case _WINE: ReadCrispFileWine(file);
 		return 1;
-	/*case _WINERED: ReadCrispFileWineQuality(file);
-		return 1;
-	case _WINEWHITE: ReadCrispFileWineQuality(file);
-		return 1;*/
+		/*case _WINERED: ReadCrispFileWineQuality(file);
+			return 1;
+		case _WINEWHITE: ReadCrispFileWineQuality(file);
+			return 1;*/
 	case _YEAST: ReadCrispFileYeast(file);
 		return 1;
 	default:
@@ -222,14 +222,14 @@ float DataSets::InitialError(unsigned int id_dataset) const
 {
 	try
 	{
-		unsigned long *class_number_output_intervals =0, maxClass=0;
+		unsigned long *class_number_output_intervals = 0, maxClass = 0;
 		unsigned int jb = 0;
 
 		class_number_output_intervals = newUnLong(OutputIntervals, 0l, " classNoOI from InitialErrorDS");
 		for (unsigned long x = 0; x < DatasetSize; x++)
 		{
 			jb = Features[x].Dimension[InputAttr];
-				class_number_output_intervals[jb]++;
+			class_number_output_intervals[jb]++;
 		}
 		maxClass = class_number_output_intervals[0];
 		for (jb = 0; jb < OutputIntervals; jb++)

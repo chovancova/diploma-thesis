@@ -32,6 +32,7 @@ float Fuzzyfication::compute_distance(float a, float b, int type_distance, int p
 		}
 	}
 }
+
 //FCM is one of the most popular fuzzy clustering techniques, which was proposed by
 //Dunn[8] in 1973 and eventually modified by Bezdek[4] in 1981. It is an approach,
 //where the data points have their membership values with the cluster centers, which
