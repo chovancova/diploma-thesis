@@ -48,7 +48,7 @@ int Fuzzyfication::print_to_cm_file_results(char* filename) const
 	return 1;
 }
 
-int Fuzzyfication::WriteFuzzyficationLogs() const
+int Fuzzyfication::print_to_log_file_temporary_results() const
 {
 	fprintf(LogFile, "\n ----------------------------------- TEMPORARY RESULTS ------------------------------------------: \n");
 

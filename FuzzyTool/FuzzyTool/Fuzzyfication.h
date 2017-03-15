@@ -73,7 +73,7 @@ private:
 	void print_to_file_fuzzification_result_all_attributes(FILE* file) const;
 	//Writter
 	int print_to_cm_file_results(char* filename) const;
-	int WriteFuzzyficationLogs() const;
+	int print_to_log_file_temporary_results() const;
 };
 
 #endif

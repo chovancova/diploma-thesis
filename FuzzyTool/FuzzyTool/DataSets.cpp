@@ -203,7 +203,7 @@ int DataSets::WriteCrispFile(void) const
 	strcat(file_name, buffer);
 
 	strcat(file_name, ".crisp.txt");
-	fp = fopen(file_name, "w");
+	fp = fopen(file_name, "a+");
 	if (fp == nullptr)
 	{
 		printf("Error FileName in WriteCrispFile()");

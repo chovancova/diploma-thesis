@@ -109,7 +109,7 @@ void Fuzzyfication::run_fuzzification_febfc()
 				if (febfc_step_5_does_entropy_decrese(count_result, does_entropy_decrease, old_entropy, new_entropy, dimension)) break;
 			} while (true);
 		
-			WriteFuzzyficationLogs();
+			print_to_log_file_temporary_results();
 			
 			std::cout << "Write Fuzzyfication Result to file.\n";
 			

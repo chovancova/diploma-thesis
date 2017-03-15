@@ -123,7 +123,7 @@ void RunFuzzy(int id_dataset)
 	cout << "Read Data Sets.\n";
 	fuzzy.ReadDataSets(id_dataset);
 	cout << "Write Crisp File.\n";
-	fuzzy.WriteCrispFile();
+	//fuzzy.WriteCrispFile();
 	cout << "Run Fuzzification.\n";
 	fuzzy.RunFuzzification(1);
 
