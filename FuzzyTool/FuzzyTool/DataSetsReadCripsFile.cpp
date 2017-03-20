@@ -202,3 +202,22 @@ int DataSets::read_crisp_file_seeds(FILE* fp) const
 //	}
 //	return 1;
 //}
+
+
+// --------------------------   ReadCrispFile  - HEART  --------------------------
+int DataSets::read_crisp_file_heart_short(FILE* fp) const
+{
+	for (unsigned long k = 0; k < DatasetSize; k++)
+	{
+		fscanf(fp, "%f	%f	%f	%f	%f	%f",
+			&Features[k].Dimension[0],
+			&Features[k].Dimension[1],
+			&Features[k].Dimension[2],
+			&Features[k].Dimension[3],
+			&Features[k].Dimension[4],
+			&Features[k].Dimension[5] 
+				);
+		--Features[k].Dimension[5];
+	}
+	return 1;
+}

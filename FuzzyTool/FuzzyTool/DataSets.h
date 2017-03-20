@@ -11,6 +11,7 @@
 //#define _WINERED     6
 //#define _WINEWHITE   7  
 #define _YEAST       6
+#define _HEART_SHORT      7
 
 // -------------------------------------------------------------
 #define PATH_INPUT_FOLDER   "..\\DataSets\\data\\"
@@ -59,6 +60,7 @@ private:
 	int read_crisp_file_skin(FILE* fp) const;
 	///<summary>Read seed dataset from file.</summary>
 	int read_crisp_file_seeds(FILE* fp) const;	
+	int read_crisp_file_heart_short(FILE* fp) const;	
 	void initialize_attributes(unsigned id_dataset, unsigned& attributes, unsigned& input_attributes, unsigned& output_attributes, unsigned& output_intervals, unsigned long& size_dataset);
 
 public:

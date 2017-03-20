@@ -269,6 +269,7 @@ void Fuzzyfication::febfc_step_1_create_features()
 			FuzzySetOnInterval[attr][intervals] = (float*)newFloat(DatasetSize, 0.0, "FuzzySetOnInterval[attr][intervals] in febfc_step_1_create_features()");
 		}
 	}
+
 	for (unsigned long x = 0; x < DatasetSize; x++) // Initialisation of Output Attribute
 	{
 		intervals = (unsigned int)Features[x].Dimension[InputAttributes];

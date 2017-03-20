@@ -82,6 +82,7 @@ int load_dataset_id_from_console()
 		/*	<< "6  - Wine quality red\n"
 			<< "7  - Wine equality white\n"*/
 		<< "6  - Yeast\n"
+		<< "7  - Heart Short\n"
 		<< "0  - None\n"
 		<< "\n";
 	// How to get a number.
@@ -94,7 +95,7 @@ int load_dataset_id_from_console()
 */
 	while (true)
 	{
-		if (id_dataset < 7 && id_dataset > 0)
+		if (id_dataset < 8 && id_dataset > 0)
 		{
 			break;
 		}
@@ -123,7 +124,7 @@ void RunFuzzy(int id_dataset)
 	cout << "Read Data Sets.\n";
 	fuzzy.ReadDataSets(id_dataset);
 	cout << "Write Crisp File.\n";
-	//fuzzy.WriteCrispFile();
+	fuzzy.WriteCrispFile();
 	cout << "Run Fuzzification.\n";
 	fuzzy.RunFuzzification(1);
 

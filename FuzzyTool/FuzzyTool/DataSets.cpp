@@ -64,6 +64,12 @@ void DataSets::initialize_attributes(unsigned id_dataset, unsigned& attributes, 
 		outputAttributes = 1;
 		outputIntervals = 7;
 		break;*/
+	case _HEART_SHORT: strcpy(NameDataset, "heartShort");
+		size_dataset = 270;
+		input_attributes = 5;
+		output_attributes = 1;
+		output_intervals =2;
+		break;
 	default:
 		{
 			std::cout << "Dataset not found.";
@@ -140,7 +146,9 @@ int DataSets::get_dataset_file(unsigned id_dataset, FILE* file, bool& returns) c
 			return 1;
 		case _WINEWHITE: ReadCrispFileWineQuality(file);
 			return 1;*/
-	case _YEAST: read_crisp_file_yeast(file);
+	case _YEAST: read_crisp_file_yeast(file);		
+		return 1;
+	case _HEART_SHORT: read_crisp_file_heart_short(file);
 		return 1;
 	default:
 		{
