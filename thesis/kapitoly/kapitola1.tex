@@ -25,10 +25,10 @@ Dôvody, ktoré sťažujú použitie reálnych čísiel sú nasledovné: \cite{l
 	\item Relatívne vysoké náklady na zmeranie presných hodnôt ukazovateľov. 
 \end{enumerate}
 %todo doslovne citovanie. treba prestylizovat  
-Reálne hodnoty jednotlivých ukazovateľov bez prihliadnutia na iné ukazovatele jednej strane nesú pre výber rozhodnutia zbytočne podrobnú informáciu o tomto ukazovateli, na druhej strane nemôžu byť základom pre výber rozhodnutia. \cite{levashenkoProj}
+Reálne hodnoty jednotlivých ukazovateľov bez prihliadnutia na iné ukazovatele jednej strane nesú pre výber rozhodnutia zbytočne podrobnú informáciu, na druhej strane nemôžu byť základom pre výber rozhodnutia. \cite{levashenkoProj}
 %11 strana
-Z toho vyplýva, že sa ukazuje ako užitočné využiť približné, neurčité fuzzy hodnoty vstupných dát. 
-Použitie podobných fuzzy hodnôt umožňuje zaviesť do výskumu kvalitatívne opisy. Vo výsledku sa berie do úvahy neurčitosť úlohy rozhodovania, zabezpečuje sa adekvátny opis všetkých faktorov, ktoré majú vzťah danej, ale nie je možné zabezpečiť ich presný kvantitatívny opis. 
+Z toho vyplýva, že je užitočné využiť približné neurčité fuzzy hodnoty vstupných dát. 
+Použitie podobných fuzzy hodnôt umožňuje zaviesť do výskumu kvalitatívne opisy. Vo výsledku sa berie do úvahy neurčitosť úlohy rozhodovania, zabezpečuje sa adekvátny opis všetkých faktorov, ktoré majú vzťah, ale nie je možné zabezpečiť ich presný kvantitatívny opis. 
 \paragraph*{}
 Spracovanie neurčitej fuzzy informácie v rozhodovacích úlohách sa zabezpečuje aplikovaním lingvistického prístupu.\cite{levashenkoProj} %tuto este cituju Zadh1976, Lieb1993, Novak2005, Navara2007
 Matematickým aparátom ich formalizácie je teória fuzzy množín. 
@@ -329,13 +329,13 @@ Fuzzifikácia v praxi je vyhodnotenie miery platnosti predpokladu X is A (\ref{b
 \pagebreak
 \section{Transformácia číselných hodnôt na lingvistické premenné}
 %todo uplne prestylizovať do ľudskej reči
-Transformácia číselných premenných na lingvistické predpokladá vzťah medzi kombináciou ich hodnôt a stupnicou s konečným počtom m intervalov a nazýva sa diskretizáciou. 
+Transformácia číselných premenných na lingvistické predpokladá vzťah medzi kombináciou ich hodnôt a stupnicou s konečným počtom m intervalov sa nazýva diskretizáciou. 
 %tuto cituju Catlett1991, Ching1995, Kotsiantis2006 
 %todo zdroje
 Pritom sa každý interval asociuje s hodnotou lingvistickej premennej (termom). Proces diskretizácie predpokladá transformáciu kvantitatívnych dát na kvalitatívne. \cite{levashenkoProj, Catlett1991}
 
 
-Vo všeobecnom prípade diskretizácia zmenšuje objem dát a nevedie k zníženiu klasifikačnej presnosti a spoľahlivosti hodnôt, využívaných v systémoch pre podporu rozhodovania. Naopak, takéto diskrténe hodnoty adekvátne ohodnocujú ukazovatele a sú stabilnejšie vzhľadom na zmeny a metodiky merania. 
+Vo všeobecnom prípade diskretizácia zmenšuje objem dát a nevedie k zníženiu klasifikačnej presnosti a spoľahlivosti hodnôt  využívaných v systémoch pre podporu rozhodovania. Naopak, takéto diskrténe hodnoty adekvátne ohodnocujú ukazovatele a sú stabilnejšie vzhľadom na zmeny a metodiky merania. 
 %tuto cituju Lui2002
 %todo zdroje
 \cite{levashenkoProj, Lui2002}
@@ -362,7 +362,7 @@ Získanie optimálnej diskretizácie prestavuje NP-zložitú úlohu. \cite{levas
 \begin{enumerate}
 	\item \textbf{Počet intervalov rozkladu.}  Príliš malý počet intervalov spôsobuje nepresnosti a chyby vo vstupných dátach a vedie k hrubému vyjadreniu výsledku. Na druhej strane rozklad vstupných dát na príliš veľký počet intervalov spôsobuje prílišnú detailizáciu a následne vedie k tomu, že spracovanie takýchto dát je pomalé a neefektívne  \cite{levashenkoProj, Catlett1991}%tuto cituju Catlett1991
 	\item \textbf{Nesúlad s výsledkom. }  Nesúlad s výsledkom sa objasňuje vznikom neočakávaných chýb v procese diskretizácie. Tieto chyby súvisia s nepresnosťami diskretizácie vstupných dát a vo vzťahu medzi týmito diskretizovanými hodnotami a hodnotami výstupného atribútu.  \cite{levashenkoProj}
-	\item \textbf{Presnosť rozkladu.}  Predpokladá, že úspešný algoritmus diskretizácie, skonštruovaný na základe výberu tréningových dát pracuje bez podstatného zníženia kvality aj na všetkých nasledujúcich dátach.  \cite{levashenkoProj}
+	\item \textbf{Presnosť rozkladu.}  Predpokladá, že úspešný algoritmus diskretizácie, skonštruovaný na základe výberu tréningových dát, pracuje bez podstatného zníženia kvality aj na všetkých nasledujúcich dátach.  \cite{levashenkoProj}
 	\item \textbf{Časové ohraničenia.}  V prípade statických procesov, kedy požiadavka diskretizácie výučbovej množiny vzniká iba raz, nie je čas výpočtu dôležitým parametrom. Avšak pri dynamických procesoch, keď sa etapa diskretizácie výučbovej množiny opakuje mnohokrát, je čas spracovania kritickým parametrom.  \cite{levashenkoProj}
 \end{enumerate}
 
@@ -718,3 +718,81 @@ Všimnite si, že entropia je funkcia distribúcie X. Nezáleží na skutočnýc
 \section{TODO INE }
 
 \section{Záver}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter*{TODO = DRAFT KAPITOLY = ZARADIT NESKOR}
+\subsection{Efektívny fuzzy clasifikátor založený na hierarchickej fuzzy entropii (An Efficient Fuzzy Classifier Based on Hierarchical Fuzzy Entropy)}
+Chen-Jian Lin, Chi-Yung Lee, a Shang-Jin Hong
+International Journal of Information Technology
+Vol.12 NO.6 2006
+
+
+Fuzzy klasifikátor založený na hierarchickej fuzzy entropii (FC-HFE)
+Algoritmus vychádza z algoritmu Fuzzy klasifikátora založeného na Fuzzy entropii (FEBFC). 
+
+Metóda FEBFC má nasledovné problémy: 
+\begin{itemize}
+\item Označovanie tried pre každú rozhodovaciu oblasť je vykonávané podľa fuzzy entropy sumácie pre individuálne intervaly pre každú dimensiu. Rozhodovacia oblasť je priradená triede s najnižšou fuzzy entropiou v danej oblasti. Podľa axiómu fuzzy entropie, fuzzy entropia bude nula, či zhodovací stupeň pre každú triedu je nula alebo jedna. Preto, priraďovanie tried bude mať chyby, keď počet tried v ktorých fuzzy entropia sa rovna nule je viac ako jeden v tejto oblasti. 
+
+\item V FEBFC, rastúci počet intervalou na každej dimensii je vykonaný podľa pravidla, ktoré celkovú entropiu I (počet intervalov v špecifickej dimenzii) intervalov je menej ako to pre I-1 intervalov. Toto pravidlo niekedy zabraňuje v raste počtu intervalov, ktoré vedie k nesprávnej klasifikácii. Napríklad, dáta sú prezentované ako even intersecting distribution, ako spiral dáta.  Fuzzy entropia spiral data typu je na začiatku vysoká, dáta by mali byť neskôr rozdelené na základe klesajúcej fuzzy entropie. Preto zastavujúca podmienka algoritmu pre rastúci počet intervalov bude výsledok v obmedzení rastúceho počtu intervalov na každej dimenzii. 
+
+\item Vzorový priestor bol rozdelený do neprekrývajúcich sa rozhodovacích oblastí použitím mriežkového rozdelenia. Označovanie tried nemôže byť priradené do rozhodovacej oblasti, ktorá nemá žiadne trénovacie dáta. Ak testovacia vzorka padá do danej rozhodovaciej oblasti, ktoré systém nevie ako klasifikovať. 
+\end{itemize}
+
+FC-HFE upravuje pôvodnú metódu FEBFC v určovaní počtu intervalov najpr. FC-HFE udržiava pôvodnu podmienku pre zastavenie rastu počtu intervalov, keď celková entropia I intervalov je viac ako jeden z I-1 intervalu. Ďalšia podmienka pre zastavenie rastu počtu intevalov, je ak celková fuzzy entropia I intervalov je viac ako jedna z I-1 intevalu a celková fuzzy entropia I-1 intervalov je menej ako prahová hodnota  $\varphi$ $($ to je, keď celková fuzzy entropia I intervalov je menšia ako jedna z I-1 intervalu alebo celková entropia I intervalu je viac ako prahová hodnota $\varphi$, tak $I=I+1)$. Hodnota prahovej hodnoty $\varphi$ bola obdržaná použítím nasledovnej rovnice:$$\varphi= -N_{trieda}\cdot \frac{1}{N_{trieda}} \cdot \log_2{(\frac{1}{N_{trieda}})}\cdot (I-1) \cdot \theta = - \log_2{(\frac{1}{N_{trieda}})}\cdot(I-1)\cdot\theta$$
+kde $N_{trieda}$ je počet data tried, a $\theta$ je percento maximálnej celkovej fuzzy entropie z I-1 intervalov. $\theta$ môže byť ladený použitím odlišného klasifikačného problému. Preto, môžu produkovať dostatok intervalov pre rovnomerné preniky dáta distribúcii použitím tejto metódy. Fuzzy entorpia pre každú dimensiu musí byť menej ako špecifická hodnota. 
+
+Ďalší fenomén, ktorý sa našiel v FEBFC je hodnota fuzzy entropie pre niektoré rozhodovacie oblasti je vždy veľmi vysoká (to je data distribúcia rozhodujúcej oblasti je veľmi zmätená alebo dáta, ktoré sú klasifikované nesprávne je veľmi veľa) snáď vzorkový priestor je rozdenený do toľko rozhodovacích oblastí fuzzy entropiou, zabraňujúc narastaniu klasifikačnej hodnote. 
+
+FC-HFE  metóda sa zaoberá vyšou fuzzy entropiou rozhodovacích oblastí nazývaních hierarchická fuzzy entorpia. Štruktúra je zobrazená na obrázku TODO OBRAZOK X. 2D vzorkový priestor na Obr.1 je rozdelený do nerovnomerných 53 rozhodovacích oblastí hierarchickou fuzzy entropiou. Prvá až štvrtá rozhodovacia oblasť fuzzy entropie vrstvy I je veľmi vysoká. Rozdelili tieto rozhodovacie oblasti. Nparíklad rozhodovacia oblasť I bola rozdelená do ôsmych rozhodovacích oblastí po druhý raz. Rozhodovacie podoblasti I a II boli rozdelené do štyroch rozhodovacích oblastí retrospektívne po tretí raz. Rozhodovacie oblasti I boli rozdelene do štrnástich rozhodovacích oblastí. Fuzzy entorpia väčšiny rozhodovacích oblastí sa stala nižšou po tom, ako bol vzorkový priestor rozdelený použitím hierarchickej fuzzy entropie. 
+
+Okrem toho, FC-HFE modifikoval metódu, ktorou sa počíta fuzzy entorpia pre rozhodovacie oblasti. Ak tam nie sú žiadne trénovacie dáta určitej triedy na intervale, a tak množina fuzzy entropie tejto triedy sa rovná jednej, aby sa zabránilo tomu, že fuzzy entorpia určitej triedy sa bude rovnať nule viac ako jeden pre počítanie najnižšiej fuzzy entorpie oblasti. 
+
+\subsubsection{Algorimtus klasifikácie – Fuzzy klasifikátor založený na hierarchickej fuzzy entropii (FC-HFE)}
+
+\textbf{Krok 1 – Krok 4.} je rovnaký ako FEBFC v selektovaní počtu intervalov pre každú dimenziu na aktuálnom vzorovom priestore. 
+
+\textbf{Krok 5.} Ak celková fuzzy entropia I intervalu je menej ako I-1 intervalu alebo celkova fuzzy entropia I intervalu je viac ako prahova hodnota $\varphi$, tak sa znova rozdeluje $(I = I - 1)$ a ide na krok 2. Inak sa zastavi zvyšovanie intervalov na tejto dimenzii a rozhodne sa počet intervalov pre ďalšiu dimenziu. 
+
+\textbf{Krok 6.} Akonáhle intervaly pre každú dimeziu sú určené, rozhodovacie oblasti pre súčasný vzorkový priestor sú rodelené. Mean fuzzy entropie je vypočítaní použitím nasledujúcej rovnice pre všetky rozhodovacie oblasti: 
+$$MFE_i =  \frac{\sum\limits_{i=1}^{N_i}FE_{ij}}{ N_i},  j=1…N_i$$
+Kde $N_j$ je počet rozhodovacích oblastí pre i-tú vrstvu, $FE_{ij}$ je j-tá rozhodovacia oblasť pre i-tú vrstu a $MFE_i$ je mean fuzy entropy pre i-tú vrstvu. 
+
+\textbf{Krok 7.} Fuzzy entropy pre každú rozhodovaciu oblasť v súčasnom vzorovom priestore je porovnávaný s MFE. Ak fuzzy entorpia pre rozhodovaciu oblasť je vačšia ako mean fuzzy entropie, oblasť sa stane nezávislým podpriestorom a krok 1. až krok 7. sú vykonávané znova na determinovanie rozhodovacích oblastí pre každy podpriestor. Inak rozhodovacia oblasť bude pridelená označeniu triedy. 
+
+Horeuvedený proces je ako rekurzívna funkcia, ktorá je vykonávaná opakovane pre každý podpriestor pokiaľ všetky podpriestory nemôžu byť viac rozdelené. Keď horné kroky sú skončené, testovací vzor je klasifikovaní použitím rozhodovacích oblasti, ktorá majú označenie triedy. Keď testovacia vzorka nemá označenie triedy oblasti triedy, tak testovacia vzorka ej porovnávaná použitím krátkej Euclidovej vzdialenosti medzi susemi trénovacích dát a testovaciej vzorky, klasifikované do najbližšej trénovacej triedy. 
+
+
