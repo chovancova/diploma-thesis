@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DataSets">
+    <Position X="1" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAoAAEAAACwAhgAAEEAgAgwAAABAAAAEBCGBQAIAAA=</HashCode>
+      <FileName>DataSets.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fuzzyfication">
+    <Position X="4.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>EAwQEQAAEBIYAogCAsACgAMAAAGAAIMAIIKEAAAAwBA=</HashCode>
+      <FileName>Fuzzyfication.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Logger">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQgAAAAAIAAAAAAAAAACAAAAAAAgAQCAAAgAACAAA=</HashCode>
+      <FileName>Logger.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="feature">
+    <Position X="1" Y="7" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAACAAAAAA=</HashCode>
+      <FileName>DataSets.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
