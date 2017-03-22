@@ -51,15 +51,6 @@
     <ClCompile Include="Fuzzyfication.cpp">
       <Filter>Source Files\Fuzzy</Filter>
     </ClCompile>
-    <ClCompile Include="KMeansCluster.cpp">
-      <Filter>Source Files\Fuzzy</Filter>
-    </ClCompile>
-    <ClCompile Include="Entropy.cpp">
-      <Filter>Source Files\Fuzzy</Filter>
-    </ClCompile>
-    <ClCompile Include="FuzzyficationWriter.cpp">
-      <Filter>Source Files\Fuzzy</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Logger.h">

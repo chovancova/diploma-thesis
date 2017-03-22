@@ -1,7 +1,5 @@
 #include <iostream>
 #include <string>
-#include "main.h"
-
 #include "DataSets.h"
 #include "Fuzzyfication.h"
 #include <sstream>

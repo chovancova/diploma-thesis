@@ -21,10 +21,7 @@
   <ItemGroup>
     <ClCompile Include="DataSets.cpp" />
     <ClCompile Include="DataSetsReadCripsFile.cpp" />
-    <ClCompile Include="Entropy.cpp" />
     <ClCompile Include="Fuzzyfication.cpp" />
-    <ClCompile Include="FuzzyficationWriter.cpp" />
-    <ClCompile Include="KMeansCluster.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
