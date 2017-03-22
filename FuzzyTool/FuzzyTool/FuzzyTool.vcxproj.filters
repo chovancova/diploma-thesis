@@ -54,9 +54,6 @@
     <ClCompile Include="Statistics.cpp">
       <Filter>Source Files\Helper</Filter>
     </ClCompile>
-    <ClCompile Include="TempFunctions.cpp">
-      <Filter>Source Files\Helper</Filter>
-    </ClCompile>
     <ClCompile Include="Fuzzyfication.cpp">
       <Filter>Source Files\Fuzzy</Filter>
     </ClCompile>
@@ -82,9 +79,6 @@
     </ClInclude>
     <ClInclude Include="Statistics.h">
       <Filter>Header Files\Helper</Filter>
-    </ClInclude>
-    <ClInclude Include="TempFunctions.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Fuzzyfication.h">
       <Filter>Header Files\Fuzzy</Filter>

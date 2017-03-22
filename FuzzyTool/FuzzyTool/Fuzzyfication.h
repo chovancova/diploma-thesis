@@ -52,7 +52,6 @@ private:
 
 	void febfc_step_3_assign_membership_function(unsigned int i, std::vector<float> &c) ;
 	
-	void initialization_mu_function(unsigned attr, std::vector<std::vector<float>> &sum_mu, std::vector<std::vector<std::vector<float>>> &mu) ;
 	void match_degree_calculation(unsigned attr, unsigned class_m, std::vector<std::vector<std::vector<float>>> &mu, unsigned long &data_item) ;
 	void set_scj_on_universal_set_x(unsigned attr, unsigned& class_m, float& max, unsigned long &data_item) ;
 	void compute_wage_degree_calculation(unsigned attr, std::vector<std::vector<float>> &sum_mu, std::vector<std::vector<std::vector<float>>> &mu) ;

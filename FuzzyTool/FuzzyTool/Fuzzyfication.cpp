@@ -15,7 +15,6 @@ Fuzzyfication::Fuzzyfication(unsigned int id_dataset) : DataSets(id_dataset)
 	IdDataset = id_dataset;
 
 	///<code>Set the initial number of interval I = 2.</code> 
-	//Intervals = newUnInt(Attributes, 2, "Intervals in Fuzzy()");
 	Intervals = std::vector<unsigned int>(Attributes, 2);;
 	char file_name[99];
 	strcpy(file_name, PATH_OUTPUT_FOLDER);
@@ -26,7 +25,7 @@ Fuzzyfication::Fuzzyfication(unsigned int id_dataset) : DataSets(id_dataset)
 
 	if (LogFile == nullptr)
 	{
-		MyError("Error LogFile in Fuzzyfication()\n");
+		printf("Error in LogFile - Fuzzyfication()\n");
 	}
 }
 
@@ -144,7 +143,6 @@ void Fuzzyfication::set_lingvistic_attributes(unsigned int dimension)
 		FuzzySetOnInterval[dimension][temp_interval][x] = 1.0f;
 	}
 }
-
 
 
 bool Fuzzyfication::febfc_step_5_does_entropy_decrese(unsigned long count_result, int& does_entropy_decrease, float old_entropy, float new_entropy, unsigned dimension) 
@@ -278,35 +276,19 @@ void Fuzzyfication::febfc_step_1_create_features()
 
 void Fuzzyfication::modify_features(unsigned int attr, int interval_new_value) 
 {
-	//for (unsigned int interval = 0; interval < Intervals[attr]; interval++)
-	//	delete[] FuzzySetOnInterval[attr][interval];
-	//delete[] FuzzySetOnInterval[attr];
-
 	FuzzySetOnInterval[attr].erase(FuzzySetOnInterval[attr].begin() );
-
+	
 	Intervals[attr] += interval_new_value;
-	//FuzzySetOnInterval[attr] = static_cast<float**>(new float*[Intervals[attr]]);
 	FuzzySetOnInterval[attr] = std::vector<std::vector<float>>(Intervals[attr], std::vector<float>(0.0));
 	
 	for (unsigned int interval = 0; interval < Intervals[attr]; interval++)
 	{
-		//FuzzySetOnInterval[attr][interval] = (float*)newFloat(DatasetSize, 0.0, "FuzzySetOnInterval[attr][interval] in modify_features()");
 		FuzzySetOnInterval[attr][interval] = std::vector<float>(DatasetSize, 0.0);
 	}
 }
 
 void Fuzzyfication::delete_features() 
 {
-	/*for (unsigned int i = 0; i < Attributes; i++)
-	{
-		for (unsigned int j = 0; j < Intervals[i]; j++)
-		{
-			delete[] FuzzySetOnInterval[i][j];
-		}
-		delete[] FuzzySetOnInterval[i];
-	}
-	delete[] FuzzySetOnInterval;
-*/
 	FuzzySetOnInterval.empty();
 }
 

@@ -31,7 +31,7 @@ int Fuzzyfication::print_to_cm_file_results(char* filename)
 	file = fopen(filename, "w");
 	if (file == nullptr)
 	{
-		MyError("Error FileNameOut in Fuzzy::WriteFuzzyFile()\n");
+		printf("Error FileNameOut in Fuzzy::WriteFuzzyFile()\n");
 		return -1;
 	}
 
