@@ -15,15 +15,6 @@ void MyWarning(char* strErr)
 	printf("Warning: (%s).\n", strErr);
 }
 
-int* newInt(unsigned int size, int value, char* strError)
-{
-	int* array;
-	array = (int*) new int[size];
-	if (!array) MyError(strError);
-	for (unsigned int i = 0; i < size; i++)
-		array[i] = value;
-	return (array);
-}
 
 unsigned int* newUnInt(unsigned int size, unsigned int value, char* strError)
 {

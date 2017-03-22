@@ -18,14 +18,18 @@ float Fuzzyfication::febfc_step_4_compute_total_fuzzy_entropy(unsigned int attr)
 	//2) Let A be a fuzzy set defined on a interval of pattern space which kontains k elements (k < n). 
 
 	//classes 
-	float ***mu, **sum_mu;
-	unsigned long* count_m;
-	count_m = static_cast<unsigned long*>(newUnLong(Intervals[attr], 0L, "countM in EntropyCalc()"));
+	//float ***mu, **sum_mu;
+	//unsigned long* count_m;
+	//count_m = static_cast<unsigned long*>(newUnLong(Intervals[attr], 0L, "countM in EntropyCalc()"));
+	
+	std::vector<unsigned long> count_m;
+	count_m = std::vector<unsigned long>(Intervals[attr], 0L);
 
-	mu = (float***) new float**[Intervals[attr]];
-	sum_mu = (float**) new float*[Intervals[attr]];
+	//mu = (float***) new float**[Intervals[attr]];
+	//sum_mu = (float**) new float*[Intervals[attr]];
+	std::vector<std::vector<std::vector<float>>> mu;
+	std::vector<std::vector<float>> sum_mu;
 
-	if (!mu || !sum_mu) MyError("Error allocation of (M and sumM) in febfc_step_4_compute_total_fuzzy_entropy()");
 	//---------------------------II.C.----STEP 1 - SET UNIVERSAL SET X -------------------------------------------
 		initialization_mu_function(attr, sum_mu, mu);
 	//---------------------------II.C.----STEP 2 - SET FUZZY SET A CONTAINS K ELEMENTS ---------------------------
@@ -53,31 +57,33 @@ float Fuzzyfication::febfc_step_4_compute_total_fuzzy_entropy(unsigned int attr)
 }
 
 
-void Fuzzyfication::initialization_mu_function(unsigned attr, float** sum_mu, float*** mu) 
+void Fuzzyfication::initialization_mu_function(unsigned attr, std::vector<std::vector<float>> &sum_mu, std::vector<std::vector<std::vector<float>>> &mu)
 {
+	sum_mu = std::vector<std::vector<float>>(Intervals[attr], std::vector<float>(Intervals[attr], 0.0));
+	//sum_mu.resize(Intervals[attr]);
+	mu = std::vector<std::vector<std::vector<float>>>(Intervals[attr], std::vector<std::vector<float>>(Intervals[attr], std::vector<float>(OutputIntervals, 0.0)));
+	//mu.resize(Intervals[attr]);
+	//for (unsigned int class_m = 0; class_m < Intervals[attr]; class_m++)
+	//{
+	//	//initialization of sum
+	//	sum_mu[class_m] = std::vector<float>(Intervals[attr], 0.0); // (float*)(newFloat(Intervals[attr], 0, "sumM(EntropyCalc)"));
+	//	
 
-	for (unsigned int class_m = 0; class_m < Intervals[attr]; class_m++)
-	{
-		//initialization of sum
-		sum_mu[class_m] = (float*)(newFloat(Intervals[attr], 0, "sumM(EntropyCalc)"));
-		//initialization of mu function 
-		mu[class_m] = (float**)(new float*[Intervals[attr]]);
+	//	//initialization of mu function 
+	//	///	mu[class_m] = (float**)(new float*[Intervals[attr]]);
+	//	mu[class_m] = std::vector<std::vector<float>>(Intervals[attr], std::vector<float>(0));
 
-		if (!mu[class_m])
-		{
-			MyError("Error allocation of (M[sector]) in EntropyCalcululate()");
-		}
-		//initialization of mu function for class 
-		for (unsigned int j_a = 0; j_a < Intervals[attr]; j_a++)
-		{
-			//---------------------------II.C.----STEP 1 - SET UNIVERSAL SET X -------------------------------------------
-			mu[class_m][j_a] = static_cast<float*>(newFloat(OutputIntervals, 0, "M in EntropyCalc()"));
-		}
-		//TODO DELETE []
-	}
+	//	//initialization of mu function for class 
+	//	for (unsigned int i = 0; i < Intervals[attr]; i++)
+	//	{
+	//		//---------------------------II.C.----STEP 1 - SET UNIVERSAL SET X -------------------------------------------
+	//		//mu[class_m][j_a] = static_cast<float*>(newFloat(OutputIntervals, 0, "M in EntropyCalc()"));
+	//		mu[class_m][i] = std::vector<float>(OutputIntervals, 0.0);
+	//	}
+	//}
 }
 
-void Fuzzyfication::compute_wage_degree_calculation(unsigned attr, float** sum_mu, float*** mu) 
+void Fuzzyfication::compute_wage_degree_calculation(unsigned attr, std::vector<std::vector<float>>& sum_mu, std::vector<std::vector<std::vector<float>>>& mu)
 {
 	//---------------------------II.C.----STEP 5 - COMPUTE MATCH DEGREE DJ -------------------------------------------
 	for (unsigned int class_m = 0; class_m < Intervals[attr]; class_m++)
@@ -86,7 +92,7 @@ void Fuzzyfication::compute_wage_degree_calculation(unsigned attr, float** sum_m
 				sum_mu[class_m][j_a] += mu[class_m][j_a][j_b];
 }
 
-void Fuzzyfication::compute_mu_function(unsigned attr, unsigned long* count_m, float*** mu) 
+void Fuzzyfication::compute_mu_function(unsigned attr, std::vector<unsigned long>& count_m, std::vector<std::vector<std::vector<float>>>& mu)
 {
 	float max = 0.0f;
 	unsigned int class_m = 0;
@@ -106,7 +112,7 @@ void Fuzzyfication::compute_mu_function(unsigned attr, unsigned long* count_m, f
 	}
 }
 
-void Fuzzyfication::match_degree_calculation(unsigned attr, unsigned class_m, float*** mu, unsigned long data_item) 
+void Fuzzyfication::match_degree_calculation(unsigned attr, unsigned class_m, std::vector<std::vector<std::vector<float>>>& mu, unsigned long& data_item)
 {
 	for (unsigned int j_a = 0; j_a < Intervals[attr]; j_a++)
 	{
@@ -117,7 +123,7 @@ void Fuzzyfication::match_degree_calculation(unsigned attr, unsigned class_m, fl
 	}
 }
 
-void Fuzzyfication::set_scj_on_universal_set_x(unsigned attr, unsigned& class_m, float& max, unsigned long data_item) 
+void Fuzzyfication::set_scj_on_universal_set_x(unsigned attr, unsigned& class_m, float& max, unsigned long& data_item)
 {
 	//---------------------------II.C.----STEP 4 - SET SCJ AS SET OF ELEMENTS OF CLASS J ON X -------------------------------------------
 	for (unsigned int j = 0; j < Intervals[attr]; j++)
@@ -131,13 +137,13 @@ void Fuzzyfication::set_scj_on_universal_set_x(unsigned attr, unsigned& class_m,
 }
 
 
-void Fuzzyfication::print_to_log_file_classes(unsigned attr, unsigned long* count_m) 
+void Fuzzyfication::print_to_log_file_classes(unsigned attr, std::vector<unsigned long> count_m) 
 {
 	for (unsigned int class_m = 0; class_m < Intervals[attr]; class_m++)
 		fprintf(LogFile, "Members in cluster %d :\t %d \n", class_m, count_m[class_m]);
 }
 
-void Fuzzyfication::compute_total_fuzzy_entropy(unsigned attr, float& total_fuzzy_entropy,unsigned long* count_m, float** sum_mu, float*** mu ) 
+void Fuzzyfication::compute_total_fuzzy_entropy(unsigned attr, float& total_fuzzy_entropy,std::vector<unsigned long> count_m, std::vector<std::vector<float>> &sum_mu, std::vector<std::vector<std::vector<float>>>& mu )
 {
 	float new_entropy = 0.0f;
 	float match_degree_d_j = 0.0f;
@@ -170,16 +176,9 @@ void Fuzzyfication::compute_total_fuzzy_entropy(unsigned attr, float& total_fuzz
 	}
 }
 
-void Fuzzyfication::dealocate_pointers_entropy(unsigned attr, unsigned long* count_m, float*** mu, float** sum_mu) 
+void Fuzzyfication::dealocate_pointers_entropy(unsigned attr, std::vector<unsigned long> &count_m, std::vector<std::vector<std::vector<float>>>& mu, std::vector<std::vector<float>>& sum_mu)
 {
-	for (unsigned int class_m = 0; class_m < Intervals[attr]; class_m++)
-	{
-		for (unsigned int j_a = 0; j_a < Intervals[attr]; j_a++)
-			delete[] mu[class_m][j_a];
-		delete[] mu[class_m];
-		delete[] sum_mu[class_m];
-	}
-	delete[] mu;
-	delete[] sum_mu;
-	delete[] count_m;
+		mu.clear();
+		sum_mu.clear();
+		count_m.clear();
 }

@@ -40,15 +40,15 @@ public:
 	///<summary>Number of output intervals of dataset.</summary>
 	unsigned int OutputIntervals;
 	///<summary>Number of non numeric attributes. Attributes types - Ordered, Binary, Nominal. </summary>
-	unsigned int* LingvisticAttributes;
+	std::vector<unsigned int> LingvisticAttributes;
 	///<summary>Pattern  -X-axis is size of dataset , Y-axis is number of attributes, </summary>
 	std::vector<feature> Pattern;
 	///<summary>NameDataset of dataset.</summary>
 	char NameDataset[50];
 
 private:
-	float* min_;
-	float* max_;
+	std::vector<float> min_;
+	std::vector<float> max_;
 	int get_dataset_file(unsigned datasetId, FILE* file, bool& returns) ;
 	///<summary>Read iris dataset from file.</summary>
 	int read_crisp_file_iris(FILE* fp) ;

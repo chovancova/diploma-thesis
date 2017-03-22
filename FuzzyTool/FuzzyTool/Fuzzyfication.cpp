@@ -10,12 +10,13 @@
 * Set the initial number of Interval to 2.
 * \param id_dataset Number of dataset.
 */
-Fuzzyfication::Fuzzyfication(unsigned int id_dataset) : DataSets(id_dataset), FuzzySetOnInterval(nullptr)
+Fuzzyfication::Fuzzyfication(unsigned int id_dataset) : DataSets(id_dataset)
 {
 	IdDataset = id_dataset;
 
 	///<code>Set the initial number of interval I = 2.</code> 
-	Intervals = newUnInt(Attributes, 2, "Intervals in Fuzzy()");
+	//Intervals = newUnInt(Attributes, 2, "Intervals in Fuzzy()");
+	Intervals = std::vector<unsigned int>(Attributes, 2);;
 	char file_name[99];
 	strcpy(file_name, PATH_OUTPUT_FOLDER);
 	strcat(file_name, NameDataset);
@@ -34,8 +35,6 @@ Fuzzyfication::Fuzzyfication(unsigned int id_dataset) : DataSets(id_dataset), Fu
  */
 Fuzzyfication::~Fuzzyfication()
 {
-	delete[] Intervals;
-
 	fclose(LogFile);
 }
 
@@ -50,6 +49,7 @@ void Fuzzyfication::RunFuzzification(unsigned int method)
 	}
 }
 
+
 void Fuzzyfication::run_fuzzification_febfc()
 {
 	char filename_fuzzy[200];
@@ -60,9 +60,12 @@ void Fuzzyfication::run_fuzzification_febfc()
 
 	initialize_dataset();
 
-	unsigned long *new_result, count_result;
+	unsigned long count_result;
+	std::vector<unsigned long> new_result; 
+	std::vector<float> result; 
+
 	int does_entropy_decrease;
-	float *result, old_entropy, new_entropy;
+	float  old_entropy, new_entropy;
 
 	/////////////////////////////////////////////STEP 1////////////////////////////////////////////////
 
@@ -81,7 +84,7 @@ void Fuzzyfication::run_fuzzification_febfc()
 		}
 		else //real - value attribute (discretization of attributes) 
 		{
-			initialize_variables_for_entropy_result(new_result, count_result, does_entropy_decrease, result, new_entropy, dimension);
+			initialize_variables_for_entropy_result(count_result, new_result, result, does_entropy_decrease, new_entropy, dimension);		
 		do
 			{
 				old_entropy = new_entropy;
@@ -96,7 +99,7 @@ void Fuzzyfication::run_fuzzification_febfc()
 
 				/////////////////////////////////////////////STEP 3////////////////////////////////////////////////
 				//Assighn memberhsip function for each interval 
-				febfc_step_3_assign_membership_function(dimension, cluster.data());
+				febfc_step_3_assign_membership_function(dimension, cluster);
 
 				/////////////////////////////////////////////STEP 4////////////////////////////////////////////////
 				//Compute the total fuzzy entropy of all intervals for I and I-1 intervals. 
@@ -105,7 +108,9 @@ void Fuzzyfication::run_fuzzification_febfc()
 				print_to_log_file_new_entropy(new_entropy, dimension);
 
 				/////////////////////////////////////////////STEP 5////////////////////////////////////////////////
-				if (febfc_step_5_does_entropy_decrese(count_result, does_entropy_decrease, old_entropy, new_entropy, dimension)) break;
+				if (febfc_step_5_does_entropy_decrese(count_result, does_entropy_decrease, old_entropy, new_entropy, dimension)) 
+					break;
+
 			} while (true);
 		
 			print_to_log_file_temporary_results();
@@ -114,15 +119,19 @@ void Fuzzyfication::run_fuzzification_febfc()
 			
 			print_to_cm_file_results(filename_fuzzy);
 
-			delete[] result;
-			delete[] new_result;
+			
 		}
 	}
 }
 
-
-
-
+void Fuzzyfication::initialize_variables_for_entropy_result(unsigned long& count_result, std::vector<unsigned long>& new_result, std::vector<float>& result, int& does_entropy_decrease, float& new_entropy, unsigned dimension)
+{
+	does_entropy_decrease = 0;
+	new_entropy = 1000000000.0;
+	result = std::vector<float>(DatasetSize, 0.0);
+	new_result = std::vector<unsigned long>(DatasetSize, 0l);
+	count_result = create_ascending_result(dimension, result, new_result);
+}
 
 
 void Fuzzyfication::set_lingvistic_attributes(unsigned int dimension) 
@@ -131,20 +140,12 @@ void Fuzzyfication::set_lingvistic_attributes(unsigned int dimension)
 	Intervals[dimension] = LingvisticAttributes[dimension];
 	for (unsigned long x = 0; x < DatasetSize; x++)
 	{
-		temp_interval = (unsigned int)Pattern[x].Feature[dimension];
+		temp_interval = static_cast<unsigned int>(Pattern[x].Feature[dimension]);
 		FuzzySetOnInterval[dimension][temp_interval][x] = 1.0f;
 	}
 }
 
-void Fuzzyfication::initialize_variables_for_entropy_result(unsigned long*& new_result, unsigned long& count_result, int& does_entropy_decrease, float*& result, float& new_entropy, unsigned dimension) 
-{
-	does_entropy_decrease = 0;
-	new_entropy = 1000000000.0;
-	result = (float*)(newFloat(DatasetSize, 0.0, "Result )"));
-	new_result = (unsigned long*)(newUnLong(DatasetSize, 0L, "NewResult "));
 
-	count_result = create_ascending_result(dimension, result, new_result);
-}
 
 bool Fuzzyfication::febfc_step_5_does_entropy_decrese(unsigned long count_result, int& does_entropy_decrease, float old_entropy, float new_entropy, unsigned dimension) 
 {
@@ -164,7 +165,7 @@ bool Fuzzyfication::febfc_step_5_does_entropy_decrese(unsigned long count_result
 	return false;
 }
 
-void Fuzzyfication::print_to_log_file_new_entropy(float new_entropy, unsigned dimension) 
+void Fuzzyfication::print_to_log_file_new_entropy(float new_entropy, unsigned dimension)
 {
 	fprintf(LogFile, "\nDimension:\t %d  \nNumber of interval in dimension:\t %d  \nNew Entropy:\t %f\n\n", dimension, Intervals[dimension], new_entropy);
 }
@@ -189,7 +190,7 @@ void Fuzzyfication::initialize_dataset()
  //-------------------------------CASE 1 - THE LEFT-MOST INTERVAL -------------------------------------------
  //-------------------------------CASE 2 - THE RIGHT-MOST INTERVAL -------------------------------------------
  //-------------------------------CASE 3 - THE INTERNAL INTERVAL -------------------------------------------
-void Fuzzyfication::febfc_step_3_assign_membership_function(unsigned int attribute, float* center) 
+void Fuzzyfication::febfc_step_3_assign_membership_function(unsigned int attribute, std::vector<float>& center)
 {
 	//All X = x1..xn
 	for (unsigned long x = 0; x < DatasetSize; x++)
@@ -251,21 +252,20 @@ void Fuzzyfication::febfc_step_1_create_features()
 		}
 	}
 
-	FuzzySetOnInterval = (float***) new float**[Attributes];
-	if (!FuzzySetOnInterval)
-		printf("Error allocation ***FuzzySetOnInterval in febfc_step_1_create_features(). ");
+	
+	//FuzzySetOnInterval = ( float***) new float**[Attributes];
+	FuzzySetOnInterval = std::vector< std::vector<std::vector<float>>>(Attributes, std::vector<std::vector<float>>(0.0));
 
 	for (attr = 0; attr < Attributes; attr++)
 	{
-		FuzzySetOnInterval[attr] = (float**) new float*[Intervals[attr]];
-		if (!FuzzySetOnInterval[attr])
-		{
-			printf("Error allocation of memory for **Feature[attr] in febfc_step_1_create_features()");
-		}
-
+		//FuzzySetOnInterval[attr] = (float**) new float*[Intervals[attr]];
+		
+		FuzzySetOnInterval[attr] = std::vector<std::vector<float>>(Intervals[attr], std::vector<float>(0.0));
+		
 		for (intervals = 0; intervals < Intervals[attr]; intervals++)
 		{
-			FuzzySetOnInterval[attr][intervals] = (float*)newFloat(DatasetSize, 0.0, "FuzzySetOnInterval[attr][intervals] in febfc_step_1_create_features()");
+			//FuzzySetOnInterval[attr][intervals] = (float*)newFloat(DatasetSize, 0.0, "FuzzySetOnInterval[attr][intervals] in febfc_step_1_create_features()");
+			FuzzySetOnInterval[attr][intervals] = std::vector<float>(DatasetSize, 0.0);
 		}
 	}
 
@@ -278,25 +278,26 @@ void Fuzzyfication::febfc_step_1_create_features()
 
 void Fuzzyfication::modify_features(unsigned int attr, int interval_new_value) 
 {
-	for (unsigned int interval = 0; interval < Intervals[attr]; interval++)
-		delete[] FuzzySetOnInterval[attr][interval];
-	delete[] FuzzySetOnInterval[attr];
+	//for (unsigned int interval = 0; interval < Intervals[attr]; interval++)
+	//	delete[] FuzzySetOnInterval[attr][interval];
+	//delete[] FuzzySetOnInterval[attr];
+
+	FuzzySetOnInterval[attr].erase(FuzzySetOnInterval[attr].begin() );
 
 	Intervals[attr] += interval_new_value;
-	FuzzySetOnInterval[attr] = static_cast<float**>(new float*[Intervals[attr]]);
-	if (!FuzzySetOnInterval[attr])
-	{
-		MyError("**FuzzySetOnInterval[attr] in modify_features()");
-	}
+	//FuzzySetOnInterval[attr] = static_cast<float**>(new float*[Intervals[attr]]);
+	FuzzySetOnInterval[attr] = std::vector<std::vector<float>>(Intervals[attr], std::vector<float>(0.0));
+	
 	for (unsigned int interval = 0; interval < Intervals[attr]; interval++)
 	{
-		FuzzySetOnInterval[attr][interval] = (float*)newFloat(DatasetSize, 0.0, "FuzzySetOnInterval[attr][interval] in modify_features()");
+		//FuzzySetOnInterval[attr][interval] = (float*)newFloat(DatasetSize, 0.0, "FuzzySetOnInterval[attr][interval] in modify_features()");
+		FuzzySetOnInterval[attr][interval] = std::vector<float>(DatasetSize, 0.0);
 	}
 }
 
 void Fuzzyfication::delete_features() 
 {
-	for (unsigned int i = 0; i < Attributes; i++)
+	/*for (unsigned int i = 0; i < Attributes; i++)
 	{
 		for (unsigned int j = 0; j < Intervals[i]; j++)
 		{
@@ -305,37 +306,39 @@ void Fuzzyfication::delete_features()
 		delete[] FuzzySetOnInterval[i];
 	}
 	delete[] FuzzySetOnInterval;
+*/
+	FuzzySetOnInterval.empty();
 }
 
 
-unsigned long Fuzzyfication::create_ascending_result(unsigned int dimension, float* Result, unsigned long* NewResult) 
+unsigned long Fuzzyfication::create_ascending_result(unsigned int dimension, std::vector<float>& result, std::vector< unsigned long>& new_result)
 {
 	unsigned int new_item;
 	unsigned long number_of_elements = 1;
-	Result[0] = Pattern[0].Feature[dimension];
-	NewResult[0] = 1;
+	result[0] = Pattern[0].Feature[dimension];
+	new_result[0] = 1;
 	for (unsigned long k = 1; k < DatasetSize; k++)
 	{
 		new_item = 1;
 		for (unsigned long q = 0; q < number_of_elements; q++)
-			if (Pattern[k].Feature[dimension] == Result[q])
+			if (Pattern[k].Feature[dimension] == result[q])
 			{
 				new_item = 0;
-				NewResult[q]++;
+				new_result[q]++;
 			}
 		if (new_item == 1)
 		{
-			Result[number_of_elements] = Pattern[k].Feature[dimension];
-			NewResult[number_of_elements] = 1;
+			result[number_of_elements] = Pattern[k].Feature[dimension];
+			new_result[number_of_elements] = 1;
 			number_of_elements++;
 		}
 	}
-	sort_ascending_order(Result, NewResult, number_of_elements);
+	sort_ascending_order(result, new_result, number_of_elements);
 	return (number_of_elements);
 }
 
 
-void Fuzzyfication::sort_ascending_order(float* result, unsigned long* new_result, unsigned long number_of_elements)
+void Fuzzyfication::sort_ascending_order(std::vector<float>& result, std::vector< unsigned long> &new_result, unsigned long &number_of_elements)
 {
 	unsigned long i;
 	unsigned long index = 0L;
@@ -370,7 +373,7 @@ void Fuzzyfication::sort_ascending_order(float* result, unsigned long* new_resul
 }
 
 
-void Fuzzyfication::sort_ascending_order(float* cut_points, unsigned int number_of_cutting_points)
+void Fuzzyfication::sort_ascending_order(std::vector<float> &cut_points, unsigned int &number_of_cutting_points)
 {
 	unsigned int i, num, index = 0;
 	float min;

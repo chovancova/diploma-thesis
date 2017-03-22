@@ -9,11 +9,6 @@
 
 void DataSets::initialize_attributes(unsigned id_dataset, unsigned& attributes, unsigned& input_attributes, unsigned& output_attributes, unsigned& output_intervals, unsigned long& size_dataset)
 {
-	input_attributes = 0;
-	output_attributes = 0;
-	output_intervals = 0;
-	size_dataset = 0;
-
 	switch (id_dataset)
 	{
 	case _HEART: strcpy(NameDataset, "heart");
@@ -72,6 +67,10 @@ void DataSets::initialize_attributes(unsigned id_dataset, unsigned& attributes, 
 		break;
 	default:
 		{
+			input_attributes = 0;
+			output_attributes = 0;
+			output_intervals = 0;
+			size_dataset = 0;
 			std::cout << "Dataset not found.";
 			break;
 		}
@@ -97,17 +96,16 @@ DataSets::DataSets(unsigned int id_dataset)
 	Pattern.resize(size_dataset, feature(attributes));
 
 
-	LingvisticAttributes = newUnInt(Attributes, 0, "LingvisticAttributes in DataSets()");
+	//LingvisticAttributes = newUnInt(Attributes, 0, "LingvisticAttributes in DataSets()");
+	LingvisticAttributes = std::vector<unsigned int>(Attributes, 0);
 	LingvisticAttributes[input_attributes] = output_intervals;
-	min_ = newFloat(InputAttributes, 0, "min_ in DataSets()");
-	max_ = newFloat(InputAttributes, 0, "max_ in DataSets()");
+	min_ = std::vector<float>(InputAttributes, 0.0);
+	max_ = std::vector<float>(InputAttributes, 0.0);
 }
 
 DataSets::~DataSets()
 {
-	delete[] LingvisticAttributes;
-	delete[] min_;
-	delete[] max_;
+	
 }
 
 int DataSets::get_dataset_file(unsigned id_dataset, FILE* file, bool& returns) 
@@ -222,20 +220,21 @@ float DataSets::InitialError()
 {
 	try
 	{
-		unsigned long *class_number_output_intervals, maxClass;
-		unsigned int jb;
+		unsigned long maxClass;
+		unsigned int temp;
 
-		class_number_output_intervals = newUnLong(OutputIntervals, 0l, " classNoOI from InitialErrorDS");
+		std::vector<unsigned long> class_number_output_intervals =  std::vector<unsigned long>(OutputIntervals, 0l);
+
 		for (unsigned long x = 0; x < DatasetSize; x++)
 		{
-			jb = Pattern[x].Feature[InputAttributes];
-			class_number_output_intervals[jb]++;
+			temp = Pattern[x].Feature[InputAttributes];
+			class_number_output_intervals[temp]++;
 		}
 		maxClass = class_number_output_intervals[0];
-		for (jb = 0; jb < OutputIntervals; jb++)
+		for (temp = 0; temp < OutputIntervals; temp++)
 		{
-			printf("classNoOI[jb=%d]=%d\n", jb, class_number_output_intervals[jb]);
-			if (class_number_output_intervals[jb] > maxClass) maxClass = class_number_output_intervals[jb];
+			printf("class number of output intervals [%d] = %d \n", temp, class_number_output_intervals[temp]);
+			if (class_number_output_intervals[temp] > maxClass) maxClass = class_number_output_intervals[temp];
 		}
 		return (1 - float(maxClass) * 1.0f / DatasetSize);
 	}
