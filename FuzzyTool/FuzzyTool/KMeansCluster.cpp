@@ -5,8 +5,9 @@
 #include "Fuzzyfication.h"
 #include "TempFunctions.h"
 #include <iterator>
+#include <vector>
 
-float Fuzzyfication::compute_distance(float a, float b, int type_distance, int p) const
+float Fuzzyfication::compute_distance(float a, float b, int type_distance, int p) 
 {
 	switch (type_distance)
 	{
@@ -33,7 +34,7 @@ float Fuzzyfication::compute_distance(float a, float b, int type_distance, int p
 	}
 }
 
-float* Fuzzyfication::fuzzy_clustering_fcm(unsigned int attribute, unsigned int NumberOfCenters, float m, unsigned int distance_type) const
+float* Fuzzyfication::fuzzy_clustering_fcm(unsigned int attribute, unsigned int NumberOfCenters, float m, unsigned int distance_type) 
 {
 	double temp;
 	double temp1;
@@ -94,8 +95,8 @@ float* Fuzzyfication::fuzzy_clustering_fcm(unsigned int attribute, unsigned int 
 				for (unsigned int interval = 0; interval < intervals; interval++)
 					if (assigned[dataset_item] == false)
 					{
-						float distanceI = compute_distance(Features[dataset_item].Dimension[attribute], centers[i], distance_type, 4);
-						float distanceJ = compute_distance(Features[dataset_item].Dimension[attribute], centers[interval], distance_type, 4);
+						float distanceI = compute_distance(Pattern[dataset_item].Feature[attribute], centers[i], distance_type, 4);
+						float distanceJ = compute_distance(Pattern[dataset_item].Feature[attribute], centers[interval], distance_type, 4);
 					
 						if (distanceI != 0 && distanceJ != 0)
 						{
@@ -122,7 +123,7 @@ float* Fuzzyfication::fuzzy_clustering_fcm(unsigned int attribute, unsigned int 
 			temp2 = 0;
 			for (unsigned long k = 0; k < DatasetSize; k++)
 			{
-				temp1 += pow(membership_function[i][k], m) * Features[k].Dimension[attribute];
+				temp1 += pow(membership_function[i][k], m) * Pattern[k].Feature[attribute];
 				temp2 += pow(membership_function[i][k], m);
 			}
 			centers[i] = (temp2 == 0) ? 0 : temp1 / temp2;
@@ -132,7 +133,7 @@ float* Fuzzyfication::fuzzy_clustering_fcm(unsigned int attribute, unsigned int 
 		for (unsigned int i = 0; i < intervals; i++)
 			for (unsigned long k = 0; k < DatasetSize; k++)
 			{
-				float distanceNew = compute_distance(Features[k].Dimension[attribute], centers[i], distance_type, 4);
+				float distanceNew = compute_distance(Pattern[k].Feature[attribute], centers[i], distance_type, 4);
 
 				current_cluster += pow(membership_function[i][k], m) * pow(distanceNew, 2);
 			}
@@ -154,30 +155,36 @@ float* Fuzzyfication::fuzzy_clustering_fcm(unsigned int attribute, unsigned int 
 //-------------------------------STEP 3 - ASSIGN CLUSTER LABEL TO EACH ELEMENT------------------------------------
 //-------------------------------STEP 4 - RECOMPUTE THE CLUSTER CENTERS ------------------------------------
 //-------------------------------STEP 5 - DOES ANY CENTER CHANGE ? ------------------------------------
-float* Fuzzyfication::febfc_step_2_locate_center_of_interval(unsigned int i, float* Result, unsigned long* NewResult, unsigned long countResult) const
+std::vector<float> Fuzzyfication::febfc_step_2_locate_center_of_interval(unsigned int i, float* Result, unsigned long* NewResult, unsigned long countResult) 
 {
 	unsigned int q; //cluster
-	unsigned int* total_patterns; //Nq is total number of patterns within the same cluster q. 
+	//unsigned int* total_patterns; //Nq is total number of patterns within the same cluster q. 
+	std::vector<unsigned int> total_patterns; //Nq is total number of patterns within the same cluster q. 
 	unsigned int distance_n = 0;
 	bool stop;
 	unsigned int z;
 	unsigned int iteration;
-	float *c, *sum, center, distance;
+	float *sum, center, distance;
+	
 
 	//-------------------------------STEP 1- INITIAL NUMBER OF CLUSTERS -------------------------------------------
 	iteration = 0;
 
 	//-------------------------------STEP 2 - INITIAL CENTERS OF CLUSTERS -------------------------------------------
-	c = static_cast<float*>(fuzzy_clustering_fcm(i, Intervals[i], 2.0f, 3));
+	float *tmp = fuzzy_clustering_fcm(i, Intervals[i], 2.0f, 3);
+	std::vector<float> c(tmp, tmp + Intervals[i]);
+	delete[] tmp;
+	tmp = nullptr;
 
 	fprintf(LogFile, "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
 	fprintf(LogFile, "Current cluster centers\n");
-	print_to_log_file_clusters_interval_location(i, c);
+	print_to_log_file_clusters_interval_location(i, c.data());
 
 	do
 	{
 		sum = newFloat(Intervals[i], 0.0, "sum in febfc_step_2_locate_center_of_interval()");
-		total_patterns = newUnInt(Intervals[i], 0, "Nq  in febfc_step_2_locate_center_of_interval()");
+		//total_patterns = newUnInt(Intervals[i], 0, "Nq  in febfc_step_2_locate_center_of_interval()");
+		total_patterns = std::vector<unsigned int>(Intervals[i], 0);
 		for (unsigned long k = 0; k < countResult; k++)
 		{
 			//-------------------------------STEP 3 - ASSIGN CLUSTER LABEL TO EACH ELEMENT------------------------------------
@@ -197,12 +204,7 @@ float* Fuzzyfication::febfc_step_2_locate_center_of_interval(unsigned int i, flo
 		//-------------------------------STEP 4 - RECOMPUTE THE CLUSTER CENTERS ------------------------------------
 		for (q = 0; q < Intervals[i]; q++) 
 		{
-			if (total_patterns == 0)
-			{
-				MyError("not possible situation: Nq[q]=0 in febfc_step_2_locate_center_of_interval()");
-			}
-			else
-			{
+			
 				center = static_cast<float>(sum[q]) / static_cast<float>(total_patterns[q]);
 				if (c[q] != center)
 				{
@@ -210,7 +212,7 @@ float* Fuzzyfication::febfc_step_2_locate_center_of_interval(unsigned int i, flo
 					stop = true;
 				}
 				iteration++;
-			}
+	
 		}
 		//-------------------------------STEP 5 - DOES ANY CENTER CHANGE ? ------------------------------------
 		//Check - not same cluster centers
@@ -223,22 +225,21 @@ float* Fuzzyfication::febfc_step_2_locate_center_of_interval(unsigned int i, flo
 		}
 
 		delete[] sum;
-		delete[] total_patterns;
 	}
 	while ((stop) && (iteration < LIMIT_ITTERATION));
 	
 
-	sort_ascending_order(c, Intervals[i]);
+	sort_ascending_order(c.data(), Intervals[i]);
 	
 	fprintf(LogFile, "New cluster centers\n");
-	print_to_log_file_clusters_interval_location(i, c);
+	print_to_log_file_clusters_interval_location(i, c.data());
 
-	return (c);
+	return c;
 }
 
 
 
-void Fuzzyfication::print_to_log_file_clusters_interval_location(unsigned i,  float* c) const
+void Fuzzyfication::print_to_log_file_clusters_interval_location(unsigned i,  float* c) 
 {
 	for (unsigned z = 0; z < Intervals[i]; z++)
 		fprintf(LogFile, "Cluster center [%d] location:\t\t%f\n", z, c[z]);

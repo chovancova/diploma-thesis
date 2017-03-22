@@ -62,7 +62,7 @@ void Fuzzyfication::run_fuzzification_febfc()
 
 	unsigned long *new_result, count_result;
 	int does_entropy_decrease;
-	float *result, *cluster, old_entropy, new_entropy;
+	float *result, old_entropy, new_entropy;
 
 	/////////////////////////////////////////////STEP 1////////////////////////////////////////////////
 
@@ -92,13 +92,12 @@ void Fuzzyfication::run_fuzzification_febfc()
 				/////////////////////////////////////////////STEP 2////////////////////////////////////////////////
 				//DETERMINATION OF THE NUMBER OF INTERVALS
 				//Locate the centers of interval
-				cluster = (float*)febfc_step_2_locate_center_of_interval(dimension, result, new_result, count_result);
+				std::vector<float> cluster = febfc_step_2_locate_center_of_interval(dimension, result, new_result, count_result);
 
 				/////////////////////////////////////////////STEP 3////////////////////////////////////////////////
 				//Assighn memberhsip function for each interval 
-				febfc_step_3_assign_membership_function(dimension, cluster);
+				febfc_step_3_assign_membership_function(dimension, cluster.data());
 
-				delete[] cluster;
 				/////////////////////////////////////////////STEP 4////////////////////////////////////////////////
 				//Compute the total fuzzy entropy of all intervals for I and I-1 intervals. 
 				new_entropy = febfc_step_4_compute_total_fuzzy_entropy(dimension);
@@ -126,18 +125,18 @@ void Fuzzyfication::run_fuzzification_febfc()
 
 
 
-void Fuzzyfication::set_lingvistic_attributes(unsigned int dimension) const
+void Fuzzyfication::set_lingvistic_attributes(unsigned int dimension) 
 {
 	unsigned int temp_interval;
 	Intervals[dimension] = LingvisticAttributes[dimension];
 	for (unsigned long x = 0; x < DatasetSize; x++)
 	{
-		temp_interval = (unsigned int)Features[x].Dimension[dimension];
+		temp_interval = (unsigned int)Pattern[x].Feature[dimension];
 		FuzzySetOnInterval[dimension][temp_interval][x] = 1.0f;
 	}
 }
 
-void Fuzzyfication::initialize_variables_for_entropy_result(unsigned long*& new_result, unsigned long& count_result, int& does_entropy_decrease, float*& result, float& new_entropy, unsigned dimension) const
+void Fuzzyfication::initialize_variables_for_entropy_result(unsigned long*& new_result, unsigned long& count_result, int& does_entropy_decrease, float*& result, float& new_entropy, unsigned dimension) 
 {
 	does_entropy_decrease = 0;
 	new_entropy = 1000000000.0;
@@ -147,7 +146,7 @@ void Fuzzyfication::initialize_variables_for_entropy_result(unsigned long*& new_
 	count_result = create_ascending_result(dimension, result, new_result);
 }
 
-bool Fuzzyfication::febfc_step_5_does_entropy_decrese(unsigned long count_result, int& does_entropy_decrease, float old_entropy, float new_entropy, unsigned dimension) const
+bool Fuzzyfication::febfc_step_5_does_entropy_decrese(unsigned long count_result, int& does_entropy_decrease, float old_entropy, float new_entropy, unsigned dimension) 
 {
 	if (does_entropy_decrease == -1 || Intervals[dimension] == count_result)
 	{
@@ -165,7 +164,7 @@ bool Fuzzyfication::febfc_step_5_does_entropy_decrese(unsigned long count_result
 	return false;
 }
 
-void Fuzzyfication::print_to_log_file_new_entropy(float new_entropy, unsigned dimension) const
+void Fuzzyfication::print_to_log_file_new_entropy(float new_entropy, unsigned dimension) 
 {
 	fprintf(LogFile, "\nDimension:\t %d  \nNumber of interval in dimension:\t %d  \nNew Entropy:\t %f\n\n", dimension, Intervals[dimension], new_entropy);
 }
@@ -176,7 +175,7 @@ void Fuzzyfication::print_to_console_dimension(unsigned dimension)
 }
 
 
-void Fuzzyfication::initialize_dataset() const
+void Fuzzyfication::initialize_dataset()
 {
 	ReadDataSets(IdDataset);
 	Normalization();
@@ -190,7 +189,7 @@ void Fuzzyfication::initialize_dataset() const
  //-------------------------------CASE 1 - THE LEFT-MOST INTERVAL -------------------------------------------
  //-------------------------------CASE 2 - THE RIGHT-MOST INTERVAL -------------------------------------------
  //-------------------------------CASE 3 - THE INTERNAL INTERVAL -------------------------------------------
-void Fuzzyfication::febfc_step_3_assign_membership_function(unsigned int attribute, float* center) const
+void Fuzzyfication::febfc_step_3_assign_membership_function(unsigned int attribute, float* center) 
 {
 	//All X = x1..xn
 	for (unsigned long x = 0; x < DatasetSize; x++)
@@ -202,32 +201,32 @@ void Fuzzyfication::febfc_step_3_assign_membership_function(unsigned int attribu
 
 		for (unsigned int interval = 0; interval < Intervals[attribute] - 1; interval++)
 		{
-			if ((Features[x].Dimension[attribute] >= center[interval])			// x >= c1
-				&& (Features[x].Dimension[attribute] <= center[interval + 1]))  //x <= c2
+			if ((Pattern[x].Feature[attribute] >= center[interval])			// x >= c1
+				&& (Pattern[x].Feature[attribute] <= center[interval + 1]))  //x <= c2
 			{
 				//-------------------------------CASE 2 - THE RIGHT-MOST INTERVAL -------------------------------------------
 				//the right-most interval , for x <= c2
 				FuzzySetOnInterval[attribute][interval][x] =
-					(center[interval + 1] - Features[x].Dimension[attribute]) //(c4 - x) / (c4 - c3)
+					(center[interval + 1] - Pattern[x].Feature[attribute]) //(c4 - x) / (c4 - c3)
 					/
 					(center[interval + 1] - center[interval]);
 
 				//-------------------------------CASE 1 - THE LEFT-MOST INTERVAL -------------------------------------------
 				//the left most interval x > c1 
 				FuzzySetOnInterval[attribute][interval + 1][x] =
-					(Features[x].Dimension[attribute] - center[interval]) // (x - c1) / (c2 - c1)
+					(Pattern[x].Feature[attribute] - center[interval]) // (x - c1) / (c2 - c1)
 					/
 					(center[interval + 1] - center[interval]);
 			}
 		}
 
 		//-------------------------------CASE 3 - THE INTERNAL INTERVAL -------------------------------------------
-		if (Features[x].Dimension[attribute] < center[0]) //x < c1
+		if (Pattern[x].Feature[attribute] < center[0]) //x < c1
 		{
 			FuzzySetOnInterval[attribute][0][x] = 1.0;
 		}
 
-		if (Features[x].Dimension[attribute] > center[Intervals[attribute] - 1]) //x > c1 - 1
+		if (Pattern[x].Feature[attribute] > center[Intervals[attribute] - 1]) //x > c1 - 1
 		{
 			FuzzySetOnInterval[attribute][Intervals[attribute] - 1][x] = 1.0;
 		}
@@ -272,12 +271,12 @@ void Fuzzyfication::febfc_step_1_create_features()
 
 	for (unsigned long x = 0; x < DatasetSize; x++) // Initialisation of Output Attribute
 	{
-		intervals = (unsigned int)Features[x].Dimension[InputAttributes];
+		intervals = (unsigned int)Pattern[x].Feature[InputAttributes];
 		FuzzySetOnInterval[InputAttributes][intervals][x] = 1.0;
 	}
 }
 
-void Fuzzyfication::modify_features(unsigned int attr, int interval_new_value) const
+void Fuzzyfication::modify_features(unsigned int attr, int interval_new_value) 
 {
 	for (unsigned int interval = 0; interval < Intervals[attr]; interval++)
 		delete[] FuzzySetOnInterval[attr][interval];
@@ -295,7 +294,7 @@ void Fuzzyfication::modify_features(unsigned int attr, int interval_new_value) c
 	}
 }
 
-void Fuzzyfication::delete_features() const
+void Fuzzyfication::delete_features() 
 {
 	for (unsigned int i = 0; i < Attributes; i++)
 	{
@@ -309,24 +308,24 @@ void Fuzzyfication::delete_features() const
 }
 
 
-unsigned long Fuzzyfication::create_ascending_result(unsigned int dimension, float* Result, unsigned long* NewResult) const
+unsigned long Fuzzyfication::create_ascending_result(unsigned int dimension, float* Result, unsigned long* NewResult) 
 {
 	unsigned int new_item;
 	unsigned long number_of_elements = 1;
-	Result[0] = Features[0].Dimension[dimension];
+	Result[0] = Pattern[0].Feature[dimension];
 	NewResult[0] = 1;
 	for (unsigned long k = 1; k < DatasetSize; k++)
 	{
 		new_item = 1;
 		for (unsigned long q = 0; q < number_of_elements; q++)
-			if (Features[k].Dimension[dimension] == Result[q])
+			if (Pattern[k].Feature[dimension] == Result[q])
 			{
 				new_item = 0;
 				NewResult[q]++;
 			}
 		if (new_item == 1)
 		{
-			Result[number_of_elements] = Features[k].Dimension[dimension];
+			Result[number_of_elements] = Pattern[k].Feature[dimension];
 			NewResult[number_of_elements] = 1;
 			number_of_elements++;
 		}

@@ -12,7 +12,7 @@
 //---------------------------II.C.----STEP 6 - COMPUTE FUZZY ENTROPY FECJ A  -------------------------------------------
 //---------------------------II.C.----STEP 7 - COMPUTE FUZZY ENTORPY FEA ON X -------------------------------------------
 
-float Fuzzyfication::febfc_step_4_compute_total_fuzzy_entropy(unsigned int attr) const
+float Fuzzyfication::febfc_step_4_compute_total_fuzzy_entropy(unsigned int attr) 
 {
 	//1) Let X = {r1, ... , rn} be a universal set with elements ri distributed in pattern space where i = 1..n. 
 	//2) Let A be a fuzzy set defined on a interval of pattern space which kontains k elements (k < n). 
@@ -53,7 +53,7 @@ float Fuzzyfication::febfc_step_4_compute_total_fuzzy_entropy(unsigned int attr)
 }
 
 
-void Fuzzyfication::initialization_mu_function(unsigned attr, float** sum_mu, float*** mu) const
+void Fuzzyfication::initialization_mu_function(unsigned attr, float** sum_mu, float*** mu) 
 {
 
 	for (unsigned int class_m = 0; class_m < Intervals[attr]; class_m++)
@@ -77,7 +77,7 @@ void Fuzzyfication::initialization_mu_function(unsigned attr, float** sum_mu, fl
 	}
 }
 
-void Fuzzyfication::compute_wage_degree_calculation(unsigned attr, float** sum_mu, float*** mu) const
+void Fuzzyfication::compute_wage_degree_calculation(unsigned attr, float** sum_mu, float*** mu) 
 {
 	//---------------------------II.C.----STEP 5 - COMPUTE MATCH DEGREE DJ -------------------------------------------
 	for (unsigned int class_m = 0; class_m < Intervals[attr]; class_m++)
@@ -86,7 +86,7 @@ void Fuzzyfication::compute_wage_degree_calculation(unsigned attr, float** sum_m
 				sum_mu[class_m][j_a] += mu[class_m][j_a][j_b];
 }
 
-void Fuzzyfication::compute_mu_function(unsigned attr, unsigned long* count_m, float*** mu) const
+void Fuzzyfication::compute_mu_function(unsigned attr, unsigned long* count_m, float*** mu) 
 {
 	float max = 0.0f;
 	unsigned int class_m = 0;
@@ -106,7 +106,7 @@ void Fuzzyfication::compute_mu_function(unsigned attr, unsigned long* count_m, f
 	}
 }
 
-void Fuzzyfication::match_degree_calculation(unsigned attr, unsigned class_m, float*** mu, unsigned long data_item) const
+void Fuzzyfication::match_degree_calculation(unsigned attr, unsigned class_m, float*** mu, unsigned long data_item) 
 {
 	for (unsigned int j_a = 0; j_a < Intervals[attr]; j_a++)
 	{
@@ -117,7 +117,7 @@ void Fuzzyfication::match_degree_calculation(unsigned attr, unsigned class_m, fl
 	}
 }
 
-void Fuzzyfication::set_scj_on_universal_set_x(unsigned attr, unsigned& class_m, float& max, unsigned long data_item) const
+void Fuzzyfication::set_scj_on_universal_set_x(unsigned attr, unsigned& class_m, float& max, unsigned long data_item) 
 {
 	//---------------------------II.C.----STEP 4 - SET SCJ AS SET OF ELEMENTS OF CLASS J ON X -------------------------------------------
 	for (unsigned int j = 0; j < Intervals[attr]; j++)
@@ -131,13 +131,13 @@ void Fuzzyfication::set_scj_on_universal_set_x(unsigned attr, unsigned& class_m,
 }
 
 
-void Fuzzyfication::print_to_log_file_classes(unsigned attr, unsigned long* count_m) const
+void Fuzzyfication::print_to_log_file_classes(unsigned attr, unsigned long* count_m) 
 {
 	for (unsigned int class_m = 0; class_m < Intervals[attr]; class_m++)
 		fprintf(LogFile, "Members in cluster %d :\t %d \n", class_m, count_m[class_m]);
 }
 
-void Fuzzyfication::compute_total_fuzzy_entropy(unsigned attr, float& total_fuzzy_entropy,unsigned long* count_m, float** sum_mu, float*** mu ) const
+void Fuzzyfication::compute_total_fuzzy_entropy(unsigned attr, float& total_fuzzy_entropy,unsigned long* count_m, float** sum_mu, float*** mu ) 
 {
 	float new_entropy = 0.0f;
 	float match_degree_d_j = 0.0f;
@@ -170,7 +170,7 @@ void Fuzzyfication::compute_total_fuzzy_entropy(unsigned attr, float& total_fuzz
 	}
 }
 
-void Fuzzyfication::dealocate_pointers_entropy(unsigned attr, unsigned long* count_m, float*** mu, float** sum_mu) const
+void Fuzzyfication::dealocate_pointers_entropy(unsigned attr, unsigned long* count_m, float*** mu, float** sum_mu) 
 {
 	for (unsigned int class_m = 0; class_m < Intervals[attr]; class_m++)
 	{

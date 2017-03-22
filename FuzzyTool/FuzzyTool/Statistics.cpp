@@ -3,8 +3,8 @@
 #include <math.h>
 
 /**** 95% inteval spolahlivosti  ****/
-const bool LEFT = true;
-const bool RIGHT = false;
+ bool LEFT = true;
+ bool RIGHT = false;
 
 double Statistics::my95CI(bool side, double mean, double stDev, int N)
 {

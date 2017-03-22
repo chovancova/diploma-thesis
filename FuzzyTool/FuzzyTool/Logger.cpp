@@ -23,7 +23,7 @@ Logger::~Logger()
 }
 
 
-void Logger::add(unsigned int count, ...) const
+void Logger::add(unsigned int count, ...) 
 {
 	if (f < 0)
 	{
@@ -54,7 +54,7 @@ void Logger::add(unsigned int count, ...) const
 	fflush(f);
 }
 
-void Logger::put_value(float value) const
+void Logger::put_value(float value) 
 {
 	if (f < 0)
 	{
@@ -67,7 +67,7 @@ void Logger::put_value(float value) const
 	fflush(f);
 }
 
-void Logger::put_line() const
+void Logger::put_line() 
 {
 	if (f < 0)
 	{
@@ -80,7 +80,7 @@ void Logger::put_line() const
 	fflush(f);
 }
 
-void Logger::put_separator(std::string separator) const
+void Logger::put_separator(std::string separator) 
 {
 	if (f < 0)
 	{

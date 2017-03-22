@@ -93,21 +93,9 @@ DataSets::DataSets(unsigned int id_dataset)
 	OutputAttributes = output_attributes;
 	OutputIntervals = output_intervals;
 
-	//alocation of Features polygon
-	Features = static_cast<instance*>(new instance[DatasetSize]);
-	if (!Features)
-	{
-		MyError("Bad allocation of Features in DataSets().");
-	}
+	//alocation of Pattern polygon
+	Pattern.resize(size_dataset, feature(attributes));
 
-	for (unsigned long k = 0; k < DatasetSize; k++)
-	{
-		Features[k].Dimension = static_cast<float*>(new float[Attributes]);
-		if (!Features[k].Dimension)
-		{
-			MyError("Bad allocation Features[k].Dimension in DataSets()");
-		}
-	}
 
 	LingvisticAttributes = newUnInt(Attributes, 0, "LingvisticAttributes in DataSets()");
 	LingvisticAttributes[input_attributes] = output_intervals;
@@ -117,17 +105,12 @@ DataSets::DataSets(unsigned int id_dataset)
 
 DataSets::~DataSets()
 {
-	for (unsigned long k = 0; k < DatasetSize; k++)
-	{
-		delete[] Features[k].Dimension;
-	}
-	delete[] Features;
 	delete[] LingvisticAttributes;
 	delete[] min_;
 	delete[] max_;
 }
 
-int DataSets::get_dataset_file(unsigned id_dataset, FILE* file, bool& returns) const
+int DataSets::get_dataset_file(unsigned id_dataset, FILE* file, bool& returns) 
 {
 	returns = false;
 	switch (id_dataset)
@@ -160,7 +143,7 @@ int DataSets::get_dataset_file(unsigned id_dataset, FILE* file, bool& returns) c
 	};
 }
 
-int DataSets::ReadDataSets(unsigned int datasetId) const
+int DataSets::ReadDataSets(unsigned int datasetId)
 {
 	FILE* file = nullptr;
 	try
@@ -192,7 +175,7 @@ int DataSets::ReadDataSets(unsigned int datasetId) const
 	}
 }
 
-int DataSets::WriteCrispFile(void) const
+int DataSets::WriteCrispFile(void) 
 {
 	char file_name[200];
 
@@ -227,7 +210,7 @@ int DataSets::WriteCrispFile(void) const
 	{
 		fprintf(fp, "k=%ld  ", k);
 		for (unsigned int i = 0; i < Attributes; i++)
-			fprintf(fp, "%f ", Features[k].Dimension[i]);
+			fprintf(fp, "%f ", Pattern[k].Feature[i]);
 		fprintf(fp, "\n");
 	}
 	fprintf(fp, "End of Crisp File");
@@ -235,7 +218,7 @@ int DataSets::WriteCrispFile(void) const
 	return 1;
 }
 
-float DataSets::InitialError() const
+float DataSets::InitialError() 
 {
 	try
 	{
@@ -245,7 +228,7 @@ float DataSets::InitialError() const
 		class_number_output_intervals = newUnLong(OutputIntervals, 0l, " classNoOI from InitialErrorDS");
 		for (unsigned long x = 0; x < DatasetSize; x++)
 		{
-			jb = Features[x].Dimension[InputAttributes];
+			jb = Pattern[x].Feature[InputAttributes];
 			class_number_output_intervals[jb]++;
 		}
 		maxClass = class_number_output_intervals[0];
@@ -263,21 +246,23 @@ float DataSets::InitialError() const
 	return 0.0f;
 }
 
-void DataSets::Normalization() const
+void DataSets::Normalization()
 {
 	for (unsigned int i = 0; i < InputAttributes; i++)
 	{
 		if (LingvisticAttributes[i] == 0)
 		{
-			min_[i] = Features[0].Dimension[i];
-			max_[i] = Features[0].Dimension[i];
+			min_[i] = Pattern[0].Feature[i];
+			max_[i] = Pattern[0].Feature[i];
 			for (unsigned long k = 1; k < DatasetSize; k++)
 			{
-				if (Features[k].Dimension[i] < min_[i]) min_[i] = Features[k].Dimension[i];
-				if (Features[k].Dimension[i] > max_[i]) max_[i] = Features[k].Dimension[i];
+				if (Pattern[k].Feature[i] < min_[i]) min_[i] = Pattern[k].Feature[i];
+				if (Pattern[k].Feature[i] > max_[i]) max_[i] = Pattern[k].Feature[i];
 			}
 			for (unsigned long k = 0; k < DatasetSize; k++)
-				Features[k].Dimension[i] = (Features[k].Dimension[i] - min_[i]) / (max_[i] - min_[i]);
+			{
+				Pattern[k].Feature[i] = (Pattern[k].Feature[i] - min_[i]) / (max_[i] - min_[i]);
+			}
 		}
 	}
 }

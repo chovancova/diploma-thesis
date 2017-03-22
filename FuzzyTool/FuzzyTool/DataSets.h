@@ -2,6 +2,7 @@
 #define _DATA_SETS_H_
 #include <stdlib.h>
 #include <stdio.h>
+#include <vector>
 //id of datasets
 #define _HEART 1
 #define _IRIS  2
@@ -17,10 +18,13 @@
 #define PATH_INPUT_FOLDER   "..\\DataSets\\data\\"
 #define PATH_OUTPUT_FOLDER  "..\\DataSets\\out\\"
 
-typedef struct
+struct feature
 {
-	float* Dimension;
-} instance;
+	feature() : Feature() {}
+	feature(size_t size) : Feature(size) {}
+
+	std::vector<float> Feature;
+};
 
 class DataSets
 {
@@ -37,30 +41,30 @@ public:
 	unsigned int OutputIntervals;
 	///<summary>Number of non numeric attributes. Attributes types - Ordered, Binary, Nominal. </summary>
 	unsigned int* LingvisticAttributes;
-	///<summary>Features  -X-axis is size of dataset , Y-axis is number of attributes, </summary>
-	instance* Features;
+	///<summary>Pattern  -X-axis is size of dataset , Y-axis is number of attributes, </summary>
+	std::vector<feature> Pattern;
 	///<summary>NameDataset of dataset.</summary>
 	char NameDataset[50];
 
 private:
 	float* min_;
 	float* max_;
-	int get_dataset_file(unsigned datasetId, FILE* file, bool& returns) const;
+	int get_dataset_file(unsigned datasetId, FILE* file, bool& returns) ;
 	///<summary>Read iris dataset from file.</summary>
-	int read_crisp_file_iris(FILE* fp) const;
+	int read_crisp_file_iris(FILE* fp) ;
 	///<summary>Read heart dataset from file.</summary>
-	int read_crisp_file_heart(FILE* fp) const;
+	int read_crisp_file_heart(FILE* fp) ;
 	///<summary>Read yeast dataset from file.</summary>
-	int read_crisp_file_yeast(FILE* fp) const;
+	int read_crisp_file_yeast(FILE* fp) ;
 	///<summary>Read wine dataset from file.</summary>
-	int read_crisp_file_wine(FILE* fp) const;
+	int read_crisp_file_wine(FILE* fp) ;
 	/*///<summary>Read wine quality dataset from file.</summary>
-	int ReadCrispFileWineQuality(FILE* fp) const;*/
+	int ReadCrispFileWineQuality(FILE* fp) ;*/
 	///<summary>Read skin dataset from file.</summary>
-	int read_crisp_file_skin(FILE* fp) const;
+	int read_crisp_file_skin(FILE* fp) ;
 	///<summary>Read seed dataset from file.</summary>
-	int read_crisp_file_seeds(FILE* fp) const;	
-	int read_crisp_file_heart_short(FILE* fp) const;	
+	int read_crisp_file_seeds(FILE* fp) ;	
+	int read_crisp_file_heart_short(FILE* fp) ;	
 	void initialize_attributes(unsigned id_dataset, unsigned& attributes, unsigned& input_attributes, unsigned& output_attributes, unsigned& output_intervals, unsigned long& size_dataset);
 
 public:
@@ -76,22 +80,22 @@ public:
 	/// <para> Id of dataset.</para>
 	/// <returns>Return 0 - dataset not found, 1 - successfull, -1 - error.</returns>
 	/// </summary> 
-	int ReadDataSets(unsigned int id_dataset) const;
+	int ReadDataSets(unsigned int id_dataset);
 	/// <summary>Check of initial data from dataset. 
 	/// Write information about number of attributes, 
 	/// and values of loaded dataset to file.   
 	/// </summary>
-	int WriteCrispFile() const;
+	int WriteCrispFile() ;
 
 	///<summary> <return>Return number of values in dataset.</return> </summary>
-	unsigned long GetDatasetSize() const
+	unsigned long GetDatasetSize() 
 	{
 		return DatasetSize;
 	}
 
 	///<summary> <return>Return initial error of dataset.</return> </summary>
-	float InitialError() const;
-	void Normalization() const;
+	float InitialError() ;
+	void Normalization();
 };
 
 #endif

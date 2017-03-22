@@ -1,7 +1,7 @@
 #include "Fuzzyfication.h"
 #include "TempFunctions.h"
 
-void Fuzzyfication::print_to_file_number_of_interval_for_each_attributes(FILE* file) const
+void Fuzzyfication::print_to_file_number_of_interval_for_each_attributes(FILE* file) 
 {
 	for (unsigned int attr = 0; attr < Attributes; attr++)
 	{
@@ -9,7 +9,7 @@ void Fuzzyfication::print_to_file_number_of_interval_for_each_attributes(FILE* f
 	}
 }
 
-void Fuzzyfication::print_to_file_fuzzification_result_all_attributes(FILE* file) const
+void Fuzzyfication::print_to_file_fuzzification_result_all_attributes(FILE* file) 
 {
 	for (unsigned long dataset_value = 0; dataset_value < DatasetSize; dataset_value++)
 	{
@@ -25,7 +25,7 @@ void Fuzzyfication::print_to_file_fuzzification_result_all_attributes(FILE* file
 	}
 }
 
-int Fuzzyfication::print_to_cm_file_results(char* filename) const
+int Fuzzyfication::print_to_cm_file_results(char* filename) 
 {
 	FILE* file;
 	file = fopen(filename, "w");
@@ -48,7 +48,7 @@ int Fuzzyfication::print_to_cm_file_results(char* filename) const
 	return 1;
 }
 
-int Fuzzyfication::print_to_log_file_temporary_results() const
+int Fuzzyfication::print_to_log_file_temporary_results() 
 {
 	fprintf(LogFile, "\n ----------------------------------- TEMPORARY RESULTS ------------------------------------------: \n");
 
