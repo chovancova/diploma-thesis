@@ -48,12 +48,6 @@
     <ClCompile Include="DataSetsReadCripsFile.cpp">
       <Filter>Source Files\Dataset</Filter>
     </ClCompile>
-    <ClCompile Include="QuickSort.cpp">
-      <Filter>Source Files\Helper</Filter>
-    </ClCompile>
-    <ClCompile Include="Statistics.cpp">
-      <Filter>Source Files\Helper</Filter>
-    </ClCompile>
     <ClCompile Include="Fuzzyfication.cpp">
       <Filter>Source Files\Fuzzy</Filter>
     </ClCompile>
@@ -73,12 +67,6 @@
     </ClInclude>
     <ClInclude Include="DataSets.h">
       <Filter>Header Files\Dataset</Filter>
-    </ClInclude>
-    <ClInclude Include="QuickSort.h">
-      <Filter>Header Files\Helper</Filter>
-    </ClInclude>
-    <ClInclude Include="Statistics.h">
-      <Filter>Header Files\Helper</Filter>
     </ClInclude>
     <ClInclude Include="Fuzzyfication.h">
       <Filter>Header Files\Fuzzy</Filter>

@@ -27,15 +27,11 @@
     <ClCompile Include="KMeansCluster.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="QuickSort.cpp" />
-    <ClCompile Include="Statistics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataSets.h" />
     <ClInclude Include="Fuzzyfication.h" />
     <ClInclude Include="Logger.h" />
-    <ClInclude Include="QuickSort.h" />
-    <ClInclude Include="Statistics.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\DataSets\heart.data" />
