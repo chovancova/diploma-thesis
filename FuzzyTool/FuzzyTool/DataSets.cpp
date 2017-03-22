@@ -4,7 +4,6 @@
 #include <math.h>
 #include "DataSets.h"
 #include <iostream>
-#include "TempFunctions.h"
 #include <ctime>
 
 void DataSets::initialize_attributes(unsigned id_dataset, unsigned& attributes, unsigned& input_attributes, unsigned& output_attributes, unsigned& output_intervals, unsigned long& size_dataset)

@@ -1,5 +1,4 @@
 #include "Fuzzyfication.h"
-#include "TempFunctions.h"
 #include <cstring>
 #include <iostream>
 #include <ctime>
