@@ -1,56 +1,34 @@
 \chapter{Teoretické východiská práce} 
 
-\section{Fuzzy dáta a expertné odhady}
+\section{Úvod do fuzzy dát}
 %todo pridat do zoznamu zdrojov a potom to tuto v tejto kapitole citovať
 %z knihy Projektovanie systémov pre podporu rozhodovania na základe neurčitých dát, Vitaly Levasheko, Elena Zaitseva, Štefan Kovalík, Vydala Žilinská univerzita v Žiline/Edis-vydavateľstvo ŽU, 2013, ISBN 978-80-554-0680-0
 %5 strana
 Metódy a algoritmy využívané v súčasných systémoch pre podporu rozhodovania by mali brať do úvahy možnú nestochastickú neurčitosť vstupných dát, spôsobenú nedostatočnou presnosťou merania. Jeden z prístupov, ktorý berie do úvahy neurčitosť, je vyjadrenie vstupných hodnôt pomocou neurčitých fuzzy dát alebo pomocou viachodnotových dát. 
-Matematickým aparátom spracovania neurčitých dát a viachodnotových dát je fuzzy logika a viac hodnotová logika. \cite{levashenkoProj}
+Matematickým aparátom spracovania neurčitých dát a viachodnotových dát je fuzzy logika a viac hodnotová logika. \cite{levashenkoProj}%, TODO PRESTYLIZOVAT
 \paragraph{}
 %6 strana
-Neurčité dáta sa reprezentujú pomocou lingvistických premenných, ktorých hodnoty patria do konečnej množiny. \cite{levashenkoProj}
+Neurčité dáta sa reprezentujú pomocou lingvistických premenných, ktorých hodnoty patria do konečnej množiny. 
 %9 strana
 Lingvistické premenné sa javia ako jeden z často používaných spôsobov vyjadrenia hodnôt, opisovaných kvantitatívnymi 
 %10 strana
-alebo kvalitatívnymi veličinami. Kvalitatívne veličiny sa v mnohých prípadoch javia ako výsledok formalizácie expertných odhadov. \cite{levashenkoProj}
+alebo kvalitatívnymi veličinami. Kvalitatívne veličiny sa v mnohých prípadoch javia ako výsledok formalizácie expertných odhadov. 
 %10 strana = kapitola 1.1 kapitola o fuzzy dáta a expertné odhady. 
-Každý objekt alebo proces sa opisuje skupinou ukazovateľov. V modeloch pre podporu rozhodovania sa využívajú ukazovatele, ktoré nadobúdajú hodnoty z množiny reálnych čísel. 
-Dôvody, ktoré sťažujú použitie reálnych čísiel sú nasledovné: \cite{levashenkoProj}
-%todo treba preštylizovat todo 
-\begin{enumerate}
-	\item Zložitosť presného merania hodnôt ukazovateľa. 
-	\item Nie sú algoritmy a metódy výpočtu presných hodnôt ukazovateľa. 
-	\item Zložitosť dostupnosti nameraných dát, súvisiaca s radom objektívnych a subjektívnych faktorov. 
-	\item Absencia nevyhnutnosti poznať presné hodnoty. 
-	\item Relatívne vysoké náklady na zmeranie presných hodnôt ukazovateľov. 
-\end{enumerate}
-%todo doslovne citovanie. treba prestylizovat  
-Reálne hodnoty jednotlivých ukazovateľov bez prihliadnutia na iné ukazovatele jednej strane nesú pre výber rozhodnutia zbytočne podrobnú informáciu, na druhej strane nemôžu byť základom pre výber rozhodnutia. \cite{levashenkoProj}
-%11 strana
-Z toho vyplýva, že je užitočné využiť približné neurčité fuzzy hodnoty vstupných dát. 
-Použitie podobných fuzzy hodnôt umožňuje zaviesť do výskumu kvalitatívne opisy. Vo výsledku sa berie do úvahy neurčitosť úlohy rozhodovania, zabezpečuje sa adekvátny opis všetkých faktorov, ktoré majú vzťah, ale nie je možné zabezpečiť ich presný kvantitatívny opis. 
-\paragraph*{}
-Spracovanie neurčitej fuzzy informácie v rozhodovacích úlohách sa zabezpečuje aplikovaním lingvistického prístupu.\cite{levashenkoProj} %tuto este cituju Zadh1976, Lieb1993, Novak2005, Navara2007
-Matematickým aparátom ich formalizácie je teória fuzzy množín. 
+Každý objekt alebo proces sa opisuje skupinou ukazovateľov. V modeloch pre podporu rozhodovania sa využívajú ukazovatele, ktoré nadobúdajú hodnoty z množiny reálnych čísel. \cite{levashenkoProj}
+
+Použitie reálnych čísel je zložité na presné meranie hodnôt ukazovateľa,dostupnosti nameraných dát, a relatívne vysoké náklady na meranie presných hodnôt ukazovateľov. Nie sú algoritmy a metódy výpočtu na výpočet presných hodnôt ukazovateľa. Ukazovatele reálnych hodnôt obsahujú zbytočne podrobnú informáciu, a nemôžu byť základom pre výber rozhodnutia. Aplikovaním lingvistického prístupu sa zabezpečuje spracovanie neurčitej fuzzy informácie v rozhodovacích úlohách. Lingvistický prístup umožnuje formalizovať neurčité fuzzy pojmy pomocou fuzzy množín a premenných, a spracovávať ich cez teóriu fuzzy logiky. 
 
 
-%todo prestylizovať todo
-Lingvistický prístup pri konštrukcii modelov rozhodovania umožňuje\cite{levashenkoProj}: 
-\begin{itemize}
-	\item využiť na opis elementov úlohy rozhodovania subjektívne odhady expertov, vyjadrené pomocou neurčitých fuzzy pojmov, vzťahov a výrokov profesionálneho jazyka;
-	\item formalizovať neurčité fuzzy opisy pomocou fuzzy množín a lingvistických premenných;
-	\item spracovávať neurčité fuzzy opisy prostredníctvom matematického aparátu teórie fuzzy logiky. 
-\end{itemize}
-
-Základ tohto prístupu tvoria pojmy neurčitej fuzzy premennej a lingvistickej premennej. 
-Medzi základné pojmy patrí definícia fuzzy množiny, fuzzy premennej, lingvistickej premennej, funkcie príslušnosti.\cite{levashenkoProj}
 
 % tieto pojmy asi su aj v Zadeh1965, Zadeh1996 , citujem ich doslovne z knihy = Projektovanie systemov.. 
+\subsection{Definície}
+
 Nech $ X = \left\lbrace x \right\rbrace$ je množina prvkov x. 
 
+
 \paragraph*{Definícia 1.} 
-Fuzzy množina $A \subset X $ je predstavovaná množinou dvojíc $ \left\lbrace \left( x, \mu_A \left( x \right) \right) \right\rbrace  $, kde $ x \in X$ a $ \mu_A : X \longrightarrow \left\langle 0, 1\right\rangle $ je funkcia príslušnosti, ktorá predstavuje subjektívnu mieru príslušnosti elementu x k množine A. 
-Veličina $\mu_A\left( x\right) $ nadobúda hodnoty od nuly, ktorá označuje absolútnu nepríslušnosť po hodnotu jedna, ktorá hovorí o absolútnej príslušnosti elementu x do fuzzy množiny A. \cite{levashenkoProj, Zadeh1965}
+  Fuzzy množina $A \subset X $ je predstavovaná množinou dvojíc $ \left\lbrace \left( x, \mu_A \left( x \right) \right) \right\rbrace  $, kde $ x \in X$ a $ \mu_A : X \longrightarrow \left\langle 0, 1\right\rangle $ je funkcia príslušnosti, ktorá predstavuje subjektívnu mieru príslušnosti elementu x k množine A. 
+Veličina $\mu_A\left( x\right) $ nadobúda hodnoty od nuly, ktorá označuje absolútnu nepríslušnosť po hodnotu jedna, ktorá hovorí o absolútnej príslušnosti elementu x do fuzzy množiny A. \cite{Zadeh1965, levashenkoProj}
 % toto bolo doslova asi citovane zo 
 %Zadeh L., Fuzzy sets. Information and Control, vol.8, 1965, pp. 338-353. 
 
@@ -665,134 +643,150 @@ CBD - mnohorozmerný.
 
 
 
-\pagebreak
-\section{Proces riadenej fuzzy diskretizácie}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\pagebreak
 \section{Meranie Entropie}
 Entropia je meraná množstvom neistoty výsledku náhodného experimentu, alebo equivalene, meraním informácií keď sa pozoruje výsledok. Tento koncept bol zadefinovaný rôznymi spôsobmi [25]–[30] a zovšeobecnený v rozličných aplikovaných oblastiach, ako napríklad teória komunikácie, matematiky, štatistickej termodynamike a ekonómii [31]–[33]. Z pomedzi týchto rozličných definícií, Shannon prispel k najširšej a naj fundamentálnejšej definícii entropie v informačnej teórii. V nasledujúcom texte najprv uvedieme Shannonovu entropiu a potom popíšeme štyri Luca-Termini axiómy [25], ktoré dobre-definovaná entropia musí spĺňať. Nakoniec navrhneme meranie fuzzy entropie, ktoré je rozšírenie Shannonovej definície.
 
-\subsection{Shannonova Entropia}
-Za entropiu možno považovať meranie neistoty náhodnej premennej X. Nech X je náhodná spočítateľná premenná s konečnou N-znakovou abecedou danou   .
+\subsubsection{Shannonova Entropia}
+Za entropiu možno považovať meranie neistoty náhodnej premennej $X$. Nech $X$ je náhodná spočítateľná premenná s konečnou N-znakovou abecedou danou $ \left\{ x_0, x_1, \ldots, x_{N-1} \right\}$  .
 Ak výsledok $x_j$ sa vyskytuje s pravdepodobnosťou p($x_j)$, tak potom množstvo informácie spojené so známim výskytom výstupu $x_j$ je definované ako:
+$$ I(x_j)=-\log_z p(x_j) $$
 
-1. TODO
-To znamená, že pre diskrétne zdroje, informácie získané výberom symbolu sú bitové. V priemere, symbol  bude vybratý -krát z celkového počtu N výberov, takže priemerné množstvo informácie získanej z nzdrojových výsledkou je:
+To znamená, že pre diskrétne zdroje, informácie získané výberom symbolu $x_j$ sú $\lceil \log_zp(x_j)  \rfloor$ bitové. V priemere, symbol $x_j$ bude vybratý $n*p(x_j)$-krát z celkového počtu $N$ výberov, takže priemerné množstvo informácie získanej z nzdrojových výsledkou je:
 
-2. TODO 
+$$
+-n.p(x_0)\log_2p(x_0) - n.p(x_1)\log_2p(x_1) - \ldots 
+-n.p(x_{N-1})\log_2p(x_{N-1}).
+$$
 
-\begin{equation}\label{fuzzy}
-D_j = \frac{ \sum\limits_{r \in S_{C_{j}}(r_n)  } \: \mu_{\tilde{A}} (r) }{\sum\limits_{r \in X  } \mu_{\tilde{A}} (r) }
-\end{equation}
+Podelením výrazu číslom $n$ získame priemerné množstvo informácie na symbol výskytu zdroja. To je známe ako priemerná informácia, neistota, alebo entropia definovaná nasledovne.
 
+\textbf{Definícia:}  Entropia $H(X)$ náhodnej diskrétnej premennej $X$ je definovaná ako 
+$$H\left(x\right)=-\sum\limits_{j=0}^{N-1}p\left(x_j\right)\log_2p\left(x_j\right) $$
 
+alebo
 
+$$H\left(x\right)=-\sum\limits_{j=0}^{N-1}p_j
+\log_2p_j$$
 
-Podelením (2.) číslom n získame priemerné množstvo informácie na symbol výstubu zdroja. To je známe ako priemerná informácia, neistota, alebo entropia definovaná nasledovne.
-Definícia 1:  Entropia H(X) náhodnej diskrétnej premennej X je definovaná ako 
-
-3. TODO
-Alebo
-4.	TODO
-Kde
-Všimnite si, že entropia je funkcia distribúcie X. Nezáleží na skutočných hodnotách náhodnej premennej X, ale iba na pravdepodobnostiach. Preto entropiu možno zasísať ako H(p).
-
-
-\section{TODO INE }
-
-\section{Záver}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\chapter*{TODO = DRAFT KAPITOLY = ZARADIT NESKOR}
-\subsection{Efektívny fuzzy clasifikátor založený na hierarchickej fuzzy entropii (An Efficient Fuzzy Classifier Based on Hierarchical Fuzzy Entropy)}
-Chen-Jian Lin, Chi-Yung Lee, a Shang-Jin Hong
-International Journal of Information Technology
-Vol.12 NO.6 2006
-
-
-Fuzzy klasifikátor založený na hierarchickej fuzzy entropii (FC-HFE)
-Algoritmus vychádza z algoritmu Fuzzy klasifikátora založeného na Fuzzy entropii (FEBFC). 
-
-Metóda FEBFC má nasledovné problémy: 
+Entropia je funkcia distribúcie $X$. Nezáleží na skutočných hodnotách náhodnej premennej $X$, ale iba na pravdepodobnostiach. Preto entropiu možno zasísať ako $H(p)$.
+\subsubsection{Luca-Termini Axiómy}
+Kosko [25] navrhuje, aby meranie dobre definovanej fuzzy entropie musí splňať štyri Luca-Termini axiómy. Patria medzi ne nasledujúce:
 \begin{itemize}
-\item Označovanie tried pre každú rozhodovaciu oblasť je vykonávané podľa fuzzy entropy sumácie pre individuálne intervaly pre každú dimensiu. Rozhodovacia oblasť je priradená triede s najnižšou fuzzy entropiou v danej oblasti. Podľa axiómu fuzzy entropie, fuzzy entropia bude nula, či zhodovací stupeň pre každú triedu je nula alebo jedna. Preto, priraďovanie tried bude mať chyby, keď počet tried v ktorých fuzzy entropia sa rovna nule je viac ako jeden v tejto oblasti. 
+\item $E(A)=0 \iff A\in 2^X $, kde 
+$A$ nie je fuzzy množina a $2^X$ je množina všetkých podmnožín množiny 
+$A$. 
 
-\item V FEBFC, rastúci počet intervalou na každej dimensii je vykonaný podľa pravidla, ktoré celkovú entropiu I (počet intervalov v špecifickej dimenzii) intervalov je menej ako to pre I-1 intervalov. Toto pravidlo niekedy zabraňuje v raste počtu intervalov, ktoré vedie k nesprávnej klasifikácii. Napríklad, dáta sú prezentované ako even intersecting distribution, ako spiral dáta.  Fuzzy entropia spiral data typu je na začiatku vysoká, dáta by mali byť neskôr rozdelené na základe klesajúcej fuzzy entropie. Preto zastavujúca podmienka algoritmu pre rastúci počet intervalov bude výsledok v obmedzení rastúceho počtu intervalov na každej dimenzii. 
+\item
+$E(\tilde{A}) =1
+\iff 
+m_{{A}}(x_i) =0.5$
+pre všetky $i$, kde 
+$m_{\tilde{A}}(x_i)$
+znamená stupeň príslušnosti 
+$x_i$ 
+v fuzzy množine 
+$\tilde{A}$. 
+\item
+$E(\tilde{A}) \leq E(\tilde{B}) $
+ak 
+$\tilde{A}$
+ je menej fuzzy než 
+$\tilde{B}$
+, napr. ak 
+$m_{\tilde{A}}(x) \leq m_{\tilde{B}} (x)$
+keď 
+$m_B(x) \leq 0.5$
+a 
+$m_{\tilde{A}}(x) 
+\geq 
+m_{\tilde{B}}(x)$ 
 
-\item Vzorový priestor bol rozdelený do neprekrývajúcich sa rozhodovacích oblastí použitím mriežkového rozdelenia. Označovanie tried nemôže byť priradené do rozhodovacej oblasti, ktorá nemá žiadne trénovacie dáta. Ak testovacia vzorka padá do danej rozhodovaciej oblasti, ktoré systém nevie ako klasifikovať. 
+keď 
+$m_B(x) 
+\geq
+0.5$
+, kde 
+$\tilde{A}$
+aj 
+$\tilde{B}$
+ sú fuzzy množiny. 
+ 
+ \item
+ 
+$E(A)=E(A^C)$
+
 \end{itemize}
 
-FC-HFE upravuje pôvodnú metódu FEBFC v určovaní počtu intervalov najpr. FC-HFE udržiava pôvodnu podmienku pre zastavenie rastu počtu intervalov, keď celková entropia I intervalov je viac ako jeden z I-1 intervalu. Ďalšia podmienka pre zastavenie rastu počtu intevalov, je ak celková fuzzy entropia I intervalov je viac ako jedna z I-1 intevalu a celková fuzzy entropia I-1 intervalov je menej ako prahová hodnota  $\varphi$ $($ to je, keď celková fuzzy entropia I intervalov je menšia ako jedna z I-1 intervalu alebo celková entropia I intervalu je viac ako prahová hodnota $\varphi$, tak $I=I+1)$. Hodnota prahovej hodnoty $\varphi$ bola obdržaná použítím nasledovnej rovnice:$$\varphi= -N_{trieda}\cdot \frac{1}{N_{trieda}} \cdot \log_2{(\frac{1}{N_{trieda}})}\cdot (I-1) \cdot \theta = - \log_2{(\frac{1}{N_{trieda}})}\cdot(I-1)\cdot\theta$$
-kde $N_{trieda}$ je počet data tried, a $\theta$ je percento maximálnej celkovej fuzzy entropie z I-1 intervalov. $\theta$ môže byť ladený použitím odlišného klasifikačného problému. Preto, môžu produkovať dostatok intervalov pre rovnomerné preniky dáta distribúcii použitím tejto metódy. Fuzzy entorpia pre každú dimensiu musí byť menej ako špecifická hodnota. 
 
-Ďalší fenomén, ktorý sa našiel v FEBFC je hodnota fuzzy entropie pre niektoré rozhodovacie oblasti je vždy veľmi vysoká (to je data distribúcia rozhodujúcej oblasti je veľmi zmätená alebo dáta, ktoré sú klasifikované nesprávne je veľmi veľa) snáď vzorkový priestor je rozdenený do toľko rozhodovacích oblastí fuzzy entropiou, zabraňujúc narastaniu klasifikačnej hodnote. 
 
-FC-HFE  metóda sa zaoberá vyšou fuzzy entropiou rozhodovacích oblastí nazývaních hierarchická fuzzy entorpia. Štruktúra je zobrazená na obrázku TODO OBRAZOK X. 2D vzorkový priestor na Obr.1 je rozdelený do nerovnomerných 53 rozhodovacích oblastí hierarchickou fuzzy entropiou. Prvá až štvrtá rozhodovacia oblasť fuzzy entropie vrstvy I je veľmi vysoká. Rozdelili tieto rozhodovacie oblasti. Nparíklad rozhodovacia oblasť I bola rozdelená do ôsmych rozhodovacích oblastí po druhý raz. Rozhodovacie podoblasti I a II boli rozdelené do štyroch rozhodovacích oblastí retrospektívne po tretí raz. Rozhodovacie oblasti I boli rozdelene do štrnástich rozhodovacích oblastí. Fuzzy entorpia väčšiny rozhodovacích oblastí sa stala nižšou po tom, ako bol vzorkový priestor rozdelený použitím hierarchickej fuzzy entropie. 
 
-Okrem toho, FC-HFE modifikoval metódu, ktorou sa počíta fuzzy entorpia pre rozhodovacie oblasti. Ak tam nie sú žiadne trénovacie dáta určitej triedy na intervale, a tak množina fuzzy entropie tejto triedy sa rovná jednej, aby sa zabránilo tomu, že fuzzy entorpia určitej triedy sa bude rovnať nule viac ako jeden pre počítanie najnižšiej fuzzy entorpie oblasti. 
+. 
 
-\subsubsection{Algorimtus klasifikácie – Fuzzy klasifikátor založený na hierarchickej fuzzy entropii (FC-HFE)}
 
-\textbf{Krok 1 – Krok 4.} je rovnaký ako FEBFC v selektovaní počtu intervalov pre každú dimenziu na aktuálnom vzorovom priestore. 
+\subsubsection*{Normalizácia }
 
-\textbf{Krok 5.} Ak celková fuzzy entropia I intervalu je menej ako I-1 intervalu alebo celkova fuzzy entropia I intervalu je viac ako prahova hodnota $\varphi$, tak sa znova rozdeluje $(I = I - 1)$ a ide na krok 2. Inak sa zastavi zvyšovanie intervalov na tejto dimenzii a rozhodne sa počet intervalov pre ďalšiu dimenziu. 
+%http://opac.crzp.sk/openURL?stype=0&sid=A61021784F381E68CE068F90830C
+%Fuzzy riadenie synchrónneho motora
+%Autor - Sedláková, Viera
+%Školiteľ - Girovský, Peter
+%Oponent - Timko, Jaroslav
+%Škola - Technická univerzita v Košiciach 1040 104006
+%Rok odovzdania 2013 Počet strán113s.
 
-\textbf{Krok 6.} Akonáhle intervaly pre každú dimeziu sú určené, rozhodovacie oblasti pre súčasný vzorkový priestor sú rodelené. Mean fuzzy entropie je vypočítaní použitím nasledujúcej rovnice pre všetky rozhodovacie oblasti: 
-$$MFE_i =  \frac{\sum\limits_{i=1}^{N_i}FE_{ij}}{ N_i},  j=1…N_i$$
-Kde $N_j$ je počet rozhodovacích oblastí pre i-tú vrstvu, $FE_{ij}$ je j-tá rozhodovacia oblasť pre i-tú vrstu a $MFE_i$ je mean fuzy entropy pre i-tú vrstvu. 
 
-\textbf{Krok 7.} Fuzzy entropy pre každú rozhodovaciu oblasť v súčasnom vzorovom priestore je porovnávaný s MFE. Ak fuzzy entorpia pre rozhodovaciu oblasť je vačšia ako mean fuzzy entropie, oblasť sa stane nezávislým podpriestorom a krok 1. až krok 7. sú vykonávané znova na determinovanie rozhodovacích oblastí pre každy podpriestor. Inak rozhodovacia oblasť bude pridelená označeniu triedy. 
+Normalizácia znamená prevod vstupných ostrých hodnôt z technického procesu, ktorými sú fyzikálne hodnoty  nameraných, či zadaných hodnôt, ktoré sa prevedú na normalizovanú množinu - univerzum. 
 
-Horeuvedený proces je ako rekurzívna funkcia, ktorá je vykonávaná opakovane pre každý podpriestor pokiaľ všetky podpriestory nemôžu byť viac rozdelené. Keď horné kroky sú skončené, testovací vzor je klasifikovaní použitím rozhodovacích oblasti, ktorá majú označenie triedy. Keď testovacia vzorka nemá označenie triedy oblasti triedy, tak testovacia vzorka ej porovnávaná použitím krátkej Euclidovej vzdialenosti medzi susemi trénovacích dát a testovaciej vzorky, klasifikované do najbližšej trénovacej triedy. 
+Najčastejšie sú všetky univerzá v rozsahu [-1;1] alebo [0, 1]. Takéto znormalizované dáta vstupujú do fuzzifikácie. 
+
+Pri fuzzifikácii sa každej ostrej nameranej hodnote z normalizovaného univerza priradí stupeň príslušnosti do jednej, alebo viac fuzzy množín, ktoré zodpovedajú významu základných termov použitých v pravidlách. 
+Normalizované univerzum sa pokryje príslušnými fuzzy množinami. Prevedú sa ostré dáta na fuzzy dáta. Medzi najbežnejšie používané funkcie príslušenstva patria: 
+\begin{itemize}
+\item trojuholníková, 
+\item lichobežníková, 
+\item Gausova, 
+\item zvonová, 
+\item sigmoidalná. 
+\end{itemize}
+
+
+  
+
+%\subparagraph*{Fuzzy množiny}
+%http://math.ku.sk/~tkacik/predmety/download/hm/prace/kozusko.pdf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

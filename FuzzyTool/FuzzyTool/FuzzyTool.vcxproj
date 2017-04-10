@@ -22,13 +22,11 @@
     <ClCompile Include="DataSets.cpp" />
     <ClCompile Include="DataSetsReadCripsFile.cpp" />
     <ClCompile Include="Fuzzyfication.cpp" />
-    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataSets.h" />
     <ClInclude Include="Fuzzyfication.h" />
-    <ClInclude Include="Logger.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\DataSets\heart.data" />
@@ -40,6 +38,7 @@
     <None Include="..\DataSets\winequalitywhite.data" />
     <None Include="..\DataSets\yeast.data" />
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8716CB01-9F74-44C2-A24F-90945598ABDB}</ProjectGuid>
