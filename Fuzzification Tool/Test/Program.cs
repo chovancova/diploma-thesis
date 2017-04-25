@@ -42,29 +42,29 @@ namespace Test
            FuzzyClassifier fc = new FuzzyClassifierFuzzyEntropy(data);
             FuzzyClassifiierWagedFuzzyEntropy fcw = new FuzzyClassifiierWagedFuzzyEntropy(data);
 
-            fc.RunFuzzification();
-            fc.WriteToFile("R_fuzzyClassifier-resultData.txt");
+            //fc.RunFuzzification();
+            //fc.WriteToFile("R_fuzzyClassifier-resultData.txt");
             fcw.RunFuzzification();
             fcw.WriteToFile("R_fuzzyClassifier-resultData-waged.txt");
-            FuzzyCMeansMethod fcm = new FuzzyCMeansMethod(data);
-            fcm.RunFuzzification();
-            fc.WriteToFile("R_fuzzyClassifier-resultData-fcm.txt");
+            //FuzzyCMeansMethod fcm = new FuzzyCMeansMethod(data);
+            //fcm.RunFuzzification();
+            //fc.WriteToFile("R_fuzzyClassifier-resultData-fcm.txt");
 
 
 
-            data.RandomizeArray();
-            data.ShrinkDataset(20);
-            data.WriteInfoToFile("R_shriked-dataset-iris-before-fuzzification.txt");
-            fc = new FuzzyClassifierFuzzyEntropy(data);
-            fcw = new FuzzyClassifiierWagedFuzzyEntropy(data);
-            fcm = new FuzzyCMeansMethod(data);
-            fc.RunFuzzification();
-            fc.WriteToFile("R_shriked-dataset-iris-after-febfc.txt");
-            fcw.RunFuzzification();
-            fcw.WriteToFile("R_shriked-dataset-iris-after-waged.txt");
+           // data.RandomizeArray();
+           // data.ShrinkDataset(20);
+           // data.WriteInfoToFile("R_shriked-dataset-iris-before-fuzzification.txt");
+           // fc = new FuzzyClassifierFuzzyEntropy(data);
+           // fcw = new FuzzyClassifiierWagedFuzzyEntropy(data);
+           // fcm = new FuzzyCMeansMethod(data);
+           //fc.RunFuzzification();
+           //fc.WriteToFile("R_shriked-dataset-iris-after-febfc.txt");
+           // fcw.RunFuzzification();
+           // fcw.WriteToFile("R_shriked-dataset-iris-after-waged.txt");
 
-            fcm.RunFuzzification();
-            fcm.WriteToFile("R_shriked-dataset-iris-after-fcm.txt");
+           // fcm.RunFuzzification();
+           // fcm.WriteToFile("R_shriked-dataset-iris-after-fcm.txt");
 
 
 

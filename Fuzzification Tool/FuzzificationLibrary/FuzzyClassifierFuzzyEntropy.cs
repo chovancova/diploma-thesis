@@ -14,7 +14,10 @@ namespace FuzzificationLibrary
 
         public override double[][] DeterminationIntervalsLocation(int dimension, int intervals)
         {
-            return CMeansClustering.DeterminationIntervalsLocation(dimension, intervals);
+            double[][] temp = CMeansClustering.DeterminationIntervalsLocation(dimension, intervals);
+
+           Centers =  CMeansClustering.ReturnCenters();
+            return temp;
         }
 
 
@@ -86,6 +89,34 @@ namespace FuzzificationLibrary
 
         protected override double ComputeTotalFuzzyEntropy(int dimension)
         {
+
+            double[] triedyVMnozineX = new double[DataToTransform.DatasetSize];
+            for (int i = 0; i < DataToTransform.DatasetSize; i++)
+            {
+                triedyVMnozineX[i] = DataToTransform.Dataset[i][DataToTransform.InputAttributes];
+            }
+            double[] sum1 = new double[DataToTransform.OutputIntervals];
+            double[] sum2 = new double[DataToTransform.OutputIntervals];
+            //prejdem vsetky triedy
+            for (int classO = 0; classO < DataToTransform.OutputIntervals; classO++)
+            {
+                for (int i = 0; i < DataToTransform.DatasetSize; i++)
+                {
+                  
+                        //prejdem cez vsetky intervaly
+                        for (int j = 0; j < Intervals[dimension]; j++)
+                        {
+                            if (Math.Abs(triedyVMnozineX[i] - classO) < 0.0000000001)
+                           {
+                            sum1[classO] += Results[dimension][j][i];
+                            }
+                            sum2[classO] += Results[dimension][j][i];
+                        }
+                }
+            }
+
+
+
             //1) Let X = {r1, ... , rn} be a universal set with elements ri distributed in pattern space where i = 1..n. 
             //2) Let A be a fuzzy set defined on a interval of pattern space which kontains k elements (k < n). 
 
@@ -120,8 +151,8 @@ namespace FuzzificationLibrary
             double temp = 0;
             for (int i = 0; i < DataToTransform.DatasetSize; i++)
             {
-                max = Results[dimension][0][i];//mam toto dobre??????
-                                               //---------------------------II.C.----STEP 4 - SET SCJ AS SET OF ELEMENTS OF CLASS J ON X -------------------------------------------
+                max = Results[dimension][0][i];
+            //---------------------------II.C.----STEP 4 - SET SCJ AS SET OF ELEMENTS OF CLASS J ON X -------------------------------------------
                 for (int j = 0; j < countIntervalsInDimension; j++)
                 {
                     temp = Results[dimension][j][i];
@@ -136,7 +167,7 @@ namespace FuzzificationLibrary
                 //---------------------------II.C.----STEP 5 - COMPUTE MATCH DEGREE DJ -------------------------------------------
                 for (int j = 0; j < countIntervalsInDimension; j++)
                     for (int k = 0; k < DataToTransform.OutputIntervals; k++) //OutputIntervals???
-                        mu[classM][j][k] += Results[dimension][j][i] * Results[DataToTransform.InputAttributes][k][i]; //???
+                        mu[classM][j][k] += Results[dimension][j][i]; //???
             }
 
             for (int j = 0; j < countIntervalsInDimension; j++)
@@ -184,6 +215,7 @@ namespace FuzzificationLibrary
         /// <returns></returns>
         protected override bool ConditionForStopingFuzzificationInDimension(int dimension, double totalEntropyI, double totalEntropyIPrevious)
         {
+            if (Math.Abs(totalEntropyI) < 0.000001) return true;
             return (totalEntropyI <= totalEntropyIPrevious) && Intervals[dimension] > DataToTransform.OutputIntervals;
         }
 

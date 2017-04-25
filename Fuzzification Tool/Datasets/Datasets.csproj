@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatasetChooser.cs" />
+    <Compile Include="DatasetIris - Copy.cs" />
     <Compile Include="DatasetIris.cs" />
     <Compile Include="DataSets.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

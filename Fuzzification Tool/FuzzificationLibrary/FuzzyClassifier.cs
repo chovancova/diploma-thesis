@@ -114,10 +114,10 @@ namespace FuzzificationLibrary
        public virtual void RunFuzzificationInDimension(int dimension)
        {
             //  Step 1) Set the initial number of intervals I = 2.
-            int interval = 3; /////?????? alebo DataToTransform.OutputIntervals - 1 
+            int interval = 2; 
             double totalEntropyI= 0;
              double totalEntropyIPrevious= 0;
-            TotalEntropy[dimension] = new double[DataToTransform.DatasetSize];//cca max ? i dont know how many interval i will get
+           TotalEntropy[dimension] = new double[88];
 
             do
             {
@@ -126,6 +126,8 @@ namespace FuzzificationLibrary
 
                 // Step 2) Locate the centers of intervals.
                 IntervalCentersAndWidth[dimension]= DeterminationIntervalsLocation(dimension, Intervals[dimension]);
+                
+
                 // Step 3) Assign membership function for each interval.
                 MembershipFunctionAssignment(dimension, interval);
                 // Step 4) Compute the total fuzzy entropy of all intervals for I and I - 1 intervals.
@@ -283,7 +285,7 @@ namespace FuzzificationLibrary
                                 w.Write((Math.Round(Results[j][k][i], 4)).ToString("0.0000") + "\t");                          
                             }
                             w.Write("\t");
-                           // w.Write("sum("+ Math.Round(sum,4) +")"+ "\t\t");
+                            w.Write("sum("+ Math.Round(sum,4) +")"+ "\t\t");
                             sum = 0; 
                         }
                         w.WriteLine();

@@ -28,12 +28,13 @@ namespace FuzzificationLibrary
         /// </summary>
         private double[][] CMeansClustering(int numberOfIntervals, int dimension)
         {
+            int count = 0; 
             _rand = new Random();
             double[][] centers;
             bool doesAnyCenterChange;
             double[] resultPrevius = null;
             //Step 2) Set initial centers of clusters.
-            _fc.Centers[dimension] = InitializeRandomCenters(dimension, numberOfIntervals);
+            _fc.Centers[dimension] = InitializeUniformCenters(dimension, numberOfIntervals);
             do
             {
                 //Step 3) Assign cluster label to each element.
@@ -45,40 +46,34 @@ namespace FuzzificationLibrary
                 //If each cluster center is determined appropriately, the
                 //recomputed center in Step 4 would not change.
                 //If so, stop the determination of interval centers, otherwise go to Step 3.
-                doesAnyCenterChange = DoesAnyCenterChange(result, resultPrevius);
+                doesAnyCenterChange = DoesAnyCenterChange(result, centers);
                 if (!doesAnyCenterChange) break;
-                resultPrevius = result;
-
-               for (var i = 0; i < _fc.Centers[dimension].Length; i++)
-                    _fc.Centers[dimension][i] = resultPrevius[i];
-
-            } while (true);
+                count++;
+            } while (count ==500);
 
             return centers;
         }
 
+        public double[][] ReturnCenters()
+        {
+            return _fc.Centers;
+        }
+
         //If each cluster center is determined appropriately, the recomputed center in Step 4 would not change.
         //If so, stop the determination of interval centers, otherwise go to Step 3.
-        private static bool DoesAnyCenterChange(double[] result, double[] resultPrevius = null)
+        private static bool DoesAnyCenterChange(double[] result, double[][] centers )
         {
             //ak bola nejaka zmena v umiestneni - tak false, inak true
-
-            if (resultPrevius == null) return false;
-
-            var numberOfDontChanged = 0;
             for (var i = 0; i < result.Length; i++)
-                if (Math.Abs(result[i] - resultPrevius[i]) < 0.0000001)
-                    numberOfDontChanged++;
+                if (Math.Abs(result[i] - centers[i][0]) < 0.0000001)
+                    return false;
 
-            if (numberOfDontChanged == result.Length)
-                return true;
-
-            return false;
+            return true; 
         }
 
         private double[] RecomputeClusterCenters(int numberOfIntervals, double[][] centers)
         {
-            var result = new double[numberOfIntervals];
+            var result = new double[_fc.DataToTransform.DatasetSize];
             for (var i = 0; i < numberOfIntervals; i++)
             {
                 double Nq = 0;
@@ -89,7 +84,7 @@ namespace FuzzificationLibrary
                         Nq++;
                         sumNq += centers[j][3];
                     }
-                result[i] = (double) sumNq/Nq;
+               result[i] = (double) sumNq/Nq;
             }
             return result;
         }
@@ -109,7 +104,7 @@ namespace FuzzificationLibrary
                 centers[i] = new double[6];
                 closest = 999999999.0;
                 distance = 0.0;
-                closestIndex = -1;
+                closestIndex = 0;
 
                 for (var j = 0; j < numberOfIntervals; j++)
                 {
@@ -136,22 +131,15 @@ namespace FuzzificationLibrary
             return centers;
         }
 
-        private double[] InitializeRandomCenters(int dimension, int q)
+        private double[] InitializeUniformCenters(int dimension, int q)
         {
             var c = new double[q];
             var indexData = new int[q];
             var notSame = false;
-            for (var i = 0; i < q; i++)
-                do
-                {
-                    indexData[i] = _rand.Next(_fc.DataToTransform.DatasetSize);
-                    c[i] = _fc.DataToTransform.Dataset[indexData[i]][dimension];
-                    notSame = false;
-                    for (var j = 0; j < i; j++)
-                        if (Math.Abs(c[i] - c[j]) < 0.00000001)
-                            notSame = true;
-                } while (notSame);
-            Array.Sort(c);
+            double temp;
+            for (var i = 1; i <= q; i++)
+               c[i-1] = (double)(i - 1) / (q - 1);
+          
             return c;
         }
 
