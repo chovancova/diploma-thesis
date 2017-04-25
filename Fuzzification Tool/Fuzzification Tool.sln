@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuzzification Tool", "Fuzzification Tool\Fuzzification Tool.csproj", "{B904211F-9D47-4A00-9332-6AD4E1162269}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datasets", "Datasets\Datasets.csproj", "{943AD2C3-AE25-42EE-8303-093409058FA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{15472522-B784-42FF-9BC9-D333F9E6A101}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuzzificationLibrary", "FuzzificationLibrary\FuzzificationLibrary.csproj", "{0AAA8EB7-488F-43D9-9069-79F2FC2140F9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B904211F-9D47-4A00-9332-6AD4E1162269}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B904211F-9D47-4A00-9332-6AD4E1162269}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B904211F-9D47-4A00-9332-6AD4E1162269}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B904211F-9D47-4A00-9332-6AD4E1162269}.Release|Any CPU.Build.0 = Release|Any CPU
+		{943AD2C3-AE25-42EE-8303-093409058FA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{943AD2C3-AE25-42EE-8303-093409058FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{943AD2C3-AE25-42EE-8303-093409058FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{943AD2C3-AE25-42EE-8303-093409058FA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15472522-B784-42FF-9BC9-D333F9E6A101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15472522-B784-42FF-9BC9-D333F9E6A101}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15472522-B784-42FF-9BC9-D333F9E6A101}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15472522-B784-42FF-9BC9-D333F9E6A101}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AAA8EB7-488F-43D9-9069-79F2FC2140F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AAA8EB7-488F-43D9-9069-79F2FC2140F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AAA8EB7-488F-43D9-9069-79F2FC2140F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AAA8EB7-488F-43D9-9069-79F2FC2140F9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
