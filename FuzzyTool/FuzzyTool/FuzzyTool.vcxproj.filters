@@ -16,17 +16,11 @@
     <Filter Include="Header Files\Dataset">
       <UniqueIdentifier>{242d7698-4511-462e-b34f-0a5a3ae08779}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Helper">
-      <UniqueIdentifier>{ce5110bf-995f-42b2-8820-0cf00357a567}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files\DataSets">
       <UniqueIdentifier>{2db1e050-3669-4d9c-bb42-404d80e6a72c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Dataset">
       <UniqueIdentifier>{8d624d98-71c6-47c1-9710-a36d72bf8d9c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Helper">
-      <UniqueIdentifier>{a2130dd7-95e1-4b7a-8270-1b8b7c81ce39}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Fuzzy">
       <UniqueIdentifier>{2b0f8202-3ed9-43fd-8e73-7790ea59a6ec}</UniqueIdentifier>
@@ -39,9 +33,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Logger.cpp">
-      <Filter>Source Files\Helper</Filter>
-    </ClCompile>
     <ClCompile Include="DataSets.cpp">
       <Filter>Source Files\Dataset</Filter>
     </ClCompile>
@@ -53,9 +44,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Logger.h">
-      <Filter>Header Files\Helper</Filter>
-    </ClInclude>
     <ClInclude Include="DataSets.h">
       <Filter>Header Files\Dataset</Filter>
     </ClInclude>

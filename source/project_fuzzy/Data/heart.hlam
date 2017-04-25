@@ -436,8 +436,8 @@ AscR[q]   AscN[q]
 countAscR=47
 cFCM[0]=0.240356 cFCM[1]=0.510691 
 c__2[0]=0.242453 c__2[1]=0.512093 
-M[sector=0][ja=0][jb=0]=82.695602 
-M[sector=0][ja=0][jb=1]=56.630398 
+M[sector=0][ja=0][jb=0]=82.695618 
+M[sector=0][ja=0][jb=1]=56.630409 
 M[sector=0][ja=1][jb=0]=11.304383 
 M[sector=0][ja=1][jb=1]=9.369588 
 M[sector=1][ja=0][jb=0]=11.401089 
@@ -459,15 +459,15 @@ i=3  NoI[i]=2  Hnew=1.972545
 cFCM[0]=0.189601 cFCM[1]=0.382900 cFCM[2]=0.624576 
 c__2[0]=0.190660 c__2[1]=0.378905 c__2[2]=0.621462 
 M[sector=0][ja=0][jb=0]=53.075935 
-M[sector=0][ja=0][jb=1]=31.405306 
-M[sector=0][ja=1][jb=0]=8.924055 
-M[sector=0][ja=1][jb=1]=6.594688 
+M[sector=0][ja=0][jb=1]=31.405304 
+M[sector=0][ja=1][jb=0]=8.924058 
+M[sector=0][ja=1][jb=1]=6.594691 
 M[sector=0][ja=2][jb=0]=0.000000 
 M[sector=0][ja=2][jb=1]=0.000000 
-M[sector=1][ja=0][jb=0]=7.997107 
-M[sector=1][ja=0][jb=1]=8.014359 
-M[sector=1][ja=1][jb=0]=51.983925 
-M[sector=1][ja=1][jb=1]=41.578369 
+M[sector=1][ja=0][jb=0]=7.997105 
+M[sector=1][ja=0][jb=1]=8.014358 
+M[sector=1][ja=1][jb=0]=51.983944 
+M[sector=1][ja=1][jb=1]=41.578381 
 M[sector=1][ja=2][jb=0]=6.018970 
 M[sector=1][ja=2][jb=1]=6.407269 
 M[sector=2][ja=0][jb=0]=0.000000 
@@ -488,7 +488,7 @@ sector=0, jb=1, p=0.000000 Hnew=1.935687
 sector=1, jb=0, p=0.499461 Hnew=0.500238
 sector=1, jb=1, p=0.500539 Hnew=0.999999
 sector=1, jb=0, p=0.555608 Hnew=1.471078
-sector=1, jb=1, p=0.444392 Hnew=1.991059
+sector=1, jb=1, p=0.444392 Hnew=1.991058
 sector=1, jb=0, p=0.484376 Hnew=2.497619
 sector=1, jb=1, p=0.515624 Hnew=2.990354
 sector=2, jb=0, p=0.000000 Hnew=0.000000
@@ -946,23 +946,23 @@ i=4  NoI[i]=2  Hnew=1.964529
 
 cFCM[0]=0.168502 cFCM[1]=0.292322 cFCM[2]=0.432825 
 c__2[0]=0.166366 c__2[1]=0.291639 c__2[2]=0.447529 
-M[sector=0][ja=0][jb=0]=51.994228 
+M[sector=0][ja=0][jb=0]=51.994225 
 M[sector=0][ja=0][jb=1]=25.696892 
 M[sector=0][ja=1][jb=0]=9.005768 
-M[sector=0][ja=1][jb=1]=4.303110 
+M[sector=0][ja=1][jb=1]=4.303111 
 M[sector=0][ja=2][jb=0]=0.000000 
 M[sector=0][ja=2][jb=1]=0.000000 
-M[sector=1][ja=0][jb=0]=8.999876 
-M[sector=1][ja=0][jb=1]=7.115827 
-M[sector=1][ja=1][jb=0]=48.063343 
+M[sector=1][ja=0][jb=0]=8.999881 
+M[sector=1][ja=0][jb=1]=7.115830 
+M[sector=1][ja=1][jb=0]=48.063347 
 M[sector=1][ja=1][jb=1]=44.870380 
-M[sector=1][ja=2][jb=0]=4.936779 
-M[sector=1][ja=2][jb=1]=8.013801 
+M[sector=1][ja=2][jb=0]=4.936774 
+M[sector=1][ja=2][jb=1]=8.013796 
 M[sector=2][ja=0][jb=0]=0.000000 
 M[sector=2][ja=0][jb=1]=0.000000 
-M[sector=2][ja=1][jb=0]=4.881866 
-M[sector=2][ja=1][jb=1]=6.288358 
-M[sector=2][ja=2][jb=0]=22.118134 
+M[sector=2][ja=1][jb=0]=4.881867 
+M[sector=2][ja=1][jb=1]=6.288360 
+M[sector=2][ja=2][jb=0]=22.118132 
 M[sector=2][ja=2][jb=1]=23.711643 
 countM[0]=91
 countM[1]=122
@@ -974,7 +974,7 @@ sector=0, jb=1, p=0.323326 Hnew=1.823660
 sector=0, jb=0, p=0.000000 Hnew=1.823660
 sector=0, jb=1, p=0.000000 Hnew=1.823660
 sector=1, jb=0, p=0.558454 Hnew=0.469375
-sector=1, jb=1, p=0.441546 Hnew=0.990119
+sector=1, jb=1, p=0.441546 Hnew=0.990118
 sector=1, jb=0, p=0.517179 Hnew=1.482093
 sector=1, jb=1, p=0.482821 Hnew=1.989267
 sector=1, jb=0, p=0.381201 Hnew=2.519661
@@ -1360,12 +1360,12 @@ cFCM[0]=0.399755 cFCM[1]=0.714175
 c__2[0]=0.403375 c__2[1]=0.707655 
 M[sector=0][ja=0][jb=0]=24.054298 
 M[sector=0][ja=0][jb=1]=56.779282 
-M[sector=0][ja=1][jb=0]=5.945700 
-M[sector=0][ja=1][jb=1]=8.220726 
-M[sector=1][ja=0][jb=0]=11.938405 
-M[sector=1][ja=0][jb=1]=9.919811 
+M[sector=0][ja=1][jb=0]=5.945697 
+M[sector=0][ja=1][jb=1]=8.220722 
+M[sector=1][ja=0][jb=0]=11.938411 
+M[sector=1][ja=0][jb=1]=9.919816 
 M[sector=1][ja=1][jb=0]=108.061600 
-M[sector=1][ja=1][jb=1]=45.080189 
+M[sector=1][ja=1][jb=1]=45.080181 
 countM[0]=95
 countM[1]=175
 sector=0, jb=0, p=0.297578 Hnew=0.520363
@@ -1381,23 +1381,23 @@ i=7  NoI[i]=2  Hnew=1.865143
 cFCM[0]=0.342544 cFCM[1]=0.594981 cFCM[2]=0.777629 
 c__2[0]=0.356013 c__2[1]=0.600682 c__2[2]=0.772706 
 M[sector=0][ja=0][jb=0]=14.869184 
-M[sector=0][ja=0][jb=1]=43.206863 
+M[sector=0][ja=0][jb=1]=43.206860 
 M[sector=0][ja=1][jb=0]=3.130816 
-M[sector=0][ja=1][jb=1]=7.793126 
+M[sector=0][ja=1][jb=1]=7.793128 
 M[sector=0][ja=2][jb=0]=0.000000 
 M[sector=0][ja=2][jb=1]=0.000000 
-M[sector=1][ja=0][jb=0]=4.185905 
-M[sector=1][ja=0][jb=1]=5.685608 
-M[sector=1][ja=1][jb=0]=43.269089 
-M[sector=1][ja=1][jb=1]=35.819210 
-M[sector=1][ja=2][jb=0]=8.545002 
-M[sector=1][ja=2][jb=1]=5.495185 
+M[sector=1][ja=0][jb=0]=4.185900 
+M[sector=1][ja=0][jb=1]=5.685603 
+M[sector=1][ja=1][jb=0]=43.269081 
+M[sector=1][ja=1][jb=1]=35.819214 
+M[sector=1][ja=2][jb=0]=8.545011 
+M[sector=1][ja=2][jb=1]=5.495191 
 M[sector=2][ja=0][jb=0]=0.000000 
 M[sector=2][ja=0][jb=1]=0.000000 
-M[sector=2][ja=1][jb=0]=10.890916 
-M[sector=2][ja=1][jb=1]=4.453810 
-M[sector=2][ja=2][jb=0]=65.109093 
-M[sector=2][ja=2][jb=1]=17.546190 
+M[sector=2][ja=1][jb=0]=10.890912 
+M[sector=2][ja=1][jb=1]=4.453808 
+M[sector=2][ja=2][jb=0]=65.109100 
+M[sector=2][ja=2][jb=1]=17.546194 
 countM[0]=69
 countM[1]=103
 countM[2]=98
@@ -1410,7 +1410,7 @@ sector=0, jb=1, p=0.000000 Hnew=1.684986
 sector=1, jb=0, p=0.424039 Hnew=0.524846
 sector=1, jb=1, p=0.575961 Hnew=0.983286
 sector=1, jb=0, p=0.547098 Hnew=1.459332
-sector=1, jb=1, p=0.452901 Hnew=1.976876
+sector=1, jb=1, p=0.452902 Hnew=1.976876
 sector=1, jb=0, p=0.608610 Hnew=2.412890
 sector=1, jb=1, p=0.391390 Hnew=2.942567
 sector=2, jb=0, p=0.000000 Hnew=0.000000
@@ -1743,7 +1743,7 @@ cFCM[0]=0.051700 cFCM[1]=0.382735
 c__2[0]=0.056637 c__2[1]=0.373656 
 M[sector=0][ja=0][jb=0]=110.298531 
 M[sector=0][ja=0][jb=1]=46.825153 
-M[sector=0][ja=1][jb=0]=8.701461 
+M[sector=0][ja=1][jb=0]=8.701463 
 M[sector=0][ja=1][jb=1]=8.174854 
 M[sector=1][ja=0][jb=0]=8.564329 
 M[sector=1][ja=0][jb=1]=8.928949 
@@ -1765,20 +1765,20 @@ cFCM[0]=0.021758 cFCM[1]=0.242647 cFCM[2]=0.525185
 c__2[0]=0.029646 c__2[1]=0.243353 c__2[2]=0.523540 
 M[sector=0][ja=0][jb=0]=96.459930 
 M[sector=0][ja=0][jb=1]=33.369354 
-M[sector=0][ja=1][jb=0]=8.540067 
+M[sector=0][ja=1][jb=0]=8.540071 
 M[sector=0][ja=1][jb=1]=3.630646 
 M[sector=0][ja=2][jb=0]=0.000000 
 M[sector=0][ja=2][jb=1]=0.000000 
-M[sector=1][ja=0][jb=0]=4.687582 
-M[sector=1][ja=0][jb=1]=6.436717 
+M[sector=1][ja=0][jb=0]=4.687578 
+M[sector=1][ja=0][jb=1]=6.436711 
 M[sector=1][ja=1][jb=0]=32.515118 
-M[sector=1][ja=1][jb=1]=38.875698 
-M[sector=1][ja=2][jb=0]=2.797299 
-M[sector=1][ja=2][jb=1]=5.687587 
+M[sector=1][ja=1][jb=1]=38.875702 
+M[sector=1][ja=2][jb=0]=2.797300 
+M[sector=1][ja=2][jb=1]=5.687590 
 M[sector=2][ja=0][jb=0]=0.000000 
 M[sector=2][ja=0][jb=1]=0.000000 
 M[sector=2][ja=1][jb=0]=1.000393 
-M[sector=2][ja=1][jb=1]=5.479603 
+M[sector=2][ja=1][jb=1]=5.479602 
 M[sector=2][ja=2][jb=0]=3.999607 
 M[sector=2][ja=2][jb=1]=26.520397 
 countM[0]=142

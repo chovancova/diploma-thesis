@@ -11,7 +11,7 @@
 #define _WINE  5
 //#define _WINERED     6
 //#define _WINEWHITE   7  
-#define _YEAST       6
+#define _YEAST			6
 #define _HEART_SHORT      7
 
 // -------------------------------------------------------------
@@ -22,7 +22,6 @@ struct feature
 {
 	feature() : Feature() {}
 	feature(size_t size) : Feature(size) {}
-
 	std::vector<float> Feature;
 };
 
@@ -41,7 +40,7 @@ public:
 	unsigned int OutputIntervals;
 	///<summary>Number of non numeric attributes. Attributes types - Ordered, Binary, Nominal. </summary>
 	std::vector<unsigned int> LingvisticAttributes;
-	///<summary>Pattern  -X-axis is size of dataset , Y-axis is number of attributes, </summary>
+	///<summary>Pattern  -Y-axis is size of dataset , X-axis is number of attributes, </summary>
 	std::vector<feature> Pattern;
 	///<summary>NameDataset of dataset.</summary>
 	char NameDataset[50];
@@ -87,13 +86,13 @@ public:
 	/// </summary>
 	int WriteCrispFile() ;
 
-	///<summary> <return>Return number of values in dataset.</return> </summary>
+	///<summary>Number of values in dataset. </summary><return>Return number of values in dataset.</return> 
 	unsigned long GetDatasetSize() 
 	{
 		return DatasetSize;
 	}
 
-	///<summary> <return>Return initial error of dataset.</return> </summary>
+	///<summary>Initial Error</summary> <return>Return initial error of dataset.</return> 
 	float InitialError() ;
 	void Normalization();
 };

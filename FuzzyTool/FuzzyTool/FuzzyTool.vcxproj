@@ -22,13 +22,11 @@
     <ClCompile Include="DataSets.cpp" />
     <ClCompile Include="DataSetsReadCripsFile.cpp" />
     <ClCompile Include="Fuzzyfication.cpp" />
-    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataSets.h" />
     <ClInclude Include="Fuzzyfication.h" />
-    <ClInclude Include="Logger.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\DataSets\heart.data" />

@@ -145,7 +145,7 @@ void Fuzzyfication::set_lingvistic_attributes(unsigned int dimension)
 }
 
 
-bool Fuzzyfication::febfc_step_5_does_entropy_decrese(unsigned long count_result, int& does_entropy_decrease, float old_entropy, float new_entropy, unsigned dimension) 
+bool Fuzzyfication:: febfc_step_5_does_entropy_decrese(unsigned long count_result, int& does_entropy_decrease, float old_entropy, float new_entropy, unsigned dimension) 
 {
 	if (does_entropy_decrease == -1 || Intervals[dimension] == count_result)
 	{
@@ -250,19 +250,14 @@ void Fuzzyfication::febfc_step_1_create_features()
 		}
 	}
 
-	
-	//FuzzySetOnInterval = ( float***) new float**[Attributes];
 	FuzzySetOnInterval = std::vector< std::vector<std::vector<float>>>(Attributes, std::vector<std::vector<float>>(0.0));
 
 	for (attr = 0; attr < Attributes; attr++)
 	{
-		//FuzzySetOnInterval[attr] = (float**) new float*[Intervals[attr]];
-		
 		FuzzySetOnInterval[attr] = std::vector<std::vector<float>>(Intervals[attr], std::vector<float>(0.0));
 		
 		for (intervals = 0; intervals < Intervals[attr]; intervals++)
 		{
-			//FuzzySetOnInterval[attr][intervals] = (float*)newFloat(DatasetSize, 0.0, "FuzzySetOnInterval[attr][intervals] in febfc_step_1_create_features()");
 			FuzzySetOnInterval[attr][intervals] = std::vector<float>(DatasetSize, 0.0);
 		}
 	}
@@ -415,7 +410,6 @@ void Fuzzyfication::initialize_filename(char (&filename_fuzzy)[200])
 //---------------------------II.C.----STEP 5 - COMPUTE MATCH DEGREE DJ -------------------------------------------
 //---------------------------II.C.----STEP 6 - COMPUTE FUZZY ENTROPY FECJ A  -------------------------------------------
 //---------------------------II.C.----STEP 7 - COMPUTE FUZZY ENTORPY FEA ON X -------------------------------------------
-
 float Fuzzyfication::febfc_step_4_compute_total_fuzzy_entropy(unsigned int attr)
 {
 	//1) Let X = {r1, ... , rn} be a universal set with elements ri distributed in pattern space where i = 1..n. 
@@ -731,7 +725,7 @@ std::vector<float> Fuzzyfication::febfc_step_2_locate_center_of_interval(unsigne
 	iteration = 0;
 
 	//-------------------------------STEP 2 - INITIAL CENTERS OF CLUSTERS -------------------------------------------
-	c = fuzzy_clustering_fcm(i, Intervals[i], 2.0f, 3);
+	c = fuzzy_clustering_fcm(i, Intervals[i], 2.0f, 1);
 
 	fprintf(LogFile, "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
 	fprintf(LogFile, "Current cluster centers\n");
