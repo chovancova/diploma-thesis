@@ -17,7 +17,10 @@ namespace FuzzificationLibrary
         {
             return FCMeansClustering(intervals, dimension, m);
         }
-
+        /// <summary>
+        /// Membership function for dimension -
+        /// </summary>
+        public double [] Mu { get; set; }
 
         /// <summary>
         /// Return Centers in datasets
@@ -44,7 +47,7 @@ namespace FuzzificationLibrary
             do
             {
                 // Krok 2. Vypočítanie centier klastra c_j =  sum{ i = 1}^ D \mu_{ ij}^ m * x_i   deleno sum{ i = 1}^ D \mu_{ ij}^ m
-                double[] mu = new double[numberOfIntervals];
+                Mu = new double[numberOfIntervals];
                 double sum1 = 0;
                 double sum2 = 0;
                 for (int j = 0; j < numberOfIntervals; j++)
@@ -54,7 +57,7 @@ namespace FuzzificationLibrary
                         sum1 += Math.Pow(_fc.Results[dimension][j][i], m)*_fc.DataToTransform.Dataset[i][dimension];
                         sum2 += Math.Pow(_fc.Results[dimension][j][i], m);
                     }
-                    mu[j] = sum1/sum2;
+                    Mu[j] = sum1/sum2;
                 }
 
                 // Krok 3.Aktualizácia μij podla nasledujúceho vztahu μij = 1 / ( suma (od k = 1 do N) (absolutna hodnota (xi-cj) / absol(xi-ck)) a to cele na 2/(m1) )

@@ -76,6 +76,8 @@ namespace Test
             FuzzificationWagedEntropy fcw2 = new FuzzificationWagedEntropy(data2);
             FuzzificationEntropy fc2 = new FuzzificationEntropy(data2);
             FuzzificationWagedFcMclastering fcc2 = new FuzzificationWagedFcMclastering(data2);
+            FuzzificationOnlyFCM fcofcm = new FuzzificationOnlyFCM(data2, new []{3, 3, 3, 3, 3});
+            FuzzificationHierarchicalEntropy fhe = new FuzzificationHierarchicalEntropy(data2);
             fcw.RunFuzzification();
             fcw.WriteToFile("test-results-vazena2.txt");
             fc.RunFuzzification();
@@ -86,6 +88,10 @@ namespace Test
             fc2.WriteToFile("iris-results-normalna2.txt");
             fcc2.RunFuzzification();
             fcc2.WriteToFile("iris-results-vazenaFCM2.txt");
+            fcofcm.RunFuzzification();
+            fcofcm.WriteToFile("iris-results-onlyFCM2.txt");
+            fhe.RunFuzzification();
+            fhe.WriteToFile("iris-results-fhe2.txt");
             Console.ReadKey();
         }
 

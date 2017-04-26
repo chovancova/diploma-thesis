@@ -26,7 +26,6 @@ namespace FuzzificationLibrary
         {
             //1) Let X = {r1, ... , rn} be a universal set with elements ri distributed in pattern space where i = 1..n. 
             //2) Let A be a fuzzy set defined on a interval of pattern space which kontains k elements (k < n). 
-
             double totalEntropy = 0;
             int countIntervalsInDimension = Intervals[dimension];
             int[] countM = new int[countIntervalsInDimension];
@@ -113,8 +112,8 @@ namespace FuzzificationLibrary
                 }
                 //---------------------------II.C.----STEP 7 - COMPUTE FUZZY ENTORPY FEA ON X -------------------------------------------
                 totalEntropy += newEntropy * countM[i] / DataToTransform.DatasetSize;
-
             }
+            
             return totalEntropy;
         }
 

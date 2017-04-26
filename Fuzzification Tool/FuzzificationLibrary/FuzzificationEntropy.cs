@@ -20,7 +20,6 @@ namespace FuzzificationLibrary
         public override void MembershipFunctionAssignment(int dimension, int interval)
         {
             double membershipValue = 0;
-            double c1 = 0.0; 
             double c2 = 0.0; 
             double c3 = 0.0; 
             double c4 = 0.0; 
@@ -31,7 +30,7 @@ namespace FuzzificationLibrary
             {
                 x = DataToTransform.Dataset[i][dimension];
                 //most left membership function
-                c1 = Centers[dimension][leftIndex];
+                var c1 = Centers[dimension][leftIndex];
                 c2 = Centers[dimension][leftIndex + 1];
                 if (x <= c1)
                 {

@@ -15,7 +15,7 @@ namespace FuzzificationLibrary
       /// dimension, interval, dataitem
       /// </summary>
         public double[][][] Results { get; private set; }
-        public int[] Intervals { get; private set; }
+        public int[] Intervals { get;  set; }
         /// <summary>
         /// [i] - dimension,
         /// [j] - dataset value,
@@ -27,7 +27,6 @@ namespace FuzzificationLibrary
         /// 4 - left center 
         /// 5 - right center
         /// </summary>
-        public double[][][] IntervalCentersAndWidth { get; private set; }
         public double [][] Centers { get; set; }
         public int [][] ClassesInInterval { get; set; }
       
@@ -114,7 +113,7 @@ namespace FuzzificationLibrary
        public virtual void RunFuzzificationInDimension(int dimension)
        {
             //  Step 1) Set the initial number of intervals I = 2.
-            int interval = 2;
+            int interval = SetInitialNumberOfIntervals(dimension);
             TotalEntropy[dimension] = new double[100];
             TotalEntropy[dimension][1] = 99999999999; 
            int does_entropy_decrease = 0;
@@ -145,16 +144,26 @@ namespace FuzzificationLibrary
             } while (!condition);
 
             //Step 6) I - 1 is the number of intervals on specified dimension.
-           
-            interval=interval-2;
+           LastStepInFuzzification(dimension, interval);
+
+            Console.WriteLine("DONE");
+
+       }
+
+       public virtual int SetInitialNumberOfIntervals(int dimension)
+       {
+           return 2;
+       }
+
+       public virtual void LastStepInFuzzification(int dimension, int interval)
+       {
+            interval = interval - 2;
             ResizeResultToNewInterval(dimension, interval);
             Centers[dimension] = DeterminationIntervalsLocation(dimension, interval);
             MembershipFunctionAssignment(dimension, interval);
-           // Console.WriteLine(ComputeTotalFuzzyEntropy(dimension));
-           //Console.WriteLine(Intervals[dimension]);
-           Console.WriteLine("DONE");
+        }
 
-       }
+
         /// <summary>
         /// Does the total fuzzy entropy decrease?
         /// If the total fuzzy entropy of I intervals is less than that
@@ -212,7 +221,7 @@ namespace FuzzificationLibrary
            }
        }
 
-        public void WriteToFile(string filename = "results.txt")
+        public virtual void WriteToFile(string filename = "results.txt")
         {
             using (StreamWriter w = new StreamWriter(filename))
             {

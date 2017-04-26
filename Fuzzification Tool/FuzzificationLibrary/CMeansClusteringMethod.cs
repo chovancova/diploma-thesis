@@ -72,10 +72,10 @@ namespace FuzzificationLibrary
                 double Nq = 0;
                 double sumNq = 0;
                 for (var j = 0; j < _fc.DataToTransform.DatasetSize; j++)
-                    if (Math.Abs(centers[j][2] - i) < 0.000001)
+                    if (Math.Abs(centers[j][0] - i) < 0.000001)
                     {
                         Nq++;
-                        sumNq += centers[j][3];
+                        sumNq += centers[j][1];
                     }
                result[i] = (double) sumNq/Nq;
             }
@@ -96,7 +96,6 @@ namespace FuzzificationLibrary
                 data = _fc.DataToTransform.Dataset[i][dimension];
                 centers[i] = new double[6];
                 closest = 999999999.0;
-                distance = 0.0;
                 closestIndex = 0;
 
                 for (var j = 0; j < numberOfIntervals; j++)
@@ -108,14 +107,11 @@ namespace FuzzificationLibrary
                         closestIndex = j;
                     }
                 }
-                // 0 - closest center
-                // 1 - closest distance
-                // 2 - closest index
-                // 3 - data
-                centers[i][0] = c[closestIndex];
-                centers[i][1] = closest;
-                centers[i][2] = closestIndex;
-                centers[i][3] = data;
+               
+                // 0 - closest index
+                // 1 - data
+                centers[i][0] = closestIndex;
+                centers[i][1] = data;
              }
             return centers;
         }

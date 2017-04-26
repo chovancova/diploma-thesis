@@ -43,7 +43,7 @@
     <Compile Include="FCMeansClusteringMethod.cs" />
     <Compile Include="CMeansClusteringMethod.cs" />
     <Compile Include="FuzzificationWagedFCMclastering.cs" />
-    <Compile Include="FuzzyificationByFCM.cs" />
+    <Compile Include="FuzzificationOnlyFCM.cs" />
     <Compile Include="FuzzificationHierarchicalEntropy.cs" />
     <Compile Include="FuzzificationEntropy.cs" />
     <Compile Include="FuzzificationWagedEntropy.cs" />

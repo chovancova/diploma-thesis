@@ -1,58 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="FuzzificationLibrary.FuzzyificationByFCM" Collapsed="true">
+  <Class Name="FuzzificationLibrary.FuzzificationOnlyFCM" Collapsed="true">
     <Position X="7.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>FuzzyificationByFCM.cs</FileName>
+      <HashCode>EAAAAAAQAAIAAAAAAEAAQAAgAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>FuzzificationOnlyFCM.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FuzzificationLibrary.FuzzificationWagedEntropy" Collapsed="true">
     <Position X="3.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAAAABAAAQAAgAAAAAAAAAAAABAAAAAA=</HashCode>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>FuzzificationWagedEntropy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FuzzificationLibrary.FuzzyCMeansMethod" Collapsed="true">
     <Position X="5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAAAAAEAAQAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>EAAAAAAAAAAAAAAAAEAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>FuzzyCMeansMethod.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FuzzificationLibrary.FuzzificationHierarchicalEntropy" Collapsed="true">
     <Position X="0.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAAAAAEAAQAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAIQIAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>FuzzificationHierarchicalEntropy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FuzzificationLibrary.FuzzificationEntropy" Collapsed="true">
     <Position X="2.75" Y="1.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAAAAAMAgQAAgAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <HashCode>EAAAAAAAABAAAAAAAEAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>FuzzificationEntropy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FuzzificationLibrary.Fuzzification" Collapsed="true">
     <Position X="2.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAQAAAMEARCAgCAAAAAAEACAAGAAAQAg=</HashCode>
+      <HashCode>EAAAAAAQAAIAAQAAAMAARCAgCAQAAAAEACAAGAAAQAg=</HashCode>
       <FileName>Fuzzification.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FuzzificationLibrary.FCMeansClusteringMethod" Collapsed="true">
     <Position X="9.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAiAAAAAAAAAAAAAAEAAAAAACAAAACAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAmAAAAAAAAAAAAAAEAAAAAACAAAACAAAAAAAAAAAAA=</HashCode>
       <FileName>FCMeansClusteringMethod.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FuzzificationLibrary.CMeansClusteringMethod" Collapsed="true">
     <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACAAAAAAAAAAAABAEAgAAQAiIAAAAAAAQAAAAAAEAA=</HashCode>
+      <HashCode>AACAAAAAAAAAAAABAEAgAAQAiIAAAAAAAAAAAAAAEAA=</HashCode>
       <FileName>CMeansClusteringMethod.cs</FileName>
     </TypeIdentifier>
   </Class>
