@@ -72,16 +72,20 @@ namespace Test
             data.WriteInfoToFile("test-data-info.txt");
             FuzzificationWagedEntropy fcw = new FuzzificationWagedEntropy(data);
             FuzzificationEntropy fc = new FuzzificationEntropy(data);
+            FuzzificationWagedFcMclastering fcc = new FuzzificationWagedFcMclastering(data);
             FuzzificationWagedEntropy fcw2 = new FuzzificationWagedEntropy(data2);
             FuzzificationEntropy fc2 = new FuzzificationEntropy(data2);
+            FuzzificationWagedFcMclastering fcc2 = new FuzzificationWagedFcMclastering(data2);
             fcw.RunFuzzification();
-            fcw.WriteToFile("test-results-vazena.txt");
+            fcw.WriteToFile("test-results-vazena2.txt");
             fc.RunFuzzification();
-            fc.WriteToFile("test-results-normalna.txt");
+            fc.WriteToFile("test-results-normalna2.txt");
             fcw2.RunFuzzification();
-            fcw2.WriteToFile("iris-results-vazena.txt");
+            fcw2.WriteToFile("iris-results-vazena2.txt");
             fc2.RunFuzzification();
-            fc2.WriteToFile("iris-results-normalna.txt");
+            fc2.WriteToFile("iris-results-normalna2.txt");
+            fcc2.RunFuzzification();
+            fcc2.WriteToFile("iris-results-vazenaFCM2.txt");
             Console.ReadKey();
         }
 

@@ -31,7 +31,7 @@ namespace FuzzificationLibrary
             throw new NotImplementedException();
         }
 
-        public override double[][] DeterminationIntervalsLocation(int dimension, int intervals)
+        public override double[] DeterminationIntervalsLocation(int dimension, int intervals)
         {
             throw new NotImplementedException();
         }

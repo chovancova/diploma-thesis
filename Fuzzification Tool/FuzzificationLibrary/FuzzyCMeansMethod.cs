@@ -18,12 +18,7 @@ namespace FuzzificationLibrary
             return 0; 
         }
 
-        protected override bool ConditionForStopingFuzzificationInDimension(int dimension, double totalEntropyI, double totalEntropyIPrevious)
-        {
-            return true;
-        }
-
-        public override double[][] DeterminationIntervalsLocation(int dimension, int intervals)
+            public override double[] DeterminationIntervalsLocation(int dimension, int intervals)
         {
             FCMeansClusteringMethod fc = new FCMeansClusteringMethod(this);
             return fc.DeterminationIntervalsLocation(dimension, intervals);

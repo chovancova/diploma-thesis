@@ -1,19 +1,25 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
-using System.Management.Instrumentation;
 using System.Text;
 using System.Threading.Tasks;
 using Datasets;
 
 namespace FuzzificationLibrary
 {
-    public class FuzzificationWagedEntropy : FuzzificationEntropy
+  public  class FuzzificationWagedFcMclastering:Fuzzification
     {
-        public FuzzificationWagedEntropy(DataSets dataToTransform) : base(dataToTransform)
+        public FuzzificationWagedFcMclastering(DataSets dataToTransform) : base(dataToTransform)
         {
+            _fcMeansClustering = new FCMeansClusteringMethod(this);
+
+        }
+
+        private readonly FCMeansClusteringMethod _fcMeansClustering;
+
+        public override double[] DeterminationIntervalsLocation(int dimension, int intervals)
+        {
+            return _fcMeansClustering.DeterminationIntervalsLocation(dimension, intervals);
         }
        
         protected override double ComputeTotalFuzzyEntropy(int dimension)
@@ -60,10 +66,9 @@ namespace FuzzificationLibrary
                     temp = Results[dimension][j][i];
                     if (max <= temp)
                     {
-                       classM = j;
-                       max = temp;
+                        classM = j; //todo debugg
+                        max = temp;
                     }
-                
                 }
                 countM[classM]++;
                 //---------------------------II.C.----STEP 5 - COMPUTE MATCH DEGREE DJ -------------------------------------------
@@ -73,15 +78,6 @@ namespace FuzzificationLibrary
                         mu[classM][j][k] += Results[dimension][j][i] * Results[DataToTransform.InputAttributes][k][i]; //toto priradi to kde patri do akej triedy
                     }
             }
-            Console.WriteLine("number of class in intervals ");
-            double sum = 0;
-            for (int i = 0; i < countM.Length; i++)
-            {
-                Console.WriteLine(i + "\t (" + countM[i] + ")");
-                sum += countM[i];
-            }
-            Console.WriteLine("Sum: " + sum);
-            Console.WriteLine();
 
             for (int j = 0; j < countIntervalsInDimension; j++)
                 for (int k = 0; k < countIntervalsInDimension; k++)
@@ -106,8 +102,8 @@ namespace FuzzificationLibrary
                     {
                         //---------------------------II.C.----STEP 5 - COMPUTE MATCH DEGREE DJ -------------------------------------------
                         matchDegreeDj = (sumMu[i][j] < 0.000001) ? 0 : (mu[i][j][k] / sumMu[i][j]); //proti deleniu nulov
-                        //---------------------------II.C.----STEP 6 - COMPUTE FUZZY ENTROPY FECJ A  -------------------------------------------
-                                                                                                  
+                                                                                                    //---------------------------II.C.----STEP 6 - COMPUTE FUZZY ENTROPY FECJ A  -------------------------------------------
+
                         if (Math.Abs(matchDegreeDj) > 0.0000001)
                         {
                             if ((Math.Abs(mu[i][j][k]) > 0.00001))
@@ -116,43 +112,54 @@ namespace FuzzificationLibrary
                     }
                 }
                 //---------------------------II.C.----STEP 7 - COMPUTE FUZZY ENTORPY FEA ON X -------------------------------------------
-               totalEntropy += newEntropy * countM[i] / DataToTransform.DatasetSize;
-              }
+                totalEntropy += newEntropy * countM[i] / DataToTransform.DatasetSize;
 
-            ClassesInInterval[dimension] = countM;
+            }
             return totalEntropy;
         }
-        
+
+
+
 
         public override void MembershipFunctionAssignment(int dimension, int interval)
         {
+
+
             for (int i = 0; i < DataToTransform.DatasetSize; i++)
             {
                 var x = DataToTransform.Dataset[i][dimension];
 
-                for (int j = 0; j < interval - 1; j++)
+                for (int j = 0; j < interval; j++)
                 {
-                    var c4 = Centers[dimension][j + 1];
-                    var c3 = Centers[dimension][j];
-                    if (x >= c3
-                        && x <= c4)
-                    {
-                        Results[dimension][j][i] = (c4 - x) / (c4 - c3);
-                        Results[dimension][j + 1][i] = (x - c3) / (c4 - c3);
-                    }
+                    Results[dimension][j][i] = 0; 
                 }
 
-                var c1 = Centers[dimension][0];
-                var c2 = Centers[dimension][interval - 1];
+                double c1;
+                double c2;
+                for (int j = 0; j < interval-1; j++)
+                {
+                    c1 = Centers[dimension][j];
+                    c2 = Centers[dimension][j+1];
+                    if ((x >= c1) && (x <= c2))
+                    {
+                        Results[dimension][j][i] = (double)(c2 - x)/(c2 - c1);
+                        Results[dimension][j+1][i] = (double)(x-c1)/(c2 - c1);
+                    }
+
+                }
+                c1 = Centers[dimension][0];
+                c2 = Centers[dimension][interval - 1];
                 if (x < c1)
                 {
                     Results[dimension][0][i] = 1;
                 }
+
                 if (x > c2)
                 {
                     Results[dimension][interval - 1][i] = 1;
                 }
-            }
+             }
         }
+
     }
 }

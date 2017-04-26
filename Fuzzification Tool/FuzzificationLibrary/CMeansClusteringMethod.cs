@@ -13,7 +13,7 @@ namespace FuzzificationLibrary
             _fc = fc;
         }
 
-        public double[][] DeterminationIntervalsLocation(int dimension, int intervals)
+        public double[] DeterminationIntervalsLocation(int dimension, int intervals)
         {
             return CMeansClustering(intervals, dimension);
         }
@@ -23,43 +23,33 @@ namespace FuzzificationLibrary
         // [][1] - closest distance
         // [][2] - closest index
         // [][3] - data
-        // [][4] - left center 
-        // [][5] - right center
         /// </summary>
-        private double[][] CMeansClustering(int numberOfIntervals, int dimension)
+        private double[] CMeansClustering(int numberOfIntervals, int dimension)
         {
             int count = 0; 
-            _rand = new Random();
-            double[][] centers;
+            double[][] centersForDataset;
             bool doesAnyCenterChange;
-            double[] resultPrevius = null;
+            double [] result = new double[numberOfIntervals];
             //Step 2) Set initial centers of clusters.
-            _fc.Centers[dimension] = InitializeUniformCenters(dimension, numberOfIntervals);
+            double[] centers = InitializeUniformCenters(dimension, numberOfIntervals);
             do
             {
-
                 //Step 3) Assign cluster label to each element.
-                centers = AssignClusterLabelToEachInterval(numberOfIntervals, dimension,
-                    _fc.Centers[dimension]);
+                centersForDataset = AssignClusterLabelToEachInterval(numberOfIntervals, dimension,
+                    centers);
                 //Step 4) Recompute the cluster centers.
-                var result = RecomputeClusterCenters(numberOfIntervals, centers);
+                 result = RecomputeClusterCenters(numberOfIntervals, centersForDataset);
                 //Step 5) Does any center change?
                 //If each cluster center is determined appropriately, the
                 //recomputed center in Step 4 would not change.
                 //If so, stop the determination of interval centers, otherwise go to Step 3.
-                doesAnyCenterChange = DoesAnyCenterChange(result, _fc.Centers[dimension]);
+                doesAnyCenterChange = DoesAnyCenterChange(result, centers);
 
                 if (!doesAnyCenterChange) break;
                 count++;
-                _fc.Centers[dimension] = result;
+                centers = result;
             } while (count<500);
-
-            return centers;
-        }
-
-        public double[][] ReturnCenters()
-        {
-            return _fc.Centers;
+            return result;
         }
 
         //If each cluster center is determined appropriately, the recomputed center in Step 4 would not change.
@@ -122,15 +112,11 @@ namespace FuzzificationLibrary
                 // 1 - closest distance
                 // 2 - closest index
                 // 3 - data
-                // 4 - left center 
-                // 5 - right center
                 centers[i][0] = c[closestIndex];
                 centers[i][1] = closest;
                 centers[i][2] = closestIndex;
                 centers[i][3] = data;
-                //centers[i][4] = closestIndex == 0 ? c[closestIndex] : c[closestIndex - 1];
-               // centers[i][5] = closestIndex == numberOfIntervals - 1 ? c[closestIndex] : c[closestIndex + 1];
-            }
+             }
             return centers;
         }
 

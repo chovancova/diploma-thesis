@@ -22,11 +22,7 @@ namespace Datasets
         public double[][] Dataset { get; set; }
         public int[] LingvisticAttribute { get; set; }
         public double InitialError { get; set; }
-        /// <summary>
-        /// number of input attributes, number of dataset size,  numeber of output intervals
-        /// </summary>
-        public double[][][] PairOfValesInOut { get; set; }
-
+      
         protected DataSets(int datasetSize, int attributes, int inputAttributes, int outputAttributes,
             int outputIntervals, string filename)
         {

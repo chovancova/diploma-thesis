@@ -13,26 +13,20 @@ namespace FuzzificationLibrary
             _fc = fc;
         }
 
-        public double[][] DeterminationIntervalsLocation(int dimension, int intervals, int m = 2)
+        public double[] DeterminationIntervalsLocation(int dimension, int intervals, int m = 2)
         {
             return FCMeansClustering(intervals, dimension, m);
         }
 
 
         /// <summary>
-        /// [] center of konkretnehoo data bodu
-        // [][0] - closest center
-        // [][1] - closest distance
-        // [][2] - closest index
-        // [][3] - data
-        // [][4] - left center 
-        // [][5] - right center
+        /// Return Centers in datasets
         /// </summary>
         /// <param name="numberOfIntervals"></param>
         /// <param name="dimension"></param>
         /// <param name="m"></param>
         /// <returns></returns>
-        private double[][] FCMeansClustering(int numberOfIntervals, int dimension, int m = 2)
+        private double[] FCMeansClustering(int numberOfIntervals, int dimension, int m = 2)
         {
             _rand = new Random();
              
@@ -105,7 +99,7 @@ namespace FuzzificationLibrary
                 // prahová hodnota alebo po uplynutí urcitého maximálneho poctu iterácií.
             } while (false);
 
-            return _fc.Centers;
+            return _fc.Centers[dimension];
         }
 
         private double[] InitializeRandomCenters(int dimension, int q)

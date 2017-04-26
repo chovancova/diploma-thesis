@@ -5,21 +5,17 @@ namespace FuzzificationLibrary
 {
     public class FuzzificationEntropy : Fuzzification
     {
-        private readonly CMeansClusteringMethod CMeansClustering;
+        private readonly CMeansClusteringMethod _cMeansClustering;
 
         public FuzzificationEntropy(DataSets dataToTransform) : base(dataToTransform)
         {
-            CMeansClustering = new CMeansClusteringMethod(this);
+            _cMeansClustering = new CMeansClusteringMethod(this);
         }
 
-        public override double[][] DeterminationIntervalsLocation(int dimension, int intervals)
+        public override double[] DeterminationIntervalsLocation(int dimension, int intervals)
         {
-            double[][] temp = CMeansClustering.DeterminationIntervalsLocation(dimension, intervals);
-
-           Centers =  CMeansClustering.ReturnCenters();
-            return temp;
+            return  _cMeansClustering.DeterminationIntervalsLocation(dimension, intervals);
         }
-
 
         public override void MembershipFunctionAssignment(int dimension, int interval)
         {
@@ -31,7 +27,6 @@ namespace FuzzificationLibrary
             double x = 0.0;
             int leftIndex = 0;
             int rightIndex = Centers[dimension].Length -1;
-
             for (int i = 0; i < DataToTransform.DatasetSize; i++)
             {
                 x = DataToTransform.Dataset[i][dimension];
@@ -84,26 +79,29 @@ namespace FuzzificationLibrary
 
                 }
             }
-            }
 
+        }
 
         protected override double ComputeTotalFuzzyEntropy(int dimension)
         {
             double totalEntropy = 0;
-            int countIntervalsInDimension = Intervals[dimension];
-            int[] countM = new int[countIntervalsInDimension];
-            for (int i = 0; i < countIntervalsInDimension; i++)
+            int intervals = Intervals[dimension];
+         
+            int classM = 0;
+
+            int[] countM = new int[intervals];
+            for (int i = 0; i < intervals; i++)
             {
                 countM[i] = 0;
             }
             //---------------------------II.C.----STEP 1 - SET UNIVERSAL SET X -------------------------------------------
-            double[][][] mu = new double[countIntervalsInDimension][][];
-            double[][] sumMu = new double[countIntervalsInDimension][];
-            for (int i = 0; i < countIntervalsInDimension; i++)
+            double[][][] mu = new double[intervals][][];
+            double[][] sumMu = new double[intervals][];
+            for (int i = 0; i < intervals; i++)
             {
-                mu[i] = new double[countIntervalsInDimension][];
-                sumMu[i] = new double[countIntervalsInDimension];
-                for (int j = 0; j < countIntervalsInDimension; j++)
+                mu[i] = new double[intervals][];
+                sumMu[i] = new double[intervals];
+                for (int j = 0; j < intervals; j++)
                 {
                     mu[i][j] = new double[DataToTransform.OutputIntervals];
                     sumMu[i][j] = 0;
@@ -115,34 +113,41 @@ namespace FuzzificationLibrary
             }
             //---------------------------II.C.----STEP 2 - SET FUZZY SET A CONTAINS K ELEMENTS ---------------------------
             //---------------------------II.C.----STEP 3 - SET ARRAY REPRESENTING M CLASSES INTO WHICH THE N ELEMENTS ARE DEVIDED -------
-            double max = 0;
-            int classM = 0;
-            double temp = 0;
+            
             for (int i = 0; i < DataToTransform.DatasetSize; i++)
             {
-                max = Results[dimension][0][i];
+                double max = Results[dimension][0][i];
                 //---------------------------II.C.----STEP 4 - SET SCJ AS SET OF ELEMENTS OF CLASS J ON X -------------------------------------------
-                for (int j = 0; j < countIntervalsInDimension; j++)
+                //pre vsetky intervaly
+                for (int j = 0; j < intervals; j++)
                 {
-                    temp = Results[dimension][j][i];
-                    if (max <= temp)
-                    {
-                        classM = j;
-                        max = temp;
-                    }
+                   double temp = Results[dimension][j][i];
+                  if (max <= temp)
+                   {
+                      classM = j;
+                       max = temp;
+                   }
                 }
                 countM[classM]++;
                 //---------------------------II.C.----STEP 5 - COMPUTE MATCH DEGREE DJ -------------------------------------------
-                for (int j = 0; j < countIntervalsInDimension; j++)
-                    for (int k = 0; k < DataToTransform.OutputIntervals; k++) //OutputIntervals???
+                for (int j = 0; j < intervals; j++)
+                    for (int k = 0; k < DataToTransform.OutputIntervals; k++)
                     {
                         mu[classM][j][k] += Results[dimension][j][i] * Results[DataToTransform.InputAttributes][k][i]; //toto priradi to kde patri do akej triedy
                     }
             }
-
+            Console.WriteLine("number of class in intervals ");
+            double sum = 0; 
+            for (int i = 0; i < countM.Length; i++)
+            {
+                Console.WriteLine(i+"\t ("+countM[i]+")");
+                sum += countM[i];
+            }
+            Console.WriteLine("Sum: " + sum);
+            Console.WriteLine();
            // Console.WriteLine("II.C.----STEP 5 - COMPUTE MATCH DEGREE DJ - sum mu ");
-            for (int j = 0; j < countIntervalsInDimension; j++)
-                for (int k = 0; k < countIntervalsInDimension; k++)
+            for (int j = 0; j < intervals; j++)
+                for (int k = 0; k < intervals; k++)
                     for (int l = 0; l < DataToTransform.OutputIntervals; l++)
                     {
                         sumMu[j][k] += mu[j][k][l];
@@ -151,10 +156,10 @@ namespace FuzzificationLibrary
 
             //---------------------------II.C.----STEP 6 - COMPUTE FUZZY ENTROPY FECJ A  -------------------------------------------
             double matchDegreeDj = 0;
-            for (int i = 0; i < countIntervalsInDimension; i++)
+            for (int i = 0; i < intervals; i++)
             {
                 double newEntropy = 0;
-                for (int j = 0; j < countIntervalsInDimension; j++)
+                for (int j = 0; j < intervals; j++)
                 {
                     for (int k = 0; k < DataToTransform.OutputIntervals; k++)
                     {
@@ -174,102 +179,12 @@ namespace FuzzificationLibrary
 
                 totalEntropy += newEntropy;
             }
-           // Console.WriteLine();
-           // Console.WriteLine("Total Entropy - "+ totalEntropy);
-           // Console.WriteLine();
+            // Console.WriteLine();
+            // Console.WriteLine("Total Entropy - "+ totalEntropy);
+            // Console.WriteLine();
+            ClassesInInterval[dimension] = countM;
             return totalEntropy;
         }
-
-
-        /// <summary>
-        /// Does the total fuzzy entropy decrease?
-        /// If the total fuzzy entropy of I intervals is less than that
-        /// of I - 1 intervals. return true else false;
-        /// </summary>
-        /// <param name="dimension"></param>
-        /// <param name="totalEntropyI"></param>
-        /// <param name="totalEntropyIPrevious"></param>
-        /// <returns></returns>
-        protected override bool ConditionForStopingFuzzificationInDimension(int dimension, double totalEntropyI, double totalEntropyIPrevious)
-        {
-            return (totalEntropyI > totalEntropyIPrevious);
-        }
-
-
-
-
-
-        //protected override double ComputeTotalFuzzyEntropy(int dimension, int interval)
-        //{
-        //   double totalEntropyI=0;
-        //    double[] X = DataToTransform.Dataset[dimension];
-        //    double[] C = Centers[dimension];
-        //    double[][] SC = IntervalCentersAndWidth[dimension];
-        //    int countClass = DataToTransform.OutputIntervals;
-        //    //subsset with only j-th class form dataset
-        //    double[] SCj = new double[countClass]; 
-        //    double[] Dj = new double[interval];//membership degree
-
-
-        //    int countClasters = Centers[dimension].Length;
-
-        //    double temp1, temp2, classj;
-        //    //for all classer
-        //    for (int classJ = 0; classJ < countClass; classJ++)
-        //    {
-        //        SCj[classJ] = ComputeSubsetClass(classJ, SC, dimension);
-        //    }
-
-        //    for (int i = 0; i < interval; i++)
-        //    {
-        //        Dj[i] = 0;
-        //        totalEntropyI = 1; 
-
-        //        //for (int j = 0; j < UPPER; j++)
-        //        {
-
-        //        }
-
-
-
-        //    }
-
-
-
-        //    return totalEntropyI;
-        //}
-
-        private double ComputeSubsetClass(int classJ, double[][] SC, int dimension)
-        {
-            double SCj = 0;
-            int temp = 0; 
-            for (int i = 0; i < SC.Length; i++)
-            {
-                temp = (int)SC[i][2];
-                if (temp == classJ)
-                {
-                    SCj += Results[i][dimension][temp];
-                }
-            }
-
-            return SCj;
-        }
         
-        private double ComputeSetClass(int classJ, double[][] SC)
-        {
-            double SCj = 0;
-            int temp = 0;
-            for (int i = 0; i < SC.Length; i++)
-            {
-               // temp = (int)SC[i][2];
-                if (DataToTransform.OutputAttributes == classJ)
-                {
-                    SCj += SC[i][3];
-                }
-            }
-
-            return SCj;
-        }
-
     }
 }
