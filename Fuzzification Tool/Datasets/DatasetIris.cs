@@ -33,6 +33,7 @@ namespace Datasets
                             {
                                double.TryParse(data[i], NumberStyles.Any,
                                     System.Globalization.CultureInfo.InvariantCulture, out Dataset[j][i]);
+                                
                             }
                             //specific for iris
                             switch (data[InputAttributes])
@@ -50,6 +51,27 @@ namespace Datasets
                             j++;
                         }
                         }
+                }
+
+                PairOfValesInOut = new double[InputAttributes][][];
+                for (int k = 0; k < InputAttributes; k++)
+                {
+                    PairOfValesInOut[k]  = new double[DatasetSize][];
+                     for (int i = 0; i < DatasetSize; i++)
+                    {
+                        PairOfValesInOut[k][i] = new double[OutputIntervals];
+                        for (int j = 0; j < OutputIntervals; j++)
+                        {
+                            if (Math.Abs(Dataset[i][InputAttributes] - j) < 0.00000001)
+                            {
+                                PairOfValesInOut[k][i][j] = 1;
+                            }
+                            else
+                            {
+                                PairOfValesInOut[k][i][j] = 0;
+                            }
+                        }
+                    }
                 }
             }
             catch
