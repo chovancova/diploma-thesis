@@ -10,129 +10,13 @@ using Datasets;
 
 namespace FuzzificationLibrary
 {
-    public class FuzzyClassifiierWagedFuzzyEntropy : FuzzyClassifierFuzzyEntropy
+    public class FuzzificationWagedEntropy : FuzzificationEntropy
     {
-        public FuzzyClassifiierWagedFuzzyEntropy(DataSets dataToTransform) : base(dataToTransform)
+        public FuzzificationWagedEntropy(DataSets dataToTransform) : base(dataToTransform)
         {
         
         }
-        
-        //public override void MembershipFunctionAssignment(int dimension, int interval)
-        //{
-        //    double membershipValue = 0;
-        //    double c1 = 0.0;
-        //    double c2 = 0.0;
-        //    double c3 = 0.0;
-        //    double c4 = 0.0;
-        //    double x = 0.0;
-        //    int leftIndex = 0;
-        //    int rightIndex = Centers[dimension].Length - 1;
-
-        //    //stredny
-
-        //    //for (int i = 0; i < DataToTransform.DatasetSize; i++)
-        //    //{
-        //    //    x = IntervalCentersAndWidth[dimension][i][3];
-        //    //    //pravy 
-        //    //    for (int q = 0; q < interval; q++)
-        //    //    {
-        //    //        if (q == 0)
-        //    //        {
-        //    //            c1 = Centers[dimension][0];
-        //    //            c2 = Centers[dimension][1];
-
-        //    //            if (x <= c1)
-        //    //            {
-        //    //                Results[dimension][0][i] = 1;
-        //    //            }
-        //    //            else if (c1 < x && x <= c2)
-        //    //            {
-        //    //                Results[dimension][0][i] = (c2 - x) / (c2 - c1);
-        //    //            }
-        //    //            else
-        //    //            {
-        //    //                Results[dimension][0][i] = 0;
-        //    //            }
-        //    //        }
-        //    //        else if (q > 0 && q < interval - 1)
-        //    //        {
-        //    //            c2 = Centers[dimension][q - 1];
-        //    //            c3 = Centers[dimension][q];
-        //    //            c4 = Centers[dimension][q + 1];
-
-        //    //            if (x <= c2)
-        //    //            {
-        //    //                Results[dimension][q][i] = 0;
-        //    //            }
-        //    //            else if (c2 < x && x <= c3)
-        //    //            {
-        //    //                Results[dimension][q][i] = (x - c2) / (c3 - c2);
-        //    //            }
-        //    //            else if (c3 < x && x <= c4)
-        //    //            {
-        //    //                Results[dimension][q][i] = (c4 - x) / (c4 - c3);
-        //    //            }
-        //    //            else
-        //    //            {
-        //    //                Results[dimension][q][i] = 0;
-        //    //            }
-
-
-        //    //        }
-        //    //        else
-        //    //        {
-
-        //    //            c1 = Centers[dimension][interval - 2];//predposledny
-        //    //            c2 = Centers[dimension][interval - 1];//posledny
-
-        //    //            if (x <= c1)
-        //    //            {
-        //    //                Results[dimension][interval - 1][i] = 0;
-        //    //            }
-        //    //            else if (c1 < x && x <= c2)
-        //    //            {
-        //    //                Results[dimension][interval - 1][i] = (x - c2) / (c2 - c1);
-        //    //            }
-        //    //            else
-        //    //            {
-        //    //                Results[dimension][interval - 1][i] = 1;
-        //    //            }
-        //    //        }
-
-        //    //    }
-        //    //}
-
-
-
-        //    for (int i = 0; i < DataToTransform.DatasetSize; i++)
-        //    {
-        //        x = IntervalCentersAndWidth[dimension][i][3];
-
-        //        for (int j = 0; j < interval - 1; j++)
-        //        {
-        //            c4 = Centers[dimension][j + 1];
-        //            c3 = Centers[dimension][j];
-        //            if (x >= c3
-        //                && x <= c4)
-        //            {
-        //                Results[dimension][j][i] = (c4 - x) / (c4 - c3);
-        //                Results[dimension][j + 1][i] = (x - c3) / (c4 - c3);
-        //            }
-        //        }
-
-        //        c1 = Centers[dimension][0];
-        //        c2 = Centers[dimension][interval - 1];
-        //        if (x < c1)
-        //        {
-        //            Results[dimension][0][i] = 1;
-        //        }
-        //        if (x > c2)
-        //        {
-        //            Results[dimension][interval - 1][i] = 1;
-        //        }
-        //    }
-        //}
-
+       
         private int count = 0; 
         protected override bool ConditionForStopingFuzzificationInDimension(int dimension, double totalEntropyI,
             double totalEntropyIPrevious)
@@ -242,6 +126,72 @@ namespace FuzzificationLibrary
         }
 
 
+
+
+        public override void MembershipFunctionAssignment(int dimension, int interval)
+        {
+            double membershipValue = 0;
+            double c1 = 0.0;
+            double c2 = 0.0;
+            double c3 = 0.0;
+            double c4 = 0.0;
+            double x = 0.0;
+            int leftIndex = 0;
+            int rightIndex = Centers[dimension].Length - 1;
+
+            for (int i = 0; i < DataToTransform.DatasetSize; i++)
+            {
+                x = DataToTransform.Dataset[i][dimension];
+                //most left membership function
+                c1 = Centers[dimension][leftIndex];
+                c2 = Centers[dimension][leftIndex + 1];
+                if (x <= c1)
+                {
+                    membershipValue = 1; //alternativa
+                    //membershipValue = (c1 + x)/2*c1;
+                }
+                else
+                {
+                    membershipValue = Math.Max(0, (1 - Math.Abs(c1 - x) / Math.Abs(c2 - c1)));
+                }
+
+                Results[dimension][leftIndex][i] = membershipValue;
+
+                //most right membership function
+
+                c4 = Centers[dimension][rightIndex];
+                c3 = Centers[dimension][rightIndex - 1];
+                if (x <= c4)
+                {
+                    membershipValue = Math.Max(0, (1 - (Math.Abs(c4 - x) / Math.Abs(c4 - c3))));
+                }
+                else if (x > c4)
+                {
+                    membershipValue = 1; //ALTERNATIVA
+                    //membershipValue = (2 - x - c4)/(2 - (1 - c4));
+                }
+                Results[dimension][rightIndex][i] = membershipValue;
+
+
+                for (int j = 1; j < Centers[dimension].Length - 1; j++)
+                {
+                    c2 = Centers[dimension][j - 1];
+                    c3 = Centers[dimension][j];
+                    c4 = Centers[dimension][j + 1];
+
+                    if (x <= c3)
+                    {
+                        membershipValue = Math.Max(0, (1 - (Math.Abs(c3 - x) / Math.Abs(c3 - c2))));
+                    }
+                    else
+                    {
+                        membershipValue = Math.Max(0, (1 - (Math.Abs(c3 - x) / Math.Abs(c4 - c3))));
+                    }
+                    Results[dimension][j][i] = membershipValue;
+
+                }
+            }
+        }
 
 
     }

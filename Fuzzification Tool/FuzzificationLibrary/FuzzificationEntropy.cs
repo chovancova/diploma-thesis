@@ -3,11 +3,11 @@ using Datasets;
 
 namespace FuzzificationLibrary
 {
-    public class FuzzyClassifierFuzzyEntropy : FuzzyClassifier
+    public class FuzzificationEntropy : Fuzzification
     {
         private readonly CMeansClusteringMethod CMeansClustering;
 
-        public FuzzyClassifierFuzzyEntropy(DataSets dataToTransform) : base(dataToTransform)
+        public FuzzificationEntropy(DataSets dataToTransform) : base(dataToTransform)
         {
             CMeansClustering = new CMeansClusteringMethod(this);
         }
@@ -41,7 +41,7 @@ namespace FuzzificationLibrary
                 if (x <= c1)
                 {
                     membershipValue = 1; //alternativa
-                    //membershipValue = (c1 + x)/2*c1;
+                  //  membershipValue = (c1 + x)/2*c1;
                 }
                 else
                 {
@@ -139,13 +139,6 @@ namespace FuzzificationLibrary
                         mu[classM][j][k] += Results[dimension][j][i] * Results[DataToTransform.InputAttributes][k][i]; //toto priradi to kde patri do akej triedy
                     }
             }
-
-            for (int i = 0; i < countM.Length; i++)
-            {
-                Console.WriteLine("Pocet klas - " +i+"ma - "+countM[i]);
-            }
-            Console.WriteLine();
-
 
            // Console.WriteLine("II.C.----STEP 5 - COMPUTE MATCH DEGREE DJ - sum mu ");
             for (int j = 0; j < countIntervalsInDimension; j++)

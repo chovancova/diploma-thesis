@@ -7,9 +7,9 @@ using Datasets;
 
 namespace FuzzificationLibrary
 {
-    class FuzzyClassifierHierarchicalFuzzyEntropy : FuzzyClassifier
+    class FuzzificationHierarchicalEntropy : Fuzzification
     {
-        public FuzzyClassifierHierarchicalFuzzyEntropy(DataSets dataToTransform) : base(dataToTransform)
+        public FuzzificationHierarchicalEntropy(DataSets dataToTransform) : base(dataToTransform)
         {
         }
 

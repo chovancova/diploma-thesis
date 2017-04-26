@@ -7,7 +7,7 @@ using Datasets;
 
 namespace FuzzificationLibrary
 {
-   public class FuzzyCMeansMethod : FuzzyClassifier
+   public class FuzzyCMeansMethod : Fuzzification
     {
         public FuzzyCMeansMethod(DataSets dataToTransform) : base(dataToTransform)
         {

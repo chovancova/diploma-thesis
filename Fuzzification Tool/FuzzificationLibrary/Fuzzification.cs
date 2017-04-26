@@ -8,7 +8,7 @@ using Datasets;
 
 namespace FuzzificationLibrary
 {
-   public abstract class FuzzyClassifier
+   public abstract class Fuzzification
    {
         public DataSets DataToTransform { get; set; }
       /// <summary>
@@ -36,7 +36,7 @@ namespace FuzzificationLibrary
         /// </summary>
           public double [][] TotalEntropy { get; set; }
 
-       protected FuzzyClassifier(DataSets dataToTransform)
+       protected Fuzzification(DataSets dataToTransform)
        {
            DataToTransform = dataToTransform;
        }
@@ -118,8 +118,7 @@ namespace FuzzificationLibrary
             int interval = 2; 
             double totalEntropyI= Double.MaxValue;
              double totalEntropyIPrevious= Double.MaxValue;
-            TotalEntropy[dimension] = new double[88];
-
+            TotalEntropy[dimension] = new double[20];
             do
             {
                 //Partition of interval to I = I + 1
@@ -130,6 +129,7 @@ namespace FuzzificationLibrary
                 
                 // Step 3) Assign membership function for each interval.
                 MembershipFunctionAssignment(dimension, interval);
+               
                 // Step 4) Compute the total fuzzy entropy of all intervals for I and I - 1 intervals.
                 totalEntropyIPrevious = totalEntropyI;
                 totalEntropyI = ComputeTotalFuzzyEntropy(dimension);
@@ -137,25 +137,22 @@ namespace FuzzificationLibrary
                 Console.WriteLine("Total fuzzy entropy("+dimension+","+interval+"): \t"+totalEntropyI);
                 TotalEntropy[dimension][interval] = totalEntropyI;
                 interval++;
-               
-
                 // Step 5) Does the total fuzzy entropy decrease?
                 // If the total fuzzy entropy of I intervals is less than that of I - 1 intervals, 
                 // then partition again(I := I + 1) and go to Step 2; else go to Step 6.
 
-            } while (!ConditionForStopingFuzzificationInDimension(dimension, totalEntropyI, totalEntropyIPrevious) );
+            } while (!ConditionForStopingFuzzificationInDimension(dimension, totalEntropyI, totalEntropyIPrevious));
 
             //Step 6) I - 1 is the number of intervals on specified dimension.
            
-            Intervals[dimension]--;
-            ResizeResultToNewInterval(dimension, Intervals[dimension]);
+            interval--;
+            ResizeResultToNewInterval(dimension, interval);
             IntervalCentersAndWidth[dimension] = DeterminationIntervalsLocation(dimension, Intervals[dimension]);
             MembershipFunctionAssignment(dimension, Intervals[dimension]);
-            Console.WriteLine(ComputeTotalFuzzyEntropy(dimension));
-           Console.WriteLine(Intervals[dimension]);
+           // Console.WriteLine(ComputeTotalFuzzyEntropy(dimension));
+           //Console.WriteLine(Intervals[dimension]);
            Console.WriteLine("DONE");
 
-            ClassLabelAssigment(dimension);
        }
 
        protected abstract double ComputeTotalFuzzyEntropy(int dimension);
@@ -290,7 +287,7 @@ namespace FuzzificationLibrary
                                 w.Write((Math.Round(Results[j][k][i], 4)).ToString("0.0000") + "\t");                          
                             }
                             w.Write("\t");
-                            w.Write("sum("+ Math.Round(sum,4) +")"+ "\t\t");
+                            w.Write("sum("+ Math.Round(sum,4).ToString("0.0000") + ")"+ "\t\t");
                             sum = 0; 
                         }
                         w.WriteLine();

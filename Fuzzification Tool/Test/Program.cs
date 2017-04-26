@@ -68,13 +68,20 @@ namespace Test
 
 
             DataSets data = DatasetChooser.ReadDatasetFromFile(DatasetType.Test, "test.data");
+            DataSets data2 = DatasetChooser.ReadDatasetFromFile(DatasetType.Iris, "iris.data");
             data.WriteInfoToFile("test-data-info.txt");
-            FuzzyClassifiierWagedFuzzyEntropy fcw = new FuzzyClassifiierWagedFuzzyEntropy(data);
-            FuzzyClassifierFuzzyEntropy fc = new FuzzyClassifierFuzzyEntropy(data);
+            FuzzificationWagedEntropy fcw = new FuzzificationWagedEntropy(data);
+            FuzzificationEntropy fc = new FuzzificationEntropy(data);
+            FuzzificationWagedEntropy fcw2 = new FuzzificationWagedEntropy(data2);
+            FuzzificationEntropy fc2 = new FuzzificationEntropy(data2);
             fcw.RunFuzzification();
             fcw.WriteToFile("test-results-vazena.txt");
             fc.RunFuzzification();
             fc.WriteToFile("test-results-normalna.txt");
+            fcw2.RunFuzzification();
+            fcw2.WriteToFile("iris-results-vazena.txt");
+            fc2.RunFuzzification();
+            fc2.WriteToFile("iris-results-normalna.txt");
             Console.ReadKey();
         }
 

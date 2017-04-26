@@ -43,10 +43,10 @@
     <Compile Include="FCMeansClusteringMethod.cs" />
     <Compile Include="CMeansClusteringMethod.cs" />
     <Compile Include="FuzzyificationByFCM.cs" />
-    <Compile Include="FuzzyClassifierHierarchicalFuzzyEntropy.cs" />
-    <Compile Include="FuzzyClassifierFuzzyEntropy.cs" />
-    <Compile Include="FuzzyClassifiierWagedFuzzyEntropy.cs" />
-    <Compile Include="FuzzyClassifier.cs" />
+    <Compile Include="FuzzificationHierarchicalEntropy.cs" />
+    <Compile Include="FuzzificationEntropy.cs" />
+    <Compile Include="FuzzificationWagedEntropy.cs" />
+    <Compile Include="Fuzzification.cs" />
     <Compile Include="FuzzyCMeansMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -55,6 +55,9 @@
       <Project>{943ad2c3-ae25-42ee-8303-093409058fa0}</Project>
       <Name>Datasets</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

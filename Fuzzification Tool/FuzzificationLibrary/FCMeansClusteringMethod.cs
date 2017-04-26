@@ -4,10 +4,10 @@ namespace FuzzificationLibrary
 {
     public class FCMeansClusteringMethod 
     {
-        private FuzzyClassifier _fc;
+        private Fuzzification _fc;
         private Random _rand;
 
-        public FCMeansClusteringMethod(FuzzyClassifier fc)
+        public FCMeansClusteringMethod(Fuzzification fc)
         {
             _rand = new Random();
             _fc = fc;
