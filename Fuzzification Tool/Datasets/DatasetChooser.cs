@@ -8,7 +8,7 @@ namespace Datasets
 {
     public enum DatasetType
     {
-        Heart, Iris, Seeds, Skin, Wine, Yeast, Bupa, Balance, Vowel, Pima, Venicle, Wpbc, Wdbc
+        Heart, Iris, Seeds, Skin, Wine, Yeast, Bupa, Balance, Vowel, Pima, Venicle, Wpbc, Wdbc, Test
     }
 
     public static class DatasetChooser
@@ -20,6 +20,9 @@ namespace Datasets
             {
                 case DatasetType.Iris:
                     dataset = (DataSets) new DatasetIris( datasetSize, attributes,  inputAttributes,  outputAttributes,  outputIntervals,  filename);
+                    break;
+                case DatasetType.Test:
+                    dataset = (DataSets)new DatasetTest(datasetSize, attributes, inputAttributes, outputAttributes, outputIntervals, filename);
                     break;
                 default:
                     return null;
@@ -36,7 +39,10 @@ namespace Datasets
             switch (type)
             {
                 case DatasetType.Iris:
-                    dataset = (DataSets) new DatasetIris( filename);
+                    dataset = (DataSets) new DatasetIris(filename);
+                    break;
+                case DatasetType.Test:
+                    dataset = (DataSets) new DatasetTest(filename);
                     break;
                 default:
                     return null;

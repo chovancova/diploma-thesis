@@ -35,39 +35,46 @@ namespace Test
             //    Console.WriteLine();
             //}
 
-           // DataSets data =  DatasetChooser.ReadDatasetFromFile(DatasetType.Iris, 150, 5, 4, 1, 3, "iris.data");
-            DataSets data =  DatasetChooser.ReadDatasetFromFile(DatasetType.Iris, "iris.data");
-          //  data.RandomizeArray();
-           // data.WriteInfoToFile("randomized data.txt");
-           FuzzyClassifier fc = new FuzzyClassifierFuzzyEntropy(data);
-            FuzzyClassifiierWagedFuzzyEntropy fcw = new FuzzyClassifiierWagedFuzzyEntropy(data);
+            // DataSets data =  DatasetChooser.ReadDatasetFromFile(DatasetType.Iris, 150, 5, 4, 1, 3, "iris.data");
+            //  DataSets data =  DatasetChooser.ReadDatasetFromFile(DatasetType.Iris, "iris.data");
+            ////  data.RandomizeArray();
+            // // data.WriteInfoToFile("randomized data.txt");
+            // FuzzyClassifier fc = new FuzzyClassifierFuzzyEntropy(data);
+            //  FuzzyClassifiierWagedFuzzyEntropy fcw = new FuzzyClassifiierWagedFuzzyEntropy(data);
 
-            //fc.RunFuzzification();
-            //fc.WriteToFile("R_fuzzyClassifier-resultData.txt");
-            fcw.RunFuzzification();
-            fcw.WriteToFile("R_fuzzyClassifier-resultData-waged.txt");
+            //  //fc.RunFuzzification();
+            //  //fc.WriteToFile("R_fuzzyClassifier-resultData.txt");
+            //  fcw.RunFuzzification();
+            //  fcw.WriteToFile("R_fuzzyClassifier-resultData-waged.txt");
             //FuzzyCMeansMethod fcm = new FuzzyCMeansMethod(data);
             //fcm.RunFuzzification();
             //fc.WriteToFile("R_fuzzyClassifier-resultData-fcm.txt");
 
 
 
-           // data.RandomizeArray();
-           // data.ShrinkDataset(20);
-           // data.WriteInfoToFile("R_shriked-dataset-iris-before-fuzzification.txt");
-           // fc = new FuzzyClassifierFuzzyEntropy(data);
-           // fcw = new FuzzyClassifiierWagedFuzzyEntropy(data);
-           // fcm = new FuzzyCMeansMethod(data);
-           //fc.RunFuzzification();
-           //fc.WriteToFile("R_shriked-dataset-iris-after-febfc.txt");
-           // fcw.RunFuzzification();
-           // fcw.WriteToFile("R_shriked-dataset-iris-after-waged.txt");
+            // data.RandomizeArray();
+            // data.ShrinkDataset(20);
+            // data.WriteInfoToFile("R_shriked-dataset-iris-before-fuzzification.txt");
+            // fc = new FuzzyClassifierFuzzyEntropy(data);
+            // fcw = new FuzzyClassifiierWagedFuzzyEntropy(data);
+            // fcm = new FuzzyCMeansMethod(data);
+            //fc.RunFuzzification();
+            //fc.WriteToFile("R_shriked-dataset-iris-after-febfc.txt");
+            // fcw.RunFuzzification();
+            // fcw.WriteToFile("R_shriked-dataset-iris-after-waged.txt");
 
-           // fcm.RunFuzzification();
-           // fcm.WriteToFile("R_shriked-dataset-iris-after-fcm.txt");
+            // fcm.RunFuzzification();
+            // fcm.WriteToFile("R_shriked-dataset-iris-after-fcm.txt");
 
 
-
+            DataSets data = DatasetChooser.ReadDatasetFromFile(DatasetType.Test, "test.data");
+            data.WriteInfoToFile("test-data-info.txt");
+            FuzzyClassifiierWagedFuzzyEntropy fcw = new FuzzyClassifiierWagedFuzzyEntropy(data);
+            FuzzyClassifierFuzzyEntropy fc = new FuzzyClassifierFuzzyEntropy(data);
+            fcw.RunFuzzification();
+            fcw.WriteToFile("test-results-vazena.txt");
+            fc.RunFuzzification();
+            fc.WriteToFile("test-results-normalna.txt");
             Console.ReadKey();
         }
 

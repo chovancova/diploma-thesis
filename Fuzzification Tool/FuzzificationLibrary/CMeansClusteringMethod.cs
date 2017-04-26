@@ -37,6 +37,7 @@ namespace FuzzificationLibrary
             _fc.Centers[dimension] = InitializeUniformCenters(dimension, numberOfIntervals);
             do
             {
+
                 //Step 3) Assign cluster label to each element.
                 centers = AssignClusterLabelToEachInterval(numberOfIntervals, dimension,
                     _fc.Centers[dimension]);
@@ -46,10 +47,12 @@ namespace FuzzificationLibrary
                 //If each cluster center is determined appropriately, the
                 //recomputed center in Step 4 would not change.
                 //If so, stop the determination of interval centers, otherwise go to Step 3.
-                doesAnyCenterChange = DoesAnyCenterChange(result, centers);
+                doesAnyCenterChange = DoesAnyCenterChange(result, _fc.Centers[dimension]);
+
                 if (!doesAnyCenterChange) break;
                 count++;
-            } while (count ==500);
+                _fc.Centers[dimension] = result;
+            } while (count<500);
 
             return centers;
         }
@@ -61,19 +64,19 @@ namespace FuzzificationLibrary
 
         //If each cluster center is determined appropriately, the recomputed center in Step 4 would not change.
         //If so, stop the determination of interval centers, otherwise go to Step 3.
-        private static bool DoesAnyCenterChange(double[] result, double[][] centers )
+        private static bool DoesAnyCenterChange(double[] result, double[] centers )
         {
             //ak bola nejaka zmena v umiestneni - tak false, inak true
             for (var i = 0; i < result.Length; i++)
-                if (Math.Abs(result[i] - centers[i][0]) < 0.0000001)
-                    return false;
+                if ((result[i] != centers[i]) )
+                    return true;
 
-            return true; 
+            return false; 
         }
 
         private double[] RecomputeClusterCenters(int numberOfIntervals, double[][] centers)
         {
-            var result = new double[_fc.DataToTransform.DatasetSize];
+            var result = new double[numberOfIntervals];
             for (var i = 0; i < numberOfIntervals; i++)
             {
                 double Nq = 0;
@@ -125,8 +128,8 @@ namespace FuzzificationLibrary
                 centers[i][1] = closest;
                 centers[i][2] = closestIndex;
                 centers[i][3] = data;
-                centers[i][4] = closestIndex == 0 ? c[closestIndex] : c[closestIndex - 1];
-                centers[i][5] = closestIndex == numberOfIntervals - 1 ? c[closestIndex] : c[closestIndex + 1];
+                //centers[i][4] = closestIndex == 0 ? c[closestIndex] : c[closestIndex - 1];
+               // centers[i][5] = closestIndex == numberOfIntervals - 1 ? c[closestIndex] : c[closestIndex + 1];
             }
             return centers;
         }

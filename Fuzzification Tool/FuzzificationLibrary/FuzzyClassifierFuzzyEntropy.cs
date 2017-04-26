@@ -89,39 +89,6 @@ namespace FuzzificationLibrary
 
         protected override double ComputeTotalFuzzyEntropy(int dimension)
         {
-
-            double[] triedyVMnozineX = new double[DataToTransform.DatasetSize];
-            for (int i = 0; i < DataToTransform.DatasetSize; i++)
-            {
-                triedyVMnozineX[i] = DataToTransform.Dataset[i][DataToTransform.InputAttributes];
-            }
-            double[] sum1 = new double[DataToTransform.OutputIntervals];
-            double[] sum2 = new double[DataToTransform.OutputIntervals];
-            //prejdem vsetky triedy
-            for (int classO = 0; classO < DataToTransform.OutputIntervals; classO++)
-            {
-                for (int i = 0; i < DataToTransform.DatasetSize; i++)
-                {
-                  
-                        //prejdem cez vsetky intervaly
-                        for (int j = 0; j < Intervals[dimension]; j++)
-                        {
-                            if (Math.Abs(triedyVMnozineX[i] - classO) < 0.0000000001)
-                           {
-                            sum1[classO] += Results[dimension][j][i];
-                            }
-                            sum2[classO] += Results[dimension][j][i];
-                        }
-                }
-            }
-
-            
-
-
-
-            //1) Let X = {r1, ... , rn} be a universal set with elements ri distributed in pattern space where i = 1..n. 
-            //2) Let A be a fuzzy set defined on a interval of pattern space which kontains k elements (k < n). 
-
             double totalEntropy = 0;
             int countIntervalsInDimension = Intervals[dimension];
             int[] countM = new int[countIntervalsInDimension];
@@ -154,7 +121,7 @@ namespace FuzzificationLibrary
             for (int i = 0; i < DataToTransform.DatasetSize; i++)
             {
                 max = Results[dimension][0][i];
-            //---------------------------II.C.----STEP 4 - SET SCJ AS SET OF ELEMENTS OF CLASS J ON X -------------------------------------------
+                //---------------------------II.C.----STEP 4 - SET SCJ AS SET OF ELEMENTS OF CLASS J ON X -------------------------------------------
                 for (int j = 0; j < countIntervalsInDimension; j++)
                 {
                     temp = Results[dimension][j][i];
@@ -165,23 +132,31 @@ namespace FuzzificationLibrary
                     }
                 }
                 countM[classM]++;
-
                 //---------------------------II.C.----STEP 5 - COMPUTE MATCH DEGREE DJ -------------------------------------------
                 for (int j = 0; j < countIntervalsInDimension; j++)
                     for (int k = 0; k < DataToTransform.OutputIntervals; k++) //OutputIntervals???
-                        mu[classM][j][k] += Results[dimension][j][i]; //???
+                    {
+                        mu[classM][j][k] += Results[dimension][j][i] * Results[DataToTransform.InputAttributes][k][i]; //toto priradi to kde patri do akej triedy
+                    }
             }
 
+            for (int i = 0; i < countM.Length; i++)
+            {
+                Console.WriteLine("Pocet klas - " +i+"ma - "+countM[i]);
+            }
+            Console.WriteLine();
+
+
+           // Console.WriteLine("II.C.----STEP 5 - COMPUTE MATCH DEGREE DJ - sum mu ");
             for (int j = 0; j < countIntervalsInDimension; j++)
                 for (int k = 0; k < countIntervalsInDimension; k++)
                     for (int l = 0; l < DataToTransform.OutputIntervals; l++)
+                    {
                         sumMu[j][k] += mu[j][k][l];
+                    }
 
 
             //---------------------------II.C.----STEP 6 - COMPUTE FUZZY ENTROPY FECJ A  -------------------------------------------
-            //---------------------------II.C.----STEP 7 - COMPUTE FUZZY ENTORPY FEA ON X -------------------------------------------
-            //  Fuzzy Entropy Calculation
-            // The fuzzy entropy FE on the universal uset X for the elements within an interval 
             double matchDegreeDj = 0;
             for (int i = 0; i < countIntervalsInDimension; i++)
             {
@@ -192,16 +167,23 @@ namespace FuzzificationLibrary
                     {
                         //---------------------------II.C.----STEP 5 - COMPUTE MATCH DEGREE DJ -------------------------------------------
                         matchDegreeDj = (sumMu[i][j] < 0.000001) ? 0 : (mu[i][j][k] / sumMu[i][j]); //proti deleniu nulov
-                                                                     //---------------------------II.C.----STEP 6 - COMPUTE FUZZY ENTROPY FECJ A  -------------------------------------------
-                        if ((Math.Abs(mu[i][j][k]) > 0.00001))
+                                                                                                    //---------------------------II.C.----STEP 6 - COMPUTE FUZZY ENTROPY FECJ A  -------------------------------------------
+                        //Console.WriteLine(matchDegreeDj);
+                        if (Math.Abs(matchDegreeDj) > 0.0000001)
+                        {
+                             if ((Math.Abs(mu[i][j][k]) > 0.00001))
                             newEntropy -= matchDegreeDj * Math.Log(matchDegreeDj, 2);
-
+                        }
                     }
                 }
                 //---------------------------II.C.----STEP 7 - COMPUTE FUZZY ENTORPY FEA ON X -------------------------------------------
-                totalEntropy += newEntropy * countM[i] / DataToTransform.DatasetSize;
-            }
+                //Console.WriteLine("Entropy on FEA - " + newEntropy * countM[i] / DataToTransform.DatasetSize);
 
+                totalEntropy += newEntropy;
+            }
+           // Console.WriteLine();
+           // Console.WriteLine("Total Entropy - "+ totalEntropy);
+           // Console.WriteLine();
             return totalEntropy;
         }
 
@@ -217,8 +199,7 @@ namespace FuzzificationLibrary
         /// <returns></returns>
         protected override bool ConditionForStopingFuzzificationInDimension(int dimension, double totalEntropyI, double totalEntropyIPrevious)
         {
-            if (Math.Abs(totalEntropyI) < 0.000001) return true;
-            return (totalEntropyI <= totalEntropyIPrevious) && Intervals[dimension] > DataToTransform.OutputIntervals;
+            return (totalEntropyI > totalEntropyIPrevious);
         }
 
 

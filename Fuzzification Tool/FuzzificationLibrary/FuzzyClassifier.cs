@@ -116,9 +116,9 @@ namespace FuzzificationLibrary
        {
             //  Step 1) Set the initial number of intervals I = 2.
             int interval = 2; 
-            double totalEntropyI= 0;
-             double totalEntropyIPrevious= 0;
-           TotalEntropy[dimension] = new double[88];
+            double totalEntropyI= Double.MaxValue;
+             double totalEntropyIPrevious= Double.MaxValue;
+            TotalEntropy[dimension] = new double[88];
 
             do
             {
@@ -128,7 +128,6 @@ namespace FuzzificationLibrary
                 // Step 2) Locate the centers of intervals.
                 IntervalCentersAndWidth[dimension]= DeterminationIntervalsLocation(dimension, Intervals[dimension]);
                 
-
                 // Step 3) Assign membership function for each interval.
                 MembershipFunctionAssignment(dimension, interval);
                 // Step 4) Compute the total fuzzy entropy of all intervals for I and I - 1 intervals.
@@ -138,18 +137,23 @@ namespace FuzzificationLibrary
                 Console.WriteLine("Total fuzzy entropy("+dimension+","+interval+"): \t"+totalEntropyI);
                 TotalEntropy[dimension][interval] = totalEntropyI;
                 interval++;
+               
 
                 // Step 5) Does the total fuzzy entropy decrease?
                 // If the total fuzzy entropy of I intervals is less than that of I - 1 intervals, 
                 // then partition again(I := I + 1) and go to Step 2; else go to Step 6.
+
             } while (!ConditionForStopingFuzzificationInDimension(dimension, totalEntropyI, totalEntropyIPrevious) );
 
             //Step 6) I - 1 is the number of intervals on specified dimension.
+           
             Intervals[dimension]--;
             ResizeResultToNewInterval(dimension, Intervals[dimension]);
             IntervalCentersAndWidth[dimension] = DeterminationIntervalsLocation(dimension, Intervals[dimension]);
             MembershipFunctionAssignment(dimension, Intervals[dimension]);
-          
+            Console.WriteLine(ComputeTotalFuzzyEntropy(dimension));
+           Console.WriteLine(Intervals[dimension]);
+           Console.WriteLine("DONE");
 
             ClassLabelAssigment(dimension);
        }
