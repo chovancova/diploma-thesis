@@ -29,6 +29,7 @@ namespace FuzzificationLibrary
         /// </summary>
         public double[][][] IntervalCentersAndWidth { get; private set; }
         public double [][] Centers { get; set; }
+        //public double [][] 
       
         /// <summary>
         /// Total entropy - []-dimension, [][] - interval

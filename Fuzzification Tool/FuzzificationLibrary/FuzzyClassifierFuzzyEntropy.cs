@@ -115,6 +115,8 @@ namespace FuzzificationLibrary
                 }
             }
 
+            
+
 
 
             //1) Let X = {r1, ... , rn} be a universal set with elements ri distributed in pattern space where i = 1..n. 

@@ -266,7 +266,7 @@ void Fuzzy::ModifyACube(unsigned int i, int ChangeOfInterval)
 // ----------------------  CreateAscRAscN  ------------------------------------
 unsigned long Fuzzy::CreateAscRAscN(unsigned int i, float *AscR, unsigned long *AscN)
 { unsigned int  novy;
-  unsigned long countAscR = 1;
+  unsigned long   = 1;
   AscR[0]    = R[0].A[i];
   AscN[0]    = 1;
   for(unsigned long k=1; k<TotalSets; k++)
