@@ -1,28 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Datasets
+﻿namespace Datasets
 {
     public enum DatasetType
     {
-        Heart, Iris, Seeds, Skin, Wine, Yeast, Bupa, Balance, Vowel, Pima, Venicle, Wpbc, Wdbc, Test
+        Heart,
+        Iris,
+        Seeds,
+        Skin,
+        Wine,
+        Yeast,
+        Bupa,
+        Balance,
+        Vowel,
+        Pima,
+        Venicle,
+        Wpbc,
+        Wdbc,
+        Test
     }
 
     public static class DatasetChooser
     {
-        public static DataSets ReadDatasetFromFile(DatasetType type, int datasetSize, int attributes, int inputAttributes, int outputAttributes, int outputIntervals, string filename)
+        public static DataSets ReadDatasetFromFile(DatasetType type, int datasetSize, int attributes,
+            int inputAttributes, int outputAttributes, int outputIntervals, string filename)
         {
             DataSets dataset = null;
             switch (type)
             {
                 case DatasetType.Iris:
-                    dataset = (DataSets) new DatasetIris( datasetSize, attributes,  inputAttributes,  outputAttributes,  outputIntervals,  filename);
+                    dataset = new DatasetIris(datasetSize, attributes, inputAttributes, outputAttributes,
+                        outputIntervals, filename);
                     break;
                 case DatasetType.Test:
-                    dataset = (DataSets)new DatasetTest(datasetSize, attributes, inputAttributes, outputAttributes, outputIntervals, filename);
+                    dataset = new DatasetTest(datasetSize, attributes, inputAttributes, outputAttributes,
+                        outputIntervals, filename);
                     break;
                 default:
                     return null;
@@ -33,16 +43,17 @@ namespace Datasets
             dataset.WriteInfoToFile();
             return dataset;
         }
+
         public static DataSets ReadDatasetFromFile(DatasetType type, string filename)
         {
             DataSets dataset = null;
             switch (type)
             {
                 case DatasetType.Iris:
-                    dataset = (DataSets) new DatasetIris(filename);
+                    dataset = new DatasetIris(filename);
                     break;
                 case DatasetType.Test:
-                    dataset = (DataSets) new DatasetTest(filename);
+                    dataset = new DatasetTest(filename);
                     break;
                 default:
                     return null;
@@ -54,5 +65,4 @@ namespace Datasets
             return dataset;
         }
     }
-
 }

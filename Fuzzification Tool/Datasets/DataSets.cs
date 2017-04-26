@@ -1,28 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Datasets
 {
     public abstract class DataSets
     {
-        public int DatasetSize { get; protected set; }
-        public int Attributes { get; protected set; }
-        public int InputAttributes { get; protected set; }
-        public int OutputAttributes { get; protected set; }
-        public int OutputIntervals { get; protected set; }
-        public string Filename { get; protected set; }
-        /// <summary>
-        /// dataset size (0...150),dataset attributes (0...5)
-        /// </summary>
-        public double[][] Dataset { get; set; }
-        public int[] LingvisticAttribute { get; set; }
-        public double InitialError { get; set; }
-      
         protected DataSets(int datasetSize, int attributes, int inputAttributes, int outputAttributes,
             int outputIntervals, string filename)
         {
@@ -34,19 +16,29 @@ namespace Datasets
             Filename = filename;
             InitialError = -1;
             Dataset = new double[datasetSize][];
-            for (int i = 0; i < datasetSize; i++)
-            {
+            for (var i = 0; i < datasetSize; i++)
                 Dataset[i] = new double[attributes];
-            }
 
             LingvisticAttribute = new int[attributes];
-            for (int i = 0; i < LingvisticAttribute.Length; i++)
-            {
+            for (var i = 0; i < LingvisticAttribute.Length; i++)
                 LingvisticAttribute[i] = 0;
-            }
             LingvisticAttribute[inputAttributes] = outputIntervals;
-
         }
+
+        public int DatasetSize { get; protected set; }
+        public int Attributes { get; protected set; }
+        public int InputAttributes { get; protected set; }
+        public int OutputAttributes { get; protected set; }
+        public int OutputIntervals { get; protected set; }
+        public string Filename { get; protected set; }
+
+        /// <summary>
+        ///     dataset size (0...150),dataset attributes (0...5)
+        /// </summary>
+        public double[][] Dataset { get; set; }
+
+        public int[] LingvisticAttribute { get; set; }
+        public double InitialError { get; set; }
 
         public void ClearDataset()
         {
@@ -64,33 +56,29 @@ namespace Datasets
 
         public void NormalizeDataset()
         {
-            double[] min = new double[InputAttributes];
-            double[] max = new double[InputAttributes];
+            var min = new double[InputAttributes];
+            var max = new double[InputAttributes];
 
-            for (int i = 0; i < InputAttributes; i++)
-            {
+            for (var i = 0; i < InputAttributes; i++)
                 if (LingvisticAttribute[i] == 0)
                 {
                     min[i] = Dataset[0][i];
                     max[i] = Dataset[0][i];
-                    for (int k = 1; k < DatasetSize; k++)
+                    for (var k = 1; k < DatasetSize; k++)
                     {
                         if (Dataset[k][i] < min[i]) min[i] = Dataset[k][i];
                         if (Dataset[k][i] > max[i]) max[i] = Dataset[k][i];
                     }
-                    for (int k = 0; k < DatasetSize; k++)
-                    {
+                    for (var k = 0; k < DatasetSize; k++)
                         Dataset[k][i] = (Dataset[k][i] - min[i])/(max[i] - min[i]);
-                    }
                 }
-            }
         }
-        
+
         /// <summary>
-        /// Počiatočná chyba výberu.
-        ///  Táto hodnota určuje veľkosť chyby v prípade, 
-        ///  ak sa ako variant výstupného atribútu stále vyberá ten variant, 
-        ///  ktorý sa v súbore dát vyskytuje najčastejšie. 
+        ///     Počiatočná chyba výberu.
+        ///     Táto hodnota určuje veľkosť chyby v prípade,
+        ///     ak sa ako variant výstupného atribútu stále vyberá ten variant,
+        ///     ktorý sa v súbore dát vyskytuje najčastejšie.
         /// </summary>
         /// <returns></returns>
         public double ComputeInitialError()
@@ -99,25 +87,19 @@ namespace Datasets
             try
             {
                 int max;
-                int[] classes = new int[OutputIntervals];
+                var classes = new int[OutputIntervals];
 
-                for (int i = 0; i < OutputIntervals; i++)
-                {
+                for (var i = 0; i < OutputIntervals; i++)
                     classes[i] = 0;
-                }
 
-                for (int x = 0; x < DatasetSize; x++)
-                {
+                for (var x = 0; x < DatasetSize; x++)
                     classes[Convert.ToInt32(Dataset[x][InputAttributes])]++;
-                }
 
                 max = classes[0];
-                for (int i = 0; i < OutputIntervals; i++)
-                {
+                for (var i = 0; i < OutputIntervals; i++)
                     if (classes[i] > max)
                         max = classes[i];
-                }
-                InitialError = (1 - (max)*1.0f/DatasetSize);
+                InitialError = 1 - max*1.0f/DatasetSize;
             }
             catch (Exception e)
             {
@@ -129,29 +111,25 @@ namespace Datasets
 
         public override string ToString()
         {
-            string basic = "Dataset Size: \t\t\t\t" + DatasetSize + "\n" +
-                           "Attributes: \t\t\t\t\t" + Attributes + "\n" +
-                           "Input Attributes: \t\t" + InputAttributes + "\n" +
-                           "Output Attributes: \t\t" + OutputAttributes + "\n" +
-                           "Output Intervals: \t\t" + OutputIntervals + "\n" +
-                           "Initial Error: \t\t\t\t" + InitialError + "\n" +
-                           "Filename: \t\t\t\t\t\t" + Filename + "\n";
+            var basic = "Dataset Size: \t\t\t\t" + DatasetSize + "\n" +
+                        "Attributes: \t\t\t\t\t" + Attributes + "\n" +
+                        "Input Attributes: \t\t" + InputAttributes + "\n" +
+                        "Output Attributes: \t\t" + OutputAttributes + "\n" +
+                        "Output Intervals: \t\t" + OutputIntervals + "\n" +
+                        "Initial Error: \t\t\t\t" + InitialError + "\n" +
+                        "Filename: \t\t\t\t\t\t" + Filename + "\n";
 
             basic += "LingvisticAttribute: \t";
-            for (int i = 0; i < LingvisticAttribute.Length; i++)
-            {
+            for (var i = 0; i < LingvisticAttribute.Length; i++)
                 basic += LingvisticAttribute[i] + "\t";
-            }
             basic += "\n";
 
 
             basic += "Dataset:\n";
             foreach (var x in Dataset)
             {
-                foreach (double y in x)
-                {
-                    basic += ((Math.Round(y, 4)).ToString("0.0000") + "\t");
-                }
+                foreach (var y in x)
+                    basic += Math.Round(y, 4).ToString("0.0000") + "\t";
                 basic += "\n";
             }
 
@@ -161,14 +139,12 @@ namespace Datasets
 
         public void WriteToFile(string filename = "dataset.txt")
         {
-            using (StreamWriter w = new StreamWriter(filename))
+            using (var w = new StreamWriter(filename))
             {
                 foreach (var x in Dataset)
                 {
-                    foreach (double y in x)
-                    {
-                        w.Write((Math.Round(y, 4)).ToString("0.0000") + "\t");
-                    }
+                    foreach (var y in x)
+                        w.Write(Math.Round(y, 4).ToString("0.0000") + "\t");
                     w.WriteLine();
                 }
             }
@@ -176,7 +152,7 @@ namespace Datasets
 
         public void WriteInfoToFile(string filename = "dataset-info.txt")
         {
-            using (StreamWriter w = new StreamWriter(filename))
+            using (var w = new StreamWriter(filename))
             {
                 w.WriteLine(ToString());
             }
@@ -186,41 +162,37 @@ namespace Datasets
         {
             new Random().Shuffle(Dataset);
         }
-   
+
 
         public void ShrinkDataset(int size)
         {
             if (size < DatasetSize)
             {
-                double[][] shrinked = new double[size][];
-               DatasetSize = size;
+                var shrinked = new double[size][];
+                DatasetSize = size;
 
-                for (int i = 0; i < Dataset.Length; i++)
-                {
+                for (var i = 0; i < Dataset.Length; i++)
                     if (i < size)
-                    {
                         shrinked[i] = Dataset[i];
-                    }
-                 }
                 Dataset = shrinked;
             }
             ComputeInitialError();
             NormalizeDataset();
         }
-
     }
+
     /// <summary>
-    /// Fisher-Yates algorithm.
+    ///     Fisher-Yates algorithm.
     /// </summary>
-    static class RandomExtensions
+    internal static class RandomExtensions
     {
         public static void Shuffle<T>(this Random rng, T[] array)
         {
-            int n = array.Length;
+            var n = array.Length;
             while (n > 1)
             {
-                int k = rng.Next(n--);
-                T temp = array[n];
+                var k = rng.Next(n--);
+                var temp = array[n];
                 array[n] = array[k];
                 array[k] = temp;
             }

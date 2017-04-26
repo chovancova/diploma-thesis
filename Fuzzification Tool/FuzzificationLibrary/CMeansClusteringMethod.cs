@@ -4,7 +4,7 @@ namespace FuzzificationLibrary
 {
     public class CMeansClusteringMethod
     {
-        private Fuzzification _fc;
+        private readonly Fuzzification _fc;
         private Random _rand;
 
         public CMeansClusteringMethod(Fuzzification fc)
@@ -17,28 +17,29 @@ namespace FuzzificationLibrary
         {
             return CMeansClustering(intervals, dimension);
         }
-        /// <summary>
-        /// [] center of konkretnehoo data bodu
+
         // [][0] - closest center
         // [][1] - closest distance
         // [][2] - closest index
         // [][3] - data
+        /// <summary>
+        ///     [] center of konkretnehoo data bodu
         /// </summary>
         private double[] CMeansClustering(int numberOfIntervals, int dimension)
         {
-            int count = 0; 
+            var count = 0;
             double[][] centersForDataset;
             bool doesAnyCenterChange;
-            double [] result = new double[numberOfIntervals];
+            var result = new double[numberOfIntervals];
             //Step 2) Set initial centers of clusters.
-            double[] centers = InitializeUniformCenters(dimension, numberOfIntervals);
+            var centers = InitializeUniformCenters(dimension, numberOfIntervals);
             do
             {
                 //Step 3) Assign cluster label to each element.
                 centersForDataset = AssignClusterLabelToEachInterval(numberOfIntervals, dimension,
                     centers);
                 //Step 4) Recompute the cluster centers.
-                 result = RecomputeClusterCenters(numberOfIntervals, centersForDataset);
+                result = RecomputeClusterCenters(numberOfIntervals, centersForDataset);
                 //Step 5) Does any center change?
                 //If each cluster center is determined appropriately, the
                 //recomputed center in Step 4 would not change.
@@ -48,20 +49,20 @@ namespace FuzzificationLibrary
                 if (!doesAnyCenterChange) break;
                 count++;
                 centers = result;
-            } while (count<500);
+            } while (count < 500);
             return result;
         }
 
         //If each cluster center is determined appropriately, the recomputed center in Step 4 would not change.
         //If so, stop the determination of interval centers, otherwise go to Step 3.
-        private static bool DoesAnyCenterChange(double[] result, double[] centers )
+        private static bool DoesAnyCenterChange(double[] result, double[] centers)
         {
             //ak bola nejaka zmena v umiestneni - tak false, inak true
             for (var i = 0; i < result.Length; i++)
-                if ((result[i] != centers[i]) )
+                if (result[i] != centers[i])
                     return true;
 
-            return false; 
+            return false;
         }
 
         private double[] RecomputeClusterCenters(int numberOfIntervals, double[][] centers)
@@ -77,7 +78,7 @@ namespace FuzzificationLibrary
                         Nq++;
                         sumNq += centers[j][1];
                     }
-               result[i] = (double) sumNq/Nq;
+                result[i] = sumNq/Nq;
             }
             return result;
         }
@@ -107,12 +108,12 @@ namespace FuzzificationLibrary
                         closestIndex = j;
                     }
                 }
-               
+
                 // 0 - closest index
                 // 1 - data
                 centers[i][0] = closestIndex;
                 centers[i][1] = data;
-             }
+            }
             return centers;
         }
 
@@ -123,8 +124,8 @@ namespace FuzzificationLibrary
             var notSame = false;
             double temp;
             for (var i = 1; i <= q; i++)
-               c[i-1] = (double)(i - 1) / (q - 1);
-          
+                c[i - 1] = (double) (i - 1)/(q - 1);
+
             return c;
         }
 
