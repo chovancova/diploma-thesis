@@ -156,35 +156,64 @@ namespace FuzzificationLibrary
             return (totalEntropyI > totalEntropyIPrevious) || (totalEntropyI == 0);
         }
 
-        //public virtual void DeterminationNumberOfIntervals(int dimension, int interval)
-        //{
-        //     ResizeResultToNewInterval(dimension, interval);
-        //}
-
-        // [][0] - closest center
-        // [][1] - closest distance
-        // [][2] - closest index
-        // [][3] - data
-        // [][4] - left center 
-        // [][5] - right center
         /// <summary>
         ///     [] center of konkretnehoo data bodu
         /// </summary>
         public abstract double[] DeterminationIntervalsLocation(int dimension, int intervals);
 
-        public abstract void MembershipFunctionAssignment(int dimension, int interval);
-
-
-        public virtual void ClassLabelAssigment(int dimension)
+        public virtual void MembershipFunctionAssignment(int dimension, int interval)
         {
+            var leftIndex = 0;
+            var rightIndex = Centers[dimension].Length - 1;
+            for (var i = 0; i < DataToTransform.DatasetSize; i++)
+            {
+                var x = DataToTransform.Dataset[i][dimension];
+                //most left membership function
+                var c1 = Centers[dimension][leftIndex];
+                var c2 = Centers[dimension][leftIndex + 1];
+                double membershipValue = 0;
+                if (x <= c1)
+                    membershipValue = 1; //alternativa
+                else
+                    membershipValue = Math.Max(0, 1 - Math.Abs(c1 - x)/Math.Abs(c2 - c1));
+
+                Results[dimension][leftIndex][i] = membershipValue;
+
+                //most right membership function
+
+                var c4 = Centers[dimension][rightIndex];
+                var c3 = Centers[dimension][rightIndex - 1];
+                if (x <= c4)
+                    membershipValue = Math.Max(0, 1 - Math.Abs(c4 - x)/Math.Abs(c4 - c3));
+                else if (x > c4)
+                    membershipValue = 1; //ALTERNATIVA
+                Results[dimension][rightIndex][i] = membershipValue;
+
+                //internal intervals
+                for (var j = 1; j < Centers[dimension].Length - 1; j++)
+                {
+                    c2 = Centers[dimension][j - 1];
+                    c3 = Centers[dimension][j];
+                    c4 = Centers[dimension][j + 1];
+
+                    if (x <= c3)
+                        membershipValue = Math.Max(0, 1 - Math.Abs(c3 - x)/Math.Abs(c3 - c2));
+                    else
+                        membershipValue = Math.Max(0, 1 - Math.Abs(c3 - x)/Math.Abs(c4 - c3));
+                    Results[dimension][j][i] = membershipValue;
+                }
+            }
         }
+
 
         public void ResizeResultToNewInterval(int dimension, int interval)
         {
             Intervals[dimension] = interval;
 
             Array.Clear(Results[dimension], 0, Results[dimension].Length);
+
             Results[dimension] = new double[Intervals[dimension]][];
+
             for (var i = 0; i < Intervals[dimension]; i++)
             {
                 Results[dimension][i] = new double[DataToTransform.DatasetSize];
@@ -243,7 +272,7 @@ namespace FuzzificationLibrary
                         {
                             w.WriteLine("Dimension " + i);
                             for (var j = 0; j < ClassesInInterval[i].Length; j++)
-                                w.WriteLine(i + " = " + ClassesInInterval[i][j]);
+                                w.WriteLine(j + " = " + ClassesInInterval[i][j]);
                             w.WriteLine();
                         }
 
@@ -264,6 +293,32 @@ namespace FuzzificationLibrary
                             }
                             w.Write("\t");
                             w.Write("sum(" + Math.Round(sum, 4).ToString("0.0000") + ")" + "\t\t");
+                            sum = 0;
+                        }
+                        w.WriteLine();
+                    }
+                    w.WriteLine();
+                }
+            }
+        }
+
+        public virtual void WriteResultsToFile(string filename = "results.txt")
+        {
+            using (var w = new StreamWriter(filename))
+            {
+                if (Results != null)
+                {
+                    double sum = 0;
+                    for (var i = 0; i < DataToTransform?.DatasetSize; i++)
+                    {
+                        for (var j = 0; j < DataToTransform.Attributes; j++)
+                        {
+                            for (var k = 0; k < Intervals[j]; k++)
+                            {
+                                sum += Results[j][k][i];
+                                w.Write(Math.Round(Results[j][k][i], 6).ToString("0.000000") + "\t");
+                            }
+                            w.Write("\t");
                             sum = 0;
                         }
                         w.WriteLine();

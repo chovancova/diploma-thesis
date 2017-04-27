@@ -5,21 +5,20 @@ namespace Datasets
 {
     public abstract class DataSets
     {
-        protected DataSets(int datasetSize, int attributes, int inputAttributes, int outputAttributes,
-            int outputIntervals, string filename)
+        protected DataSets(int datasetSize, int inputAttributes, int outputIntervals, string filename)
         {
             DatasetSize = datasetSize;
-            Attributes = attributes;
+            Attributes = inputAttributes + 1;
             InputAttributes = inputAttributes;
-            OutputAttributes = outputAttributes;
+            OutputAttributes = 1;
             OutputIntervals = outputIntervals;
             Filename = filename;
             InitialError = -1;
             Dataset = new double[datasetSize][];
             for (var i = 0; i < datasetSize; i++)
-                Dataset[i] = new double[attributes];
+                Dataset[i] = new double[Attributes];
 
-            LingvisticAttribute = new int[attributes];
+            LingvisticAttribute = new int[Attributes];
             for (var i = 0; i < LingvisticAttribute.Length; i++)
                 LingvisticAttribute[i] = 0;
             LingvisticAttribute[inputAttributes] = outputIntervals;

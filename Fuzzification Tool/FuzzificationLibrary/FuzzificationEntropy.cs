@@ -5,61 +5,17 @@ namespace FuzzificationLibrary
 {
     public class FuzzificationEntropy : Fuzzification
     {
-        private readonly CMeansClusteringMethod _cMeansClustering;
+        private Random _rand;
 
         public FuzzificationEntropy(DataSets dataToTransform) : base(dataToTransform)
         {
-            _cMeansClustering = new CMeansClusteringMethod(this);
         }
 
         public override double[] DeterminationIntervalsLocation(int dimension, int intervals)
         {
-            return _cMeansClustering.DeterminationIntervalsLocation(dimension, intervals);
+            return CMeansClustering(intervals, dimension);
         }
 
-        public override void MembershipFunctionAssignment(int dimension, int interval)
-        {
-            var leftIndex = 0;
-            var rightIndex = Centers[dimension].Length - 1;
-            for (var i = 0; i < DataToTransform.DatasetSize; i++)
-            {
-                var x = DataToTransform.Dataset[i][dimension];
-                //most left membership function
-                var c1 = Centers[dimension][leftIndex];
-                var c2 = Centers[dimension][leftIndex + 1];
-                double membershipValue = 0;
-                if (x <= c1)
-                    membershipValue = 1; //alternativa
-                else
-                    membershipValue = Math.Max(0, 1 - Math.Abs(c1 - x)/Math.Abs(c2 - c1));
-
-                Results[dimension][leftIndex][i] = membershipValue;
-
-                //most right membership function
-
-                var c4 = Centers[dimension][rightIndex];
-                var c3 = Centers[dimension][rightIndex - 1];
-                if (x <= c4)
-                    membershipValue = Math.Max(0, 1 - Math.Abs(c4 - x)/Math.Abs(c4 - c3));
-                else if (x > c4)
-                    membershipValue = 1; //ALTERNATIVA
-                Results[dimension][rightIndex][i] = membershipValue;
-
-
-                for (var j = 1; j < Centers[dimension].Length - 1; j++)
-                {
-                    c2 = Centers[dimension][j - 1];
-                    c3 = Centers[dimension][j];
-                    c4 = Centers[dimension][j + 1];
-
-                    if (x <= c3)
-                        membershipValue = Math.Max(0, 1 - Math.Abs(c3 - x)/Math.Abs(c3 - c2));
-                    else
-                        membershipValue = Math.Max(0, 1 - Math.Abs(c3 - x)/Math.Abs(c4 - c3));
-                    Results[dimension][j][i] = membershipValue;
-                }
-            }
-        }
 
         protected override double ComputeTotalFuzzyEntropy(int dimension)
         {
@@ -108,7 +64,7 @@ namespace FuzzificationLibrary
                 for (var j = 0; j < intervals; j++)
                     for (var k = 0; k < DataToTransform.OutputIntervals; k++)
                         mu[classM][j][k] += Results[dimension][j][i]*Results[DataToTransform.InputAttributes][k][i];
-                            //toto priradi to kde patri do akej triedy
+                //toto priradi to kde patri do akej triedy
             }
             Console.WriteLine("number of class in intervals ");
             double sum = 0;
@@ -152,6 +108,123 @@ namespace FuzzificationLibrary
             // Console.WriteLine();
             ClassesInInterval[dimension] = countM;
             return totalEntropy;
+        }
+
+
+        // [][0] - closest center
+        // [][1] - closest distance
+        // [][2] - closest index
+        // [][3] - data
+        /// <summary>
+        ///     [] center of konkretnehoo data bodu
+        /// </summary>
+        private double[] CMeansClustering(int numberOfIntervals, int dimension)
+        {
+            var count = 0;
+            double[][] centersForDataset;
+            bool doesAnyCenterChange;
+            var result = new double[numberOfIntervals];
+            //Step 2) Set initial centers of clusters.
+            var centers = InitializeUniformCenters(dimension, numberOfIntervals);
+            do
+            {
+                //Step 3) Assign cluster label to each element.
+                centersForDataset = AssignClusterLabelToEachInterval(numberOfIntervals, dimension,
+                    centers);
+                //Step 4) Recompute the cluster centers.
+                result = RecomputeClusterCenters(numberOfIntervals, centersForDataset);
+                //Step 5) Does any center change?
+                //If each cluster center is determined appropriately, the
+                //recomputed center in Step 4 would not change.
+                //If so, stop the determination of interval centers, otherwise go to Step 3.
+                doesAnyCenterChange = DoesAnyCenterChange(result, centers);
+
+                if (!doesAnyCenterChange) break;
+                count++;
+                centers = result;
+            } while (count < 500);
+            return result;
+        }
+
+        //If each cluster center is determined appropriately, the recomputed center in Step 4 would not change.
+        //If so, stop the determination of interval centers, otherwise go to Step 3.
+        private static bool DoesAnyCenterChange(double[] result, double[] centers)
+        {
+            //ak bola nejaka zmena v umiestneni - tak false, inak true
+            for (var i = 0; i < result.Length; i++)
+                if (result[i] != centers[i])
+                    return true;
+
+            return false;
+        }
+
+        private double[] RecomputeClusterCenters(int numberOfIntervals, double[][] centers)
+        {
+            var result = new double[numberOfIntervals];
+            for (var i = 0; i < numberOfIntervals; i++)
+            {
+                double Nq = 0;
+                double sumNq = 0;
+                for (var j = 0; j < DataToTransform.DatasetSize; j++)
+                    if (Math.Abs(centers[j][0] - i) < 0.000001)
+                    {
+                        Nq++;
+                        sumNq += centers[j][1];
+                    }
+                result[i] = sumNq/Nq;
+            }
+            return result;
+        }
+
+        private double[][] AssignClusterLabelToEachInterval(int numberOfIntervals, int dimension, double[] c)
+        {
+            double[][] centers;
+            var closest = 999999999.0;
+            var distance = 0.0;
+            var closestIndex = 0;
+            var data = 0.0;
+            centers = new double[DataToTransform.DatasetSize][];
+
+            for (var i = 0; i < DataToTransform.DatasetSize; i++)
+            {
+                data = DataToTransform.Dataset[i][dimension];
+                centers[i] = new double[6];
+                closest = 999999999.0;
+                closestIndex = 0;
+
+                for (var j = 0; j < numberOfIntervals; j++)
+                {
+                    distance = ComputeEuclidDistance(data, c[j]);
+                    if (distance < closest)
+                    {
+                        closest = distance;
+                        closestIndex = j;
+                    }
+                }
+
+                // 0 - closest index
+                // 1 - data
+                centers[i][0] = closestIndex;
+                centers[i][1] = data;
+            }
+            return centers;
+        }
+
+        private double[] InitializeUniformCenters(int dimension, int q)
+        {
+            var c = new double[q];
+            var indexData = new int[q];
+            var notSame = false;
+            double temp;
+            for (var i = 1; i <= q; i++)
+                c[i - 1] = (double) (i - 1)/(q - 1);
+
+            return c;
+        }
+
+        private double ComputeEuclidDistance(double a, double b)
+        {
+            return Math.Sqrt((a - b)*(a - b));
         }
     }
 }

@@ -4,17 +4,17 @@ using System.IO;
 
 namespace Datasets
 {
-    public class DatasetIris : DataSets
+    public class DatasetTest : DataSets
     {
-        public DatasetIris(int datasetSize = 150, int attributes = 5, int inputAttributes = 4,
-            int outputAttributes = 1, int outputIntervals = 3, string filename = "iris.data")
-            : base(datasetSize, attributes, inputAttributes, outputAttributes, outputIntervals, filename)
+        public DatasetTest(int datasetSize = 15, int inputAttributes = 1,
+            int outputIntervals = 3, string filename = "test.data")
+            : base(datasetSize, inputAttributes, outputIntervals, filename)
         {
         }
 
-        public DatasetIris(string filename, int datasetSize = 150, int attributes = 5, int inputAttributes = 4,
-            int outputAttributes = 1, int outputIntervals = 3)
-            : base(datasetSize, attributes, inputAttributes, outputAttributes, outputIntervals, filename)
+        public DatasetTest(string filename = "test.data", int datasetSize = 15,
+            int inputAttributes = 1, int outputIntervals = 3)
+            : base(datasetSize, inputAttributes, outputIntervals, filename)
         {
         }
 
@@ -36,22 +36,9 @@ namespace Datasets
                         {
                             data = line.Split(',');
                             Dataset[j] = new double[Attributes];
-                            for (var i = 0; i < InputAttributes; i++)
+                            for (var i = 0; i < Attributes; i++)
                                 double.TryParse(data[i], NumberStyles.Any,
                                     CultureInfo.InvariantCulture, out Dataset[j][i]);
-                            //specific for iris
-                            switch (data[InputAttributes])
-                            {
-                                case "Iris-setosa":
-                                    Dataset[j][InputAttributes] = 0;
-                                    break;
-                                case "Iris-versicolor":
-                                    Dataset[j][InputAttributes] = 1;
-                                    break;
-                                case "Iris-virginica":
-                                    Dataset[j][InputAttributes] = 2;
-                                    break;
-                            }
                             j++;
                         }
                 }

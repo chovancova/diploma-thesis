@@ -20,19 +20,17 @@
 
     public static class DatasetChooser
     {
-        public static DataSets ReadDatasetFromFile(DatasetType type, int datasetSize, int attributes,
-            int inputAttributes, int outputAttributes, int outputIntervals, string filename)
+        public static DataSets ReadDatasetFromFile(DatasetType type, int datasetSize,
+            int inputAttributes, int outputIntervals, string filename)
         {
             DataSets dataset = null;
             switch (type)
             {
                 case DatasetType.Iris:
-                    dataset = new DatasetIris(datasetSize, attributes, inputAttributes, outputAttributes,
-                        outputIntervals, filename);
+                    dataset = new DatasetIris(datasetSize, inputAttributes, outputIntervals, filename);
                     break;
                 case DatasetType.Test:
-                    dataset = new DatasetTest(datasetSize, attributes, inputAttributes, outputAttributes,
-                        outputIntervals, filename);
+                    dataset = new DatasetTest(datasetSize, inputAttributes, outputIntervals, filename);
                     break;
                 default:
                     return null;

@@ -58,7 +58,7 @@ namespace FuzzificationLibrary
                 for (var j = 0; j < countIntervalsInDimension; j++)
                     for (var k = 0; k < DataToTransform.OutputIntervals; k++) //OutputIntervals???
                         mu[classM][j][k] += Results[dimension][j][i]*Results[DataToTransform.InputAttributes][k][i];
-                            //toto priradi to kde patri do akej triedy
+                //toto priradi to kde patri do akej triedy
             }
             Console.WriteLine("number of class in intervals ");
             double sum = 0;
@@ -102,34 +102,6 @@ namespace FuzzificationLibrary
 
             ClassesInInterval[dimension] = countM;
             return totalEntropy;
-        }
-
-
-        public override void MembershipFunctionAssignment(int dimension, int interval)
-        {
-            for (var i = 0; i < DataToTransform.DatasetSize; i++)
-            {
-                var x = DataToTransform.Dataset[i][dimension];
-
-                for (var j = 0; j < interval - 1; j++)
-                {
-                    var c4 = Centers[dimension][j + 1];
-                    var c3 = Centers[dimension][j];
-                    if ((x >= c3)
-                        && (x <= c4))
-                    {
-                        Results[dimension][j][i] = (c4 - x)/(c4 - c3);
-                        Results[dimension][j + 1][i] = (x - c3)/(c4 - c3);
-                    }
-                }
-
-                var c1 = Centers[dimension][0];
-                var c2 = Centers[dimension][interval - 1];
-                if (x < c1)
-                    Results[dimension][0][i] = 1;
-                if (x > c2)
-                    Results[dimension][interval - 1][i] = 1;
-            }
         }
     }
 }

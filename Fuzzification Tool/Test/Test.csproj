@@ -50,10 +50,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Datasets\Datasets.csproj">
-      <Project>{943ad2c3-ae25-42ee-8303-093409058fa0}</Project>
-      <Name>Datasets</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FuzzificationLibrary\FuzzificationLibrary.csproj">
       <Project>{0aaa8eb7-488f-43d9-9069-79f2fc2140f9}</Project>
       <Name>FuzzificationLibrary</Name>
