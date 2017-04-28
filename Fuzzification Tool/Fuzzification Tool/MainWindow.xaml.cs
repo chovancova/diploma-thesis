@@ -52,7 +52,7 @@ namespace Fuzzification_Tool
                     data = DatasetChooser.ReadDatasetFromFile(DatasetType.Test, "test.data");
                     break;
                 default:
-                    MessageBox.Show("Choose again dataset.", "My App", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Choose again dataset.", "Fuzzification Tool", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
             }
 
@@ -72,7 +72,7 @@ namespace Fuzzification_Tool
                     fuzzy = new FuzzificationHierarchicalEntropy(data);
                     break;
                 default:
-                    MessageBox.Show("Choose again algorithm.", "My App", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Choose again algorithm.", "Fuzzification Tool", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
             }
             var volba = datasets.SelectedIndex;
@@ -80,11 +80,20 @@ namespace Fuzzification_Tool
 
             if (data != null && fuzzy != null)
             {
-                fuzzy.RunFuzzification();
+                try
+                {
+                    fuzzy.RunFuzzification();
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show("Error." +(err.Message), "Fuzzification Tool", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                }
+
                 data.WriteInfoToFile("dataset-information-" + volba + "-" + volba2 + ".txt");
                 fuzzy.WriteToFile("fuzzification-information-" + volba + "-" + volba2 + ".txt");
                 fuzzy.WriteResultsToFile("fuzzification-results-" + volba + "-" + volba2 + ".txt");
-                MessageBox.Show("Done.", "My App", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Transformation to linguistic data was successful.", "Fuzzification Tool", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

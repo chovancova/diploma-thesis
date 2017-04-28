@@ -74,10 +74,15 @@ namespace FuzzificationLibrary
                 if (DataToTransform.LingvisticAttribute[i] != 0)
                 {
                     Intervals[i] = DataToTransform.LingvisticAttribute[i];
+                    ResizeResultToNewInterval(i, Intervals[i]);
                     for (var j = 0; j < DataToTransform.DatasetSize; j++)
+                    {
+                        int index = Convert.ToInt32(DataToTransform.Dataset[j][i]);
                         Results[i]
-                            [Convert.ToInt32(DataToTransform.Dataset[j][i])]
+                            [index]
                             [j] = 1.0;
+                    }
+                        
                 }
 
             for (var i = 0; i < DataToTransform.Attributes; i++)

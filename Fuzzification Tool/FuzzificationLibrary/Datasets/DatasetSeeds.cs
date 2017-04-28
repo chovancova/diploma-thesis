@@ -39,7 +39,7 @@ namespace FuzzificationLibrary.Datasets
                     while ((line = sr.ReadLine()) != null)
                         if (!string.IsNullOrEmpty(line))
                         {
-                            data = line.Split(' ');
+                           data = line.Split(',');
                             Dataset[j] = new double[Attributes];
                             //"%f  %f  %f  %f  %f  %f  %f  %f",
 
@@ -47,7 +47,7 @@ namespace FuzzificationLibrary.Datasets
                                 double.TryParse(data[i], NumberStyles.Any,
                                     CultureInfo.InvariantCulture, out Dataset[j][i]);
 
-                            Dataset[j][InputAttributes]--;
+                            Dataset[j][7] = Dataset[j][InputAttributes] - 1;
 
                             j++;
                         }

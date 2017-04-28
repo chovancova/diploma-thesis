@@ -64,7 +64,6 @@ void DataSets::initialize_attributes(unsigned id_dataset, unsigned& attributes, 
 		output_attributes = 1;
 		output_intervals =2;
 		break;
-	
 
 	default:
 		{
