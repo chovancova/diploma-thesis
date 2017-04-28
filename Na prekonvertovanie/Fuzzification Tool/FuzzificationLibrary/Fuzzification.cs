@@ -11,29 +11,29 @@ namespace FuzzificationLibrary
             DataToTransform = dataToTransform;
         }
 
-        protected DataSets DataToTransform { get; set; }
+        public DataSets DataToTransform { get; set; }
 
         /// <summary>
         ///     dimension, interval, dataitem
         /// </summary>
-        protected double[][][] Results { get; private set; }
+        public double[][][] Results { get; private set; }
 
-        protected int[] Intervals { get; set; }
+        public int[] Intervals { get; set; }
 
         /// <summary>
         ///     [i] - dimension,
         ///     [j] - centers
         /// </summary>
-        protected double[][] Centers { get; set; }
+        public double[][] Centers { get; set; }
 
-        protected int[][] ClassesInInterval { get; set; }
+        public int[][] ClassesInInterval { get; set; }
 
         /// <summary>
         ///     Total entropy - []-dimension, [][] - interval
         /// </summary>
-        protected double[][] TotalEntropy { get; set; }
+        public double[][] TotalEntropy { get; set; }
 
-        protected void Initialize()
+        public void Initialize()
         {
             if (DataToTransform != null)
             {
@@ -85,7 +85,7 @@ namespace FuzzificationLibrary
                     RunFuzzificationInDimension(i);
         }
 
-        protected virtual void RunFuzzificationInDimension(int dimension)
+        public virtual void RunFuzzificationInDimension(int dimension)
         {
             //  Step 1) Set the initial number of intervals I = 2.
             var interval = SetInitialNumberOfIntervals(dimension);
@@ -125,12 +125,12 @@ namespace FuzzificationLibrary
             Console.WriteLine("DONE");
         }
 
-        protected virtual int SetInitialNumberOfIntervals(int dimension)
+        public virtual int SetInitialNumberOfIntervals(int dimension)
         {
             return 2;
         }
 
-        protected virtual void LastStepInFuzzification(int dimension, int interval)
+        public virtual void LastStepInFuzzification(int dimension, int interval)
         {
             interval = interval - 2;
             ResizeResultToNewInterval(dimension, interval);
@@ -159,11 +159,10 @@ namespace FuzzificationLibrary
         /// <summary>
         ///     [] center of konkretnehoo data bodu
         /// </summary>
-        protected abstract double[] DeterminationIntervalsLocation(int dimension, int intervals);
+        public abstract double[] DeterminationIntervalsLocation(int dimension, int intervals);
 
-        protected virtual void MembershipFunctionAssignment(int dimension, int interval)
+        public virtual void MembershipFunctionAssignment(int dimension, int interval)
         {
-            if (Centers[dimension].Length == 1) return;
             var leftIndex = 0;
             var rightIndex = Centers[dimension].Length - 1;
             for (var i = 0; i < DataToTransform.DatasetSize; i++)
@@ -207,7 +206,7 @@ namespace FuzzificationLibrary
         }
 
 
-        private void ResizeResultToNewInterval(int dimension, int interval)
+        public void ResizeResultToNewInterval(int dimension, int interval)
         {
             Intervals[dimension] = interval;
 
@@ -223,7 +222,7 @@ namespace FuzzificationLibrary
             }
         }
 
-        public virtual void WriteToFile(string filename = "fuzzification-information.txt")
+        public virtual void WriteToFile(string filename = "results.txt")
         {
             using (var w = new StreamWriter(filename))
             {
@@ -232,13 +231,10 @@ namespace FuzzificationLibrary
                     w.WriteLine("Total Entropy of dimension on intervals");
                     for (var i = 0; i < TotalEntropy.Length; i++)
                     {
-                        if (TotalEntropy[i]!=null)
-                        {
-                           for (var j = 0; j < TotalEntropy[i].Length; j++)
+                        for (var j = 0; j < TotalEntropy[i].Length; j++)
                             if (Math.Abs(TotalEntropy[i][j]) > 0.0000001)
                                 w.WriteLine("Dimension:  \t" + i + ", Interval: \t" + j + ", Total Entropy = \t" +
-                                            TotalEntropy[i][j]); 
-                        }
+                                            TotalEntropy[i][j]);
                         w.WriteLine();
                     }
                     w.WriteLine();
@@ -248,7 +244,6 @@ namespace FuzzificationLibrary
 
                 if (Intervals != null)
                 {
-                    w.WriteLine("Intervals: ");
                     for (var i = 0; i < Intervals?.Length; i++)
                     {
                         w.Write(Intervals[i] + "\t");
@@ -263,20 +258,15 @@ namespace FuzzificationLibrary
                     w.WriteLine("Centers");
                     for (var i = 0; i < Centers.Length; i++)
                     {
-                        if (Centers[i]!=null)
-                        {
-                            w.WriteLine("Dimension: " + (i+1));
-                            for (var j = 0; j < Centers[i].Length; j++)
-                            w.WriteLine(Math.Round(Centers[i][j], 4).ToString("0.0000") ); 
-                        }
-                       w.Write("\t\t");
+                        for (var j = 0; j < Centers[i].Length; j++)
+                            w.Write(Math.Round(Centers[i][j], 4).ToString("0.0000") + "\t");
+                        w.Write("\t\t");
                     }
 
                     w.WriteLine();
                 }
 
                 if (ClassesInInterval != null)
-                    w.WriteLine("Number of classes: ");
                     for (var i = 0; i < ClassesInInterval.Length; i++)
                         if (ClassesInInterval[i] != null)
                         {
@@ -326,7 +316,7 @@ namespace FuzzificationLibrary
                             for (var k = 0; k < Intervals[j]; k++)
                             {
                                 sum += Results[j][k][i];
-                                w.Write(Math.Round(Results[j][k][i], 8).ToString("0.00000000") + "\t");
+                                w.Write(Math.Round(Results[j][k][i], 6).ToString("0.000000") + "\t");
                             }
                             w.Write("\t");
                             sum = 0;

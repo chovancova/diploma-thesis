@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0AAA8EB7-488F-43D9-9069-79F2FC2140F9}</ProjectGuid>
+    <ProjectGuid>{943AD2C3-AE25-42EE-8303-093409058FA0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FuzzificationLibrary</RootNamespace>
-    <AssemblyName>FuzzificationLibrary</AssemblyName>
+    <RootNamespace>Datasets</RootNamespace>
+    <AssemblyName>Datasets</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,23 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Datasets\DatasetChooser.cs" />
-    <Compile Include="Datasets\DatasetHeart.cs" />
-    <Compile Include="Datasets\DatasetIris.cs" />
-    <Compile Include="Datasets\DataSets.cs" />
-    <Compile Include="Datasets\DatasetSeeds.cs" />
-    <Compile Include="Datasets\DatasetTest.cs" />
-    <Compile Include="Datasets\DatasetWine.cs" />
-    <Compile Include="Datasets\DatasetYeast.cs" />
-    <Compile Include="FuzzificationWagedFCMclastering.cs" />
-    <Compile Include="FuzzificationHierarchicalEntropy.cs" />
-    <Compile Include="FuzzificationEntropy.cs" />
-    <Compile Include="FuzzificationWagedEntropy.cs" />
-    <Compile Include="Fuzzification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

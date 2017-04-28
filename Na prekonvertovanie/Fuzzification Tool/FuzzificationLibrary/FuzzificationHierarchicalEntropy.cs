@@ -15,7 +15,7 @@ namespace FuzzificationLibrary
         public double Treshold { get; set; }
 
 
-        protected override void LastStepInFuzzification(int dimension, int interval)
+        public override void LastStepInFuzzification(int dimension, int interval)
         {
             var MeanFE = TotalEntropy[dimension][interval]/DataToTransform.DatasetSize;
             //AK fuzzy entropia pre rozhodovaciu oblast je vacsia kao stredna hodnta fuzzy entropie, 

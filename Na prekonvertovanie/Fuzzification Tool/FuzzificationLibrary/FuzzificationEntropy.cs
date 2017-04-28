@@ -11,7 +11,7 @@ namespace FuzzificationLibrary
         {
         }
 
-        protected override double[] DeterminationIntervalsLocation(int dimension, int intervals)
+        public override double[] DeterminationIntervalsLocation(int dimension, int intervals)
         {
             return CMeansClustering(intervals, dimension);
         }

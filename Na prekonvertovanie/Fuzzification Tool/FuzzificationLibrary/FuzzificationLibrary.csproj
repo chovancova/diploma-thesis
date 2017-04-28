@@ -44,15 +44,13 @@
     <Compile Include="Datasets\DatasetHeart.cs" />
     <Compile Include="Datasets\DatasetIris.cs" />
     <Compile Include="Datasets\DataSets.cs" />
-    <Compile Include="Datasets\DatasetSeeds.cs" />
     <Compile Include="Datasets\DatasetTest.cs" />
-    <Compile Include="Datasets\DatasetWine.cs" />
-    <Compile Include="Datasets\DatasetYeast.cs" />
     <Compile Include="FuzzificationWagedFCMclastering.cs" />
     <Compile Include="FuzzificationHierarchicalEntropy.cs" />
     <Compile Include="FuzzificationEntropy.cs" />
     <Compile Include="FuzzificationWagedEntropy.cs" />
     <Compile Include="Fuzzification.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

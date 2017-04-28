@@ -99,7 +99,7 @@ namespace FuzzificationLibrary
         /// <summary>
         ///     Membership function for dimension -
         /// </summary>
-        protected override double[] DeterminationIntervalsLocation(int dimension, int intervals)
+        public override double[] DeterminationIntervalsLocation(int dimension, int intervals)
         {
             return FCMeansClustering(intervals, dimension, 2); //m=2 default 
         }

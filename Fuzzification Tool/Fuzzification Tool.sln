@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{15472522-B784-42FF-9BC9-D333F9E6A101}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuzzificationConsoleTool", "Test\FuzzificationConsoleTool.csproj", "{15472522-B784-42FF-9BC9-D333F9E6A101}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuzzificationLibrary", "FuzzificationLibrary\FuzzificationLibrary.csproj", "{0AAA8EB7-488F-43D9-9069-79F2FC2140F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuzzification Tool", "Fuzzification Tool\Fuzzification Tool.csproj", "{B904211F-9D47-4A00-9332-6AD4E1162269}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{0AAA8EB7-488F-43D9-9069-79F2FC2140F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AAA8EB7-488F-43D9-9069-79F2FC2140F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AAA8EB7-488F-43D9-9069-79F2FC2140F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B904211F-9D47-4A00-9332-6AD4E1162269}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B904211F-9D47-4A00-9332-6AD4E1162269}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B904211F-9D47-4A00-9332-6AD4E1162269}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B904211F-9D47-4A00-9332-6AD4E1162269}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

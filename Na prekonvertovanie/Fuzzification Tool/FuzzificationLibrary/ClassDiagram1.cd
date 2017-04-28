@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FuzzificationLibrary.FuzzificationWagedEntropy">
+    <Position X="4.5" Y="18" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FuzzificationWagedEntropy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FuzzificationLibrary.FuzzificationHierarchicalEntropy">
+    <Position X="0.5" Y="18" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIQIAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FuzzificationHierarchicalEntropy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FuzzificationLibrary.FuzzificationEntropy">
+    <Position X="2.5" Y="14" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAABAEAgAAQAiIAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>FuzzificationEntropy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FuzzificationLibrary.Fuzzification">
+    <Position X="3.75" Y="8.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAQAAIAAQAAAMAARAAgCAQAAAAEASAAGAAAQAg=</HashCode>
+      <FileName>Fuzzification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FuzzificationLibrary.FuzzificationWagedFcMclastering">
+    <Position X="7.5" Y="14" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAgAAAAAAAAAAAAAAEAAAAAACAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>FuzzificationWagedFCMclastering.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Datasets.DatasetTest">
+    <Position X="0.5" Y="6" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Datasets\DatasetTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Datasets.DataSets">
+    <Position X="3.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAIAYBAEEEEAAAAwACABCAAEAAAAAIQAAAI=</HashCode>
+      <FileName>Datasets\DataSets.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Datasets.DatasetIris">
+    <Position X="3.5" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Datasets\DatasetIris.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Datasets.DatasetChooser" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Datasets\DatasetChooser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Datasets.DatasetHeart">
+    <Position X="6.25" Y="6" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Datasets\DatasetHeart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Datasets.DatasetType" Collapsed="true">
+    <Position X="11" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAEAAhTAAAABAAAAAAAAAAICAQgBCA=</HashCode>
+      <FileName>Datasets\DatasetChooser.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
