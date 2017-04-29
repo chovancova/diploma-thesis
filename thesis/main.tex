@@ -37,6 +37,21 @@
 \usepackage{float}%H pri tabulkach
 \usepackage{pdfpages}
 
+\usepackage{amsthm}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{defn}[thm]{Definícia}
+
+\usepackage{url}
+ %na nastavenie url cesty - napr. priecinka
+
+%\usepackage{algorithmic}
+% \usepackage{algorithm}
+
+
+\usepackage{rotating}
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
 \begin{document}
 
 
@@ -82,7 +97,6 @@
 \include{kapitoly/kapitola3}	
 \include{kapitoly/kapitola4}
 
-\include{kapitoly/draft}
 
 \include{kapitoly/zaver}
 
@@ -90,8 +104,6 @@
 %%%%% \MakeBibliography 
 
 \appendix
-%\include{prilohy/umlDiagramy}
-
 
 
 

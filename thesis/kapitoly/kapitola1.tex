@@ -1,173 +1,88 @@
-\chapter{Teoretické východiská práce} 
-
-\section{Fuzzy dáta a expertné odhady}
-%todo pridat do zoznamu zdrojov a potom to tuto v tejto kapitole citovať
-%z knihy Projektovanie systémov pre podporu rozhodovania na základe neurčitých dát, Vitaly Levasheko, Elena Zaitseva, Štefan Kovalík, Vydala Žilinská univerzita v Žiline/Edis-vydavateľstvo ŽU, 2013, ISBN 978-80-554-0680-0
-%5 strana
-Metódy a algoritmy využívané v súčasných systémoch pre podporu rozhodovania by mali brať do úvahy možnú nestochastickú neurčitosť vstupných dát, spôsobenú nedostatočnou presnosťou merania. Jeden z prístupov, ktorý berie do úvahy neurčitosť, je vyjadrenie vstupných hodnôt pomocou neurčitých fuzzy dát alebo pomocou viachodnotových dát. 
-Matematickým aparátom spracovania neurčitých dát a viachodnotových dát je fuzzy logika a viac hodnotová logika. \cite{levashenkoProj}
-\paragraph{}
-%6 strana
-Neurčité dáta sa reprezentujú pomocou lingvistických premenných, ktorých hodnoty patria do konečnej množiny. \cite{levashenkoProj}
-%9 strana
-Lingvistické premenné sa javia ako jeden z často používaných spôsobov vyjadrenia hodnôt, opisovaných kvantitatívnymi 
-%10 strana
-alebo kvalitatívnymi veličinami. Kvalitatívne veličiny sa v mnohých prípadoch javia ako výsledok formalizácie expertných odhadov. \cite{levashenkoProj}
-%10 strana = kapitola 1.1 kapitola o fuzzy dáta a expertné odhady. 
-Každý objekt alebo proces sa opisuje skupinou ukazovateľov. V modeloch pre podporu rozhodovania sa využívajú ukazovatele, ktoré nadobúdajú hodnoty z množiny reálnych čísel. 
-Dôvody, ktoré sťažujú použitie reálnych čísiel sú nasledovné: \cite{levashenkoProj}
-%todo treba preštylizovat todo 
-\begin{enumerate}
-	\item Zložitosť presného merania hodnôt ukazovateľa. 
-	\item Nie sú algoritmy a metódy výpočtu presných hodnôt ukazovateľa. 
-	\item Zložitosť dostupnosti nameraných dát, súvisiaca s radom objektívnych a subjektívnych faktorov. 
-	\item Absencia nevyhnutnosti poznať presné hodnoty. 
-	\item Relatívne vysoké náklady na zmeranie presných hodnôt ukazovateľov. 
-\end{enumerate}
-%todo doslovne citovanie. treba prestylizovat  
-Reálne hodnoty jednotlivých ukazovateľov bez prihliadnutia na iné ukazovatele jednej strane nesú pre výber rozhodnutia zbytočne podrobnú informáciu, na druhej strane nemôžu byť základom pre výber rozhodnutia. \cite{levashenkoProj}
-%11 strana
-Z toho vyplýva, že je užitočné využiť približné neurčité fuzzy hodnoty vstupných dát. 
-Použitie podobných fuzzy hodnôt umožňuje zaviesť do výskumu kvalitatívne opisy. Vo výsledku sa berie do úvahy neurčitosť úlohy rozhodovania, zabezpečuje sa adekvátny opis všetkých faktorov, ktoré majú vzťah, ale nie je možné zabezpečiť ich presný kvantitatívny opis. 
-\paragraph*{}
-Spracovanie neurčitej fuzzy informácie v rozhodovacích úlohách sa zabezpečuje aplikovaním lingvistického prístupu.\cite{levashenkoProj} %tuto este cituju Zadh1976, Lieb1993, Novak2005, Navara2007
-Matematickým aparátom ich formalizácie je teória fuzzy množín. 
+\chapter{Analýza súčasného stavu}
 
 
-%todo prestylizovať todo
-Lingvistický prístup pri konštrukcii modelov rozhodovania umožňuje\cite{levashenkoProj}: 
+%z knihy od michal gregor - umela inteligencia
+%na strane 11 a 12 cituje v clanku ref 13
+
+%11 strana knihy o umelej inteligenciie z od gregora
+%doslovné citovanie
+Fuzzy prístupy možno považovať za odpoveď na požiadavku spracovania neurčitosti, resp. nepresnosti. Táto požiadavka je veľmi rozšírená - v určitej forme sa vyskytuje prakticky v každom reálnom systéme aplikujúcom metódy umelej inteligencie - predovšetkým sa však objavuje tam, kde systémy nejakým spôsobom interferujú s človekom alebo využívajú ľudské znalosti \cite{gregorUI} .
+
+V súvislosti s neurčitosťou sa rozlišujú tri základné pojmy:   %tuto cituje [13] (Niklesa) 
+%todo prestylizovat toto!!!
 \begin{itemize}
-	\item využiť na opis elementov úlohy rozhodovania subjektívne odhady expertov, vyjadrené pomocou neurčitých fuzzy pojmov, vzťahov a výrokov profesionálneho jazyka;
-	\item formalizovať neurčité fuzzy opisy pomocou fuzzy množín a lingvistických premenných;
-	\item spracovávať neurčité fuzzy opisy prostredníctvom matematického aparátu teórie fuzzy logiky. 
-\end{itemize}
+	\item \textbf{Neurčitosť} - vyplýva z nedostatočnej znalosti faktorov alebo udalosti. O neurčitosti sa hovorí, že je aleatórna, ak pramení z vnútorných vlastností nejakého náhodného javu - t.j. ju principiálne nemožno odstrániť. Ak neurčitosť vyplýva z neznalosti, tak je epistemická. 
+	\item \textbf{Nepresnosť} - O nepresnosti hovoríme, ak je znalosť faktov a udalosti taká kompletná ako len môže byť, ale spôsob ich vyjadrenia nie je presný alebo jednoznačný. 
+	\item \textbf{Nekonzistentnosť} - O nekonzistentnosti sa hovorí, ak si znalosti, resp. známe fakty navzájom odporujú\cite{ gregorUI,gregorRef13}.
+\end{itemize} 
 
-Základ tohto prístupu tvoria pojmy neurčitej fuzzy premennej a lingvistickej premennej. 
-Medzi základné pojmy patrí definícia fuzzy množiny, fuzzy premennej, lingvistickej premennej, funkcie príslušnosti.\cite{levashenkoProj}
+%12 strana knihy umela inteligencia
+Ľudské znalosti vo väčšine prípadov zahŕňajú neurčitosti, nepresnosť, niekedy môžu byť aj nekonzistentné. 
+Fuzzy prístupy umožňujú určitým spôsobom formalizovať a ďalej spracúvať vágne poznatky. Vágnosť možno považovať za typ nepresnosti. 
+%tuto on cituje 13
+Takýto typ znalostí je ťažké a často aj nemožné vhodne formalizovať konvenčnými metódami. Fuzzy prístupy predstavujú jednu z možných ciest ako k nim pristupovať, a použiť na formalizáciu neurčitosti \cite{gregorUI, gregorRef13}.
+
+Teória fuzzy množín je zovšeobecnením klasickej teórie množín - fuzzy množiny sú vágne v tom či prvok patrí alebo nepatrí do množiny.  Na fuzzy množinách možno vykonávať určité operácie čiastočne analogické s tými, ktoré sú v klasickej teórie množín. Fuzzy logika predstavuje prístup, ktorý zovšeobecňuje konvenčnú logiku a produkčné pravidlá zavedením tzv. lingvistických premenných a lingvistických pravidiel. Fuzzy logika umožňuje formulovať vágne pravidlá. Fuzzy aritmetika rozširuje princípy klasickej aritmetiky na vágne - fuzzy - čísla \cite{gregorUI}. 
+
 
 % tieto pojmy asi su aj v Zadeh1965, Zadeh1996 , citujem ich doslovne z knihy = Projektovanie systemov.. 
-Nech $ X = \left\lbrace x \right\rbrace$ je množina prvkov x. 
 
-\paragraph*{Definícia 1.} 
-Fuzzy množina $A \subset X $ je predstavovaná množinou dvojíc $ \left\lbrace \left( x, \mu_A \left( x \right) \right) \right\rbrace  $, kde $ x \in X$ a $ \mu_A : X \longrightarrow \left\langle 0, 1\right\rangle $ je funkcia príslušnosti, ktorá predstavuje subjektívnu mieru príslušnosti elementu x k množine A. 
-Veličina $\mu_A\left( x\right) $ nadobúda hodnoty od nuly, ktorá označuje absolútnu nepríslušnosť po hodnotu jedna, ktorá hovorí o absolútnej príslušnosti elementu x do fuzzy množiny A. \cite{levashenkoProj, Zadeh1965}
-% toto bolo doslova asi citovane zo 
-%Zadeh L., Fuzzy sets. Information and Control, vol.8, 1965, pp. 338-353. 
+\section{Teória fuzzy množín}
+Nech \textit{$ X = \left\lbrace x \right\rbrace$} je množina prvkov \textit{x}. 
+
+\subsection*{Fuzzy množina}
+\begin{defn} 
+	
+	Fuzzy množina \textit{$A \subset X $} je predstavovaná množinou dvojíc $ \left\lbrace \left( x, \mu_A \left( x \right) \right) \right\rbrace  $, kde $ x \in X$ a $ \mu_A : X \longrightarrow \left\langle 0, 1\right\rangle $ je funkcia príslušnosti, ktorá predstavuje subjektívnu mieru príslušnosti elementu \textit{x} k množine \textit{A}. 
+	Veličina $\mu_A\left( x\right) $ nadobúda hodnoty od nuly, ktorá označuje absolútnu príslušnosť po hodnotu jedna, ktorá hovorí o absolútnej príslušnosti elementu \textit{x} do fuzzy množiny \textit{A} \cite{levashenkoProj, Zadeh1965}.\end{defn}
 
 %12 strana knihy o projektovani systemov
-Ak je fuzzy množina A definovaná na konečnej univerzálnej množine 
+Ak je fuzzy množina \textit{A} definovaná na konečnej univerzálnej množine 
 \\
- $X = \left\lbrace x_1, x_2, ... , x_i, ..., x_n\right\rbrace $, potom je vhodné označiť ju nasledovne
+$X = \left\lbrace x_1, x_2, \ldots , x_i, \ldots, x_n\right\rbrace $, potom je vhodné označiť ju nasledovne
 $$
 A = \left\lbrace 
 \left( x_1, \mu_A\left( x_1\right)  \right) , 
 \left( x_2, \mu_A\left( x_2\right)  \right) , ... , 
 \left( x_i, \mu_A\left( x_i\right)  \right) , ... , 
 \left( x_n, \mu_A\left( x_n\right)  \right) 
- \right\rbrace , 
+\right\rbrace , 
 $$ 
-kde $\left( x_i, \mu_A\left( x_i\right)  \right)$ - je dvojica tvorená elementov $x_i$ a jeho funkciou príslušnosti, nazývaná singleton. \cite{levashenkoProj}
+kde $\left( x_i, \mu_A\left( x_i\right)  \right)$ - je dvojica tvorená elementov $x_i$ a jeho funkciou príslušnosti, nazývaná singleton \cite{levashenkoProj}. 
 
 %%tieto definicie su na strane 12, a su citovane z knihy, a aj Kaufmann1985, Klir1995, Navara2011
 
-\paragraph*{Definícia 2. }
+
+
+
+\subsection*{Fuzzy premenná}
+
+\begin{defn}
 Fuzzy premenná je definovaná trojicou $\left( \alpha, X, A \right) $, kde 
 $\alpha $ - je meno fuzzy premennej, 
- $X=\left\lbrace x \right\rbrace$ - je množina, tvoriaca definičný obor premennej x, 
- A - je fuzzy podmnožina fuzzy množiny X, pre každý prvok ktorej je definovaná funkcia $\mu_A\left( x\right)$, udávajúca stupeň príslušnosti daného elementu x do množiny A.  \cite{levashenkoProj}
-
-\paragraph*{Definícia 3.}
-Lingvistická premenná je definovaná päticou 
-$
-\left(
-\beta, T, X, G, M
- \right) 
-$, kde 
-$\beta$ - je meno lingvistickej premennej; 
-T - je množina jej hodnôt $\left( termov \right) $, z ktorých každá je fuzzy premennou na množine X;
-G - je syntaktické pravidlo pre tvorbu nových mien hodnôt lingvistickej premennej $\beta$;
-M - je sémantická procedúra, umožňujúca transformovať novú hodnotu premennej $\beta$, určenú procedúrou G, na fuzzy premennú, t.j. vytvoriť zodpovedajúcu fuzzy množinu. \cite{levashenkoProj}
+ $X=\left\lbrace x \right\rbrace$ - je množina, tvoriaca definičný obor premennej \textit{x}, 
+ \textit{A} - je fuzzy podmnožina fuzzy množiny \textit{X}, pre každý prvok ktorej je definovaná funkcia $\mu_A\left( x\right)$, udávajúca stupeň príslušnosti daného elementu \textit{x} do množiny \textit{A}   \cite{levashenkoProj}.\end{defn}
 
 
-\paragraph*{Definícia 4.}
-Funkcia príslušnosti $\mu_A\left( x\right)$ kvantitatívne určuje príslušnosť elementov základnej množiny uvažovaného priestoru $x \in X$ k fuzzy množine A. Hodnota A tejto funkcie značí, že element nepatrí do fuzzy množiny, hodnota 1 opisuje úplne patriaci element. Hodnoty medzi 0 a 1 charakterizujú neurčito zaradené elementy. \cite{levashenkoProj, Kaufman1985, Klir1995, Navara2011}
-%todo pridat to do zoznamu literatury, plus stiahnut, a pozriet ci su tam tie definicie
-%Kaufman1985
-%Kaufmann A., Gupta M., Induction to fuzzy arithmetic: theory and applications. New York : Van Nostrand Reinold Co., 1985, 361 p. 
-%Klir1995
-%Klir G., Yuan B., Fuzzy Sets and Fuzzy Logic. Theory and Applications. Prentice Hall, 1995, 591 p. 
-%Navara2011
-%Navara M., Computation with fuzzy quantities. Proc. of the 7th Conf. of the European Society for Fuzzy Logic and Technology (EUSFLAT), Aix-les-Bains, France, 2011, pp. 209-214.
+\subsection*{Lingvistická premenná}
+Lingvistická, resp. jazyková premenná je zvláštnym typom premennej, ktorá sa od numerických premenných odlišuje tým, že jej hodnoty - tzv. lingvistické hodnoty - nie sú čísla, ale slovné výrazy. Pritom každej lingvistickej hodnote je priradený význam, t. j. určitá fuzzy množina definovaná na spoločnom univerze \cite{gregorUI}.
+\begin{defn} 
+	Lingvistická premenná je definovaná päticou \textit{$\left(\beta, T, X, G, M \right) $}, kde 
+	$\beta$ - je meno lingvistickej premennej; 
+	\textit{T} - je množina jej hodnôt, z ktorých každá je fuzzy premennou na množine \textit{X};
+	\textit{G} - je syntaktické pravidlo pre tvorbu nových mien hodnôt lingvistickej premennej $\beta$;
+	\textit{M} - je sémantická procedúra, umožňujúca transformovať novú hodnotu premennej $\beta$, určenú procedúrou\textit{ G}, na fuzzy premennú, t.j. vytvoriť zodpovedajúcu fuzzy množinu \cite{levashenkoProj, Kaufman1985, Klir1995, Navara2011}. \end{defn}
 
-\paragraph*{}
-Lingvistická premenná sa od číselnej premennej líši tým, že jej hodnotami nie sú čísla, ale slová alebo výroky prirodzeného alebo formálneho jazyka. Je zrejmé, že takýto 
-%14 strana
-kvalitatívny popis s využitím slov je menej presný ako pomocou čísel. Napriek tomu použitie lingvistickej premennej umožňuje približne opísať zložité javy, ktoré nie je možné opísať pomocou obvyklých kvalitatívnych termínov. Dôležitý aspekt lingvistickej premennej spočíva v tom, že táto premenná má vyššiu úroveň ako fuzzy premenná v tom zmysle, že hodnotami lingvistickej premennej sú fuzzy premenné.  \cite{levashenkoProj}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\pagebreak
-\section{Fuzzy prístupy}
-%z knihy od michal gregor - umela inteligencia
-%na strane 11 a 12 cituje v clanku ref 13
-
-%11 strana knihy o umelej inteligenciie z od gregora
-%doslovné citovanie
-Fuzzy prístupy možno považovať za odpoveď na požiadavku spracovania neurčitosti, resp. nepresnosti. Táto požiadavka je veľmi rozšírená - v určitej forme sa vyskytuje prakticky v každom reálnom systéme aplikujúcom metódy umelej inteligencie - predovšetkým sa však objavuje tam, kde systémy nejakým spôsobom interagujú s človekom alebo využívajú ľudské znalosti. 
-V súvislosti s neurčitosťou sa rozlišujú tri základné pojmy: \cite{gregorRef13, gregorUI}  %tuto cituje [13] (Niklesa) 
-%todo prestylizovat toto!!!
-\begin{itemize}
-	\item \textbf{Neurčitosť} - vyplýva z nedostatočnej znalosti faktorov alebo udalosti. O neurčitosti hovoríme, že je aleatórna, ak pramení z vnútorných vlastností nejakého náhodného javu - t.j. ju principiálne nemožno odstrániť. Ak neurčitosť vyplýva z neznalosti, tak je epistemická. 
-	\item \textbf{Nepresnosť} - O nepresnosti hovoríme, ak je znalosť faktov a udalosti taká kompletná ako len môže byť, ale spôsob ich vyjadrenia nie je presný alebo jednoznačný. 
-	\item \textbf{Nekonzistentnosť} - O nekonzistentnosti hovoríme, ak si znalosti, resp. známe fakty navzájom odporujú. 
-\end{itemize}
-
-%12 strana knihy umela inteligencia
-Ľudské znalosti vo väčšine prípadov zahŕňajú neurčitosti, nepresnosť, niekedy môžu byť aj nekonzistentné. 
-Fuzzy prístupy umožňujú určitým spôsobom formalizovať a ďalej spracúvať vágne poznatky. Vágnosť možno považovať za typ nepresnosti. 
-%tuto on cituje 13
- Takýto typ znalostí je ťažké a často aj nemožné vhodne formalizovať konvenčnými metódami. Fuzzy prístupy predstavujú jednu z možných ciest ako k nim pristupovať, a použiť na formalizáciu neurčitosti. \cite{gregorUI, gregorRef13}  
-
-Teória fuzzy množín je zovšeobecnením klasickej teórie množín - fuzzy množiny sú vágne v tom či prvok patrí alebo nepatrí do množiny. 
-Na fuzzy množinách možno vykonávať určité operácie čiastočne analogické s tými, ktoré sú v klasickej teórie množín. 
-Fuzzy logika predstavuje prístup, ktorý zovšeobecňuje konvenčnú logiku a produkčné pravidlá zavedením tzv. lingvistických premenných a lingvistických pravidiel. 
-Fuzzy logika umožňuje formulovať vágne pravidlá. 
-Fuzzy aritmetika rozširuje princípy klasickej aritmetiky na vágne - fuzzy - čísla. \cite{gregorUI} 
-
-\subsection{Teória fuzzy množín}
-
+\subsection*{Charakteristická funkcia}
 V klasickej teórii množín prvok môže do množiny buď patriť alebo nepatriť. Pre klasické množiny možno definovať tzv. charakteristickú funkciu. 
-
+\begin{defn} 
 Charakteristická funkcia klasickej množiny S je priradenie typu \cite{gregorUI} 
 
 \begin{equation}\label{charfunkcia}
 \mu_S : U \longrightarrow \{0, 1\}
 \end{equation}
 
-Priradenie hodnoty 0 - nepatrí, alebo hodnoty 1 - patrí - ku každému prvku x $\in$ U, pričom definičný obor charakteristickej funkcie U sa nazýva univerzum. Univerzum je množina všetkých hodnôt, o ktorých rozhodujeme či do danej množiny patria, alebo nepatria. Platí $S \subseteq U$. \cite{gregorUI} 
+Priradenie hodnoty 0 - nepatrí, alebo hodnoty 1 - patrí - ku každému prvku x $\in$ U, pričom definičný obor charakteristickej funkcie U sa nazýva univerzum. Univerzum je množina všetkých hodnôt, o ktorých rozhodujeme či do danej množiny patria, alebo nepatria. Platí $S \subseteq U$ \cite{gregorUI}. \end{defn}
 
 Charakteristickú funkciu klasickej množiny možno definovať nasledovne \cite{gregorUI, gregorRef14} 
 %pozri a najdi tento zdroj - Ross, T.J. Fuzzy Logic with Engineering Applications. .. alebo pozri zdroje v knihe 14
@@ -180,38 +95,46 @@ Charakteristickú funkciu klasickej množiny možno definovať nasledovne \cite{
 \end{cases}
 \end{equation}
 
-V teórii fuzzy množín sa zavádza rozšírenie tohto konceptu - prvok môže do množiny patriť aj čiastočne: viac alebo menej. Vágnosť je teda v otázke príslušnosti prvku ku množine. \cite{gregorUI} 
+V teórii fuzzy množín sa zavádza rozšírenie tohto konceptu - prvok môže do množiny patriť aj čiastočne: viac alebo menej. Vágnosť je teda v otázke príslušnosti prvku ku množine \cite{gregorUI} .
 
 %strana 13 knihy inteligencii
-\subsubsection{Stupeň príslušnosti a funkcia príslušnosti}
-Mieru do akej prvok patri do fuzzy množiny sa vyjadruje stupňom príslušnosti. Nech A je fuzzy množina. Stupeň príslušnosti prvku x ku množine A označujeme $\mu_A\left( x\right) $. 
-Hovoríme tiež, že $\mu_A\left( x\right) $ je funkcia príslušnosti fuzzy množiny A. \cite{gregorUI, gregorRef14} 
+\subsection*{Stupeň príslušnosti a funkcia príslušnosti}
+Mieru do akej prvok patri do fuzzy množiny sa vyjadruje stupňom príslušnosti. Nech \textit{A }je fuzzy množina. Stupeň príslušnosti prvku \textit{x} ku množine \textit{A} označujeme $\mu_A\left( x\right) $. 
+Hovoríme tiež, že $\mu_A\left( x\right) $ je funkcia príslušnosti fuzzy množiny \textit{A} \cite{gregorUI, gregorRef14} .
 %toto bolo citované od neho = a on tam ma tento zdroj
 %ross , T.J. Fuzzy Logic with Engineering Applications. John Wiley & Sons, 2004, secound edition ed. ISBN 0-470-86075-8. 
+
+
 Funkcia príslušnosti je priradenie
 \begin{equation}\label{funPrislus}
 \mu_A : U \longrightarrow \left\langle 0, 1 \right\rangle 
 \end{equation}
-Obor hodnôt je teda v tomto prípade 
+Obor hodnôt je v tomto prípade 
 \begin{equation}\label{funPrislus}
 \mu_A (X) : U \in \left\langle 0, 1 \right\rangle 
 \end{equation}
 
-Pritom rozlišujeme nasledujúce prípady: 
+
+
+Pritom sa rozlišujú nasledujúce prípady: 
 \begin{itemize}
-	\item ak $\mu_A (x) = 0$, hovoríme, že prvok do množiny A nepatrí, 
-	\item ak $\mu_A (x) = 1$, hovoríme, že prvok do množiny A patrí, 
-	\item ak $\mu_A (x) \in (0, 1)$, hovoríme, že prvok patrí do množiny A čiastočne, so stupňom príslušnosti ak $\mu_A(x)$. 
+	\item ak $\mu_A (x) = 0$, hovoríme, že prvok do množiny \textit{A }nepatrí, 
+	\item ak $\mu_A (x) = 1$, hovoríme, že prvok do množiny \textit{A} patrí, 
+	\item ak $\mu_A (x) \in (0, 1)$, hovoríme, že prvok patrí do množiny \textit{A} čiastočne, so stupňom príslušnosti ak $\mu_A(x)$. 
 \end{itemize}
 
-Aj v tomto prípade sa dá použiť značenie $A\subseteq U$, čím sa rozumie, že množina A je definovaná na univerze U.  \cite{gregorUI} 
+Aj v tomto prípade sa dá použiť značenie $A\subseteq U$, čím sa rozumie, že množina \textit{A} je definovaná na univerze \textit{U}.  \cite{gregorUI} 
+
+\begin{defn}
+	Funkcia príslušnosti $\mu_A\left( x\right)$ kvantitatívne určuje príslušnosť prvkov základnej množiny uvažovaného priestoru $x \in X$ k fuzzy množine \textit{A}. Hodnota\textit{ A} tejto funkcie značí, že prvok nepatrí do fuzzy množiny. Hodnota 1 opisuje úplne patriaci prvok. Hodnoty medzi 0 a 1 charakterizujú neurčito zaradené prvky \cite{levashenkoProj, Kaufman1985, Klir1995, Navara2011}. \end{defn}
+
 
 %strana 14 knihy umela inteligencia
-\subsubsection{Spojité a diskrétne fuzzy množiny}
-Fuzzy množiny možno rozdeliť podľa spojitosti na spojité a diskrétne. V prípade spojitých fuzzy množín je univerzum spojité. T.j. aj funkcia príslušnosti je spojitá. Naopak v prípade diskrétnych fuzzy množín sú univerzum aj funkcia príslušnosti diskrétne. Obor funkcie príslušnosti je spojitý v oboch prípadoch.  \cite{gregorUI} 
+\subsection*{Spojité a diskrétne fuzzy množiny}
+Fuzzy množiny možno rozdeliť podľa spojitosti na spojité a diskrétne. V prípade spojitých fuzzy množín je univerzum spojité. To je aj funkcia príslušnosti je spojitá. Naopak v prípade diskrétnych fuzzy množín sú univerzum aj funkcia príslušnosti diskrétne. Obor funkcie príslušnosti je spojitý v oboch prípadoch.  \cite{gregorUI} 
 
 
-\subsubsection{Spôsoby zápisu fuzzy množín}
+\subsection*{Spôsoby zápisu fuzzy množín}
 Fuzzy množiny možno zapísať buď diskrétne alebo spojito.
 
 %v knihe o umelej inteligencii je to vedene ako 1 ref. 
@@ -221,7 +144,7 @@ V prípade, že ide o diskrétnu fuzzy množinu, možno použiť nasledujúci z�
 \begin{equation}\label{disk0}
 A = \{\mu_A(x_1)/x_1, \mu_A(x_2)/x_2, ... , \mu_A(x_n)/x_n\}, 
 \end{equation}
-kde n je počet prvkov, $x_i in U : \forall_i = 1, 2, ..., n$ sú prvky univerza a $\mu_A(x_i)$sú ich stupne príslušnosti.
+kde \textit{n} je počet prvkov, $x_i in U : \forall_i = 1, 2, ..., n$ sú prvky univerza \textit{a} $\mu_A(x_i)$sú ich stupne príslušnosti.
 
 %14,15 strana
 Ďalšia konvencia zápisu diskrétnych fuzzy množín je  \cite{gregorUI} 
@@ -248,9 +171,10 @@ Spojité fuzzy množiny možno reprezentovať výrazom v tvare \cite{gregorref1}
 A = \int_{U}^{}  \mu_A(x)/xdx . 
 \end{equation}
 %16 strana
-\subsubsection{Singleton}
+
+\subsection*{Singleton}
 Špeciálnym typom fuzzy množiny je tzv. singleton. Ide o taký typ fuzzy množiny, pre ktorý iba jeden bod univerza má stupeň príslušnosti väčší ako 0. 
-Nech teda A je fuzzy množina definovaná na univerze U. Potom fuzzy množinu A považujeme za singleton, ak existuje bod $x_0 \in U$ taký, že platí \cite{gregorUI} 
+Nech teda\textit{ A }je fuzzy množina definovaná na univerze \textit{U}. Potom fuzzy množinu \textit{A} považujeme za singleton, ak existuje bod $x_0 \in U$ taký, že platí \cite{gregorUI} 
 \begin{equation}\label{singleton0}
 \mu_S (X) = 
 \begin{cases}
@@ -267,84 +191,41 @@ A = \left\lbrace b/x_0 \right\rbrace ,
 A = \left\lbrace \left( x_0 ; b \right) \right\rbrace 
 \end{equation}
 
-%26 strana knihy o umelej inteligencii 
-\subsection{Fuzzy logika}
-\subsubsection{Lingvistická premenná}
-Lingvistická, resp. jazyková premenná je zvláštnym typom premennej, ktorá sa od numerických premenných odlišuje tým, že jej hodnoty - tzv. lingvistické hodnoty - nie sú čísla, ale slovné výrazy. Pritom každej lingvistickej hodnote je priradený význam, t. j. určitá fuzzy množina definovaná na spoločnom univerze. \cite{gregorUI}
+\subsection*{Normalizácia }
 
-\subsubsection{Fuzzy inferenčný systém}
-Lingvistické premenné možno využiť na odvodzovanie a získať z nich výstupné ostré hodnoty (t.j. presné číselné hodnoty). 
-Inferenčný systém je štruktúra umožňujúca odvodzovať na základe vopred daných pravidiel a známych faktov nové fakty. V prípade fuzzy inferenčného systému (FIS) možno pri formulácii pravidiel navyše využiť lingvistické premenné a hodnoty. Medzi najznámejšie metódy fuzzy inferencie patrí Mandaniho inferencia. \cite{gregorUI}
-V prípade, že sa má fuzzy inferenčný systém použiť ako jadro regulátora, je potrebné, aby jeho vstupmi a výstupmi boli ostré hodnoty. FIS umožňujú aj prevod z ostrých (presne číselných) vstupov na lingvistické hodnoty a naopak. \cite{gregorUI}
-Bloková schéma na Obr. \ref{fig:fis} zobrazuje hlavné komponenty fuzzy inferenčného systému: F - fuzzifikácia, inferencia, báza pravidiel, D - defuzzifikácia. 
-%strana 28
-\begin{figure}[h]
-	\includegraphics[width=0.75\textwidth]{obrazky/obrazok1}
-	\centering
-	\caption{Fuzzy inferenčný systém - bloková schéma.\cite{gregorUI}}
-	\label{fig:fis}
-\end{figure}
+Normalizácia znamená prevod vstupných ostrých hodnôt z technického procesu, ktorými sú fyzikálne hodnoty  nameraných, či zadaných hodnôt, ktoré sa prevedú na normalizovanú množinu - univerzum. Najčastejšie sú všetky univerzá v rozsahu $[-1;1]$ alebo $[0, 1]$. Takéto znormalizované dáta vstupujú do fuzzifikácie. Pri fuzzifikácii sa každej ostrej nameranej hodnote z normalizovaného univerza priradí stupeň príslušnosti do jednej, alebo viac fuzzy množín, ktoré zodpovedajú významu základných termov použitých v pravidlách. Normalizované univerzum sa pokryje príslušnými fuzzy množinami. Prevedú sa ostré dáta na fuzzy dáta. \cite{sedlakova}
 
-\subsubsection{Báza pravidiel}
-Fuzzy inferenčný systém pri odvodzovaní nových faktorov vychádza z určitých vopred daných pravidiel. Tie sú združené v báze pravidiel. Pravidlá majú vo všeobecnosti nasledujúci tvar \cite{gregorUI, gregorRef19, gregorref1}
-%tuto cituje 19 zdroj
-\begin{quote}\centering
-         \textbf{AK} (predpoklad)   \textbf{POTOM} (dôsledok), resp. \\
-         \textbf{IF} (antecedent)  \textbf{THEN} (consequent).
-\end{quote}
-Predpoklad sa pritom skladá z termov nasledujúceho tvaru \cite{gregorUI}
-\begin{equation}\label{baza1}
-X \hspace{0.2cm} is \hspace{0.2cm}  A_i , 
-\end{equation}
-kde X je lingvistická premenná a $A_i$ je i-tá lingvistická hodnota tejto premennej. 
-
-% 28-29 strana
-\subsubsection{Fuzzifikácia}
-Z blokovej schémy na Obr. \ref{fig:fis} je zrejmé, že do fuzzy inferenčného systému môžu vstupovať ostré hodnoty. Aby bolo možné vykonať porovnanie podľa (\ref{baza1}), ostrú vstupnú hodnotu je potrebné previesť na fuzzy množinu. Tento proces sa nazýva fuzzifikácia. Fuzzifikácia je prevod ostrej hodnoty x na fuzzy množinu $L_x$, pričom výstupom je často singleton \cite{gregorUI}
-\begin{equation}\label{fuzzysingle1}
-L_x = \left\lbrace1/x\right\rbrace .  
-\end{equation}
-Majme term v tvare podľa (\ref{baza1}). Ak ostrá hodnota premennej je x a jej fuzzifikovaná hodnota  $L_x$, potom takýto term možno vyhodnotiť jednoducho pomocou zvolenej T-normy (analógia prieniku). Ako T-norma sa v tomto prípade spravidla používa operátor minima  $T_m(a, b)=min(a, b)$. Ak sa aplikuje na dané operandy vznikne \cite{gregorUI}
-\begin{equation}\label{fuzzimin}
-\alpha_x = min(L_x, A^{i}) \forall x \in U, 
-\end{equation}
-kde $\alpha_x$ možno považovať za mieru platnosti tvrdenia (\ref{baza1}). 
-Vzhľadom na vlastnosti singletonov možno tento postup zjednodušiť na 
-\begin{equation}\label{fuzziminsingle}
-\alpha_x = \left\lbrace \mu_{A^i}(x)/x\right\rbrace , 
-\end{equation}
-Keďže $\alpha_x$ je tiež singleton, tak stačí, ak sa vyjadrí iba ako $\mu_{A^i}(x)$, čo je ostré číslo. 
-Fuzzifikácia v praxi je vyhodnotenie miery platnosti predpokladu X is A (\ref{baza1}) na základe znalosti ostrej hodnoty x premennej X. Miera platnosti takého predpokladu je pritom ekvivalentná stupňu príslušnosti ostrej hodnoty x ku fuzzy množine A, čiže  $\mu_{A}(x)$. \cite{gregorUI}  
-
-%treba definovať T=normu?????? 
-\pagebreak
+Medzi najbežnejšie používané funkcie príslušenstva patria: 
+\begin{itemize}
+	\item trojuholníková, 
+	\item lichobežníková, 
+	\item Gausova, 
+	\item zvonová, 
+	\item sigmoidalná. 
+\end{itemize}
 
 
 
 
-
-
-
-
-\pagebreak
 \section{Transformácia číselných hodnôt na lingvistické premenné}
 %todo uplne prestylizovať do ľudskej reči
-Transformácia číselných premenných na lingvistické predpokladá vzťah medzi kombináciou ich hodnôt a stupnicou s konečným počtom m intervalov sa nazýva diskretizáciou. 
+Transformácia číselných premenných na lingvistické predpokladá vzťah medzi kombináciou ich hodnôt a stupnicou s konečným počtom \textit{m} intervalov sa nazýva diskretizácia. 
 %tuto cituju Catlett1991, Ching1995, Kotsiantis2006 
 %todo zdroje
-Pritom sa každý interval asociuje s hodnotou lingvistickej premennej (termom). Proces diskretizácie predpokladá transformáciu kvantitatívnych dát na kvalitatívne. \cite{levashenkoProj, Catlett1991}
+Pritom sa každý interval asociuje s hodnotou lingvistickej premennej (termom). Proces diskretizácie predpokladá transformáciu kvantitatívnych dát na kvalitatívne \cite{levashenkoProj, Catlett1991}.
 
 
-Vo všeobecnom prípade diskretizácia zmenšuje objem dát a nevedie k zníženiu klasifikačnej presnosti a spoľahlivosti hodnôt  využívaných v systémoch pre podporu rozhodovania. Naopak, takéto diskrténe hodnoty adekvátne ohodnocujú ukazovatele a sú stabilnejšie vzhľadom na zmeny a metodiky merania. 
+Vo všeobecnom prípade diskretizácia zmenšuje objem dát a nevedie k zníženiu klasifikačnej presnosti a spoľahlivosti hodnôt  využívaných v systémoch pre podporu rozhodovania. Naopak, takéto diskrétne hodnoty adekvátne ohodnocujú ukazovatele a sú stabilnejšie vzhľadom na zmeny a metodiky merania\cite{levashenkoProj, Lui2002}. 
 %tuto cituju Lui2002
 %todo zdroje
-\cite{levashenkoProj, Lui2002}
 
-Úloha diskretizácie sa formuluje nasledovne. 
+
+
 %tuto cituju Garcia2013
 %todo zdroje
-\subsection{Definícia úlohy diskretizácie}
-Majme množinu pozostávajúcu z N príkladov. Každý príklad obsahuje množinu vstupných číselných premenných. Nech niektorá vstupná číselná premenná X v týchto príkladoch nadobúda hodnoty v rozsahu od $x_min$ po $x_max$. Potom diskretizáciou tejto spojitej premennej sa nazýva proces rozkladu jej hodnôt na m diskrétnych intervalov
+Úloha diskretizácie sa definuje nasledovne. 
+
+\begin{defn} Majme množinu pozostávajúcu z \textit{N} príkladov. Každý príklad obsahuje množinu vstupných číselných premenných. Nech niektorá vstupná číselná premenná \textit{X} v týchto príkladoch nadobúda hodnoty v rozsahu od $x_min$ po $x_max$. Potom diskretizáciou tejto spojitej premennej sa nazýva proces rozkladu jej hodnôt na m diskrétnych intervalov
 \begin{equation}\label{dkiskr}
 D =\left\lbrace
 \left\langle d_0, d_1 \right) , 
@@ -353,134 +234,87 @@ D =\left\lbrace
  \right\rbrace, 
 \end{equation} 
 kde $d_0$ je minimálna hodnota $x_min$ tejto premennej, $d_m$ je maximálna hodnota $x_max$ premennej a platí $d_i < d_{i+1}$, pre i = 0, 1, ... m-1. 
-Pritom, $P = \left\lbrace d_1, d_2, ..., d_{m-1} \right\rbrace$ je množina bodov rezu premennej X.    \cite{levashenkoProj, Garcia2013}
+$P = \left\lbrace d_1, d_2, ..., d_{m-1} \right\rbrace$ je množina bodov rezu premennej \textit{X}    \cite{levashenkoProj, Garcia2013}.
+\end{defn} 
 
 %todo pridaj Chelbus1998 do zdrojov
 
-\subsection{Metódy diskretizácie}
-Získanie optimálnej diskretizácie prestavuje NP-zložitú úlohu. \cite{levashenkoProj, Chelbus1998} Existencia obrovského množstva metód diskretizácie je vysvetliteľná rozmanitou povahovou vstupných dát a požiadaviek na ich spracovanie. Výber použitej metódy diskretizácie určuje úspešnosť ich budúceho spracovania. Na výber metódy má vplyv množstvo parametrov.  \cite{levashenkoProj}
+\section{Metódy diskretizácie}
+Získanie optimálnej diskretizácie prestavuje NP-zložitú úlohu. Existencia obrovského množstva metód diskretizácie je vysvetliteľná rozmanitou povahovou vstupných dát a požiadaviek na ich spracovanie. Výber použitej metódy diskretizácie určuje úspešnosť ich budúceho spracovania. Na výber metódy má vplyv množstvo parametrov.  \cite{levashenkoProj, Chelbus1998}
 \begin{enumerate}
-	\item \textbf{Počet intervalov rozkladu.}  Príliš malý počet intervalov spôsobuje nepresnosti a chyby vo vstupných dátach a vedie k hrubému vyjadreniu výsledku. Na druhej strane rozklad vstupných dát na príliš veľký počet intervalov spôsobuje prílišnú detailizáciu a následne vedie k tomu, že spracovanie takýchto dát je pomalé a neefektívne  \cite{levashenkoProj, Catlett1991}%tuto cituju Catlett1991
-	\item \textbf{Nesúlad s výsledkom. }  Nesúlad s výsledkom sa objasňuje vznikom neočakávaných chýb v procese diskretizácie. Tieto chyby súvisia s nepresnosťami diskretizácie vstupných dát a vo vzťahu medzi týmito diskretizovanými hodnotami a hodnotami výstupného atribútu.  \cite{levashenkoProj}
-	\item \textbf{Presnosť rozkladu.}  Predpokladá, že úspešný algoritmus diskretizácie, skonštruovaný na základe výberu tréningových dát, pracuje bez podstatného zníženia kvality aj na všetkých nasledujúcich dátach.  \cite{levashenkoProj}
-	\item \textbf{Časové ohraničenia.}  V prípade statických procesov, kedy požiadavka diskretizácie výučbovej množiny vzniká iba raz, nie je čas výpočtu dôležitým parametrom. Avšak pri dynamických procesoch, keď sa etapa diskretizácie výučbovej množiny opakuje mnohokrát, je čas spracovania kritickým parametrom.  \cite{levashenkoProj}
+	\item \textbf{Počet intervalov rozkladu.}  Príliš malý počet intervalov spôsobuje nepresnosti a chyby vo vstupných dátach a vedie k hrubému vyjadreniu výsledku. Na druhej strane rozklad vstupných dát na príliš veľký počet intervalov spôsobuje prílišnú detailizáciu a následne vedie k tomu, že spracovanie takýchto dát je pomalé a neefektívne  \cite{levashenkoProj, Catlett1991}. %tuto cituju Catlett1991
+	\item \textbf{Nesúlad s výsledkom. }  Nesúlad s výsledkom sa objasňuje vznikom neočakávaných chýb v procese diskretizácie. Tieto chyby súvisia s nepresnosťami diskretizácie vstupných dát a vo vzťahu medzi týmito diskretizovanými hodnotami a hodnotami výstupného atribútu \cite{levashenkoProj}. 
+	\item \textbf{Presnosť rozkladu.}  Predpokladá, že úspešný algoritmus diskretizácie, skonštruovaný na základe výberu tréningových dát, pracuje bez podstatného zníženia kvality aj na všetkých nasledujúcich dátach \cite{levashenkoProj}. 
+	\item \textbf{Časové ohraničenia.}  V prípade statických procesov, kedy požiadavka diskretizácie výučbovej množiny vzniká iba raz, nie je čas výpočtu dôležitým parametrom. Avšak pri dynamických procesoch, keď sa etapa diskretizácie výučbovej množiny opakuje mnohokrát, je čas spracovania kritickým parametrom  \cite{levashenkoProj}.
 \end{enumerate}
 
-Proces transformácie reálnych hodnôt na konečný počet intervalov a reprezentovanie každého intervalu s diskrétnou hodnotou predstavuje proces, ktorý je už dosť dobre preskúmaný. Vykonaná analýza odhalila rad základných kritérií klasifikácie existujúcich metód diskretizácie. Podrobnejšie je prehľad a analýza existujúcich metód diskretizácie uvedená v prácach \cite{Lui2002, Liu2004, Singh2007, Bakar2009, Yang2010, Garcia2010, Garcia2013} . 
+Proces transformácie reálnych hodnôt na konečný počet intervalov a reprezentovanie každého intervalu s diskrétnou hodnotou predstavuje proces, ktorý je už dosť dobre preskúmaný. Vykonaná analýza odhalila rad základných kritérií klasifikácie existujúcich metód diskretizácie. Podrobnejšie je prehľad a analýza existujúcich metód diskretizácie uvedená v prácach \cite{Lui2002,Garcia2013, Liu2004, Singh2007, Bakar2009, Yang2010, Garcia2010} .
 
+ 
+\subsubsection*{Kritérium 1. - Statické a dynamické metódy diskretizácie}
 %20-24 strana
-\subsubsection{Statické a dynamické metódy diskretizácie}
-Kritérium uvažuje klasifikáciu metód na základe opakovateľnosti procesu diskretizácie. 
+Kritérium uvažuje klasifikáciu metód na základe opakovateľnosti procesu diskretizácie. Statické metódy sa realizujú v tvare predbežnej samostatnej etapy spracovania vstupných dát a nezávisia od spôsobu následného využitia diskretizovaných hodnôt. Dynamická diskretizácia je obvykle zabudovaná do mechanizmu inteligentného spracovania dát a využíva sa napríklad pri konštrukcii rôznych klasifikátorov \cite{levashenkoProj}.
 
-Statické metódy sa realizujú v tvare predbežnej samostatnej etapy spracovania vstupných dát a nezávisia od spôsobu následného využitia diskretizovaných hodnôt. 
 
-Dynamická diskretizácia je obvykle zabudovaná do mechanizmu inteligentného spracovania dát a využíva sa napríklad pri konštrukcii rôznych klasifikátorov. \cite{levashenkoProj}
-%todo odpisat tie priklady algoritmov... 
 
-\subsubsection{Globálne a lokálne metódy diskretizácie}
-Kritérium berie do úvahy úplnosť množiny a dostupnosť vstupných hodnôt, použitých v procese diskretizácie. 
+\subsubsection*{Kritérium 2. - Globálne a lokálne metódy diskretizácie}
+Kritérium berie do úvahy úplnosť množiny a dostupnosť vstupných hodnôt, použitých v procese diskretizácie. Globálne metódy diskretizácie spracovávajú vstupnú množinu hodnôt číselného atribútu počas etapy predbežného spracovania. Lokálne metódy predpokladajú diskretizáciu dát súčasne s inými metódami ich spracovania. K tomuto typu patria dynamické metódy diskretizácie, ktoré zisťujú body rezu v rámci vnútorných operácií algoritmov spracovania dát a nemajú prístup k úplnej množine vstupných dát \cite{levashenkoProj}.
 
-Globálne metódy diskretizácie spracovávajú vstupnú množinu hodnôt číselného atribútu počas etapy predbežného spracovania. 
 
-Lokálne metódy predpokladajú diskretizáciu dát súčasne s inými metódami ich spracovania. K tomuto typu patria dynamické metódy diskretizácie, ktoré zisťujú body rezu v rámci vnútorných operácií algoritmov spracovania dát a nemajú prístup k úplnej množine vstupných dát. \cite{levashenkoProj}
+\subsubsection*{Kritérium 3. - Metódy jednorozmernej, mnohorozmernej diskretizácie }
+Kritérium slúži na klasifikáciu metód diskretizácie na základe počtu súčasne spracovaných atribútov. V jednorozmernej diskretizácii sa každý číselný atribút transformuje na lingvisticky nezávisle od hodnôt iných atribútov. Metódy mnohorozmernej diskretizácie predpokladajú súčasné spracovanie všetkých číselných atribútov. 
+Vo výsledku rozklad hodnôt číselných atribútov na intervaly vykonáva s prihliadnutím na množný vzájomný vplyv vstupných atribútov jedného na druhý \cite{levashenkoProj}.
 
-\subsubsection{Metódy jednorozmernej, mnohorozmernej diskretizácie}
-Kritérium slúži na klasifikáciu metód diskretizácie na základe počtu súčasne spracovaných atribútov. 
 
-V jednorozmernej diskretizácii sa každý číselný atribút transformuje na lingvisticky nezávisle od hodnôt iných atribútov. 
+\subsubsection*{Kritérium 4. - Diskretizácia bez učitela, s učiteľom}
+Kritérium rozlišuje neriadenú diskretizáciu bez učiteľa alebo riadenú diskretizáciu s učiteľom. Diskretizácia bez učiteľa určuje body rezu iba na základe analýzy vstupných atribútov. Hodnoty výstupného atribútu sa pritom neberú do úvahy. Diskretizácia s učiteľom pri rozklade vstupného atribútu na niekoľko intervalov navyše zisťuje vzťah medzi hodnotami vstupných atribútov a im zodpovedajúcimi hodnotami výstupných atribútov. Výsledkom použitia diskretizácie s učiteľom ej možnosť takého rozdelenia vstupného atribútu, kedy rôznym intervalom zodpovedajú rôzne hodnoty výstupného atribútu. Využitie diskretizácie s učiteľom umožňuje automaticky určovať najlepší počet intervalov a body rozdelenia pre každý atribút s perspektívou realizácie budúcej klasifikácie alebo klusterizácie výstupného atribútu %Dougherty1995
+\cite{levashenkoProj}.
+\subsubsection*{Kritérium 5. - Priame a inkrementálne metódy diskretizácie}
+Kritérium predpokladá klasifikáciu podľa spôsobu získania intervalov. Metódy priamej diskretizácie naraz rozdelia vstupnú množinu na m intervalov. Využitie týchto metód na začiatku vyžaduje určenie veličiny m. V každom kroku spracovania vyberajú tieto metódy niekoľko bodov rezu. Na druhej strane metódy postupnej diskretizácie predpokladajú hľadanie najlepšieho kandidáta na bodu rezu \cite{levashenkoProj}.
+\subsubsection*{Kritérium 6. - Neparametrické a parametrické metódy diskretizácie }
+Kritérium predstavuje variant predchádzajúceho kritéria a určuje spôsob získania počtu intervalov pre každý atribút.Neparametrické metódy určujú najlepší počet intervalov pre každý atribút. Parametrické metódy predpokladajú, že počet intervalov je už apriórne zadaný 
+\cite{levashenkoProj}.
 
-Metódy mnohorozmernej diskretizácie predpokladajú súčasné spracovanie všetkých číselných atribútov. 
-Vo výsledku rozklad hodnôt číselných atribútov na intervaly vykonáva s prihliadnutím na množný vzájomný vplyv vstupných atribútov jedného na druhý. \cite{levashenkoProj}
+\subsubsection*{Kritérium 7. - Metódy zlučovacej a rozdeľovacej diskretizácie}
+Kritérium klasifikuje metódy diskretizácie v závislosti od spôsobu spracovania vstupných hodnôt - zlučovanie alebo rozdeľovanie.  Zlučovacia (merging) diskretizácia predpokladá postupné pridávanie bodov rezu a jeho výsledkom je rozklad na menšie intervaly. Rozdeľovacia (splitting) diskretizácia spočíva v odstraňovaní bodov rezu, čo vedie k postupnému zlučovaniu skupiny susedných intervalov do väčšieho intervalu. Opakovanie procesov rozdeľovania alebo zlučovania sa riadi ukončovacím kritériom. Ako primitívne kritérium ukončenia vystupuje napríklad apriórne zadaný počet intervalov.Ako zložité kritérium sa používa napríklad minimálna chyba klasifikácie. Toto kritérium je prípustné iba pre metódy inkrementálnej diskretizácie. Sú známe aj metódy diskretizácie, ktorých činnosť je založená na zlučovaní alebo rozdeľovaní niekoľkých intervalov. Hybridné metódy počas činnosti striedajú spájanie a rozdeľovanie \cite{levashenkoProj}.
 
-\subsubsection{Diskretizácia bez učitela, s učiteľom}
-Kritériium rozlišuje neriadenú diskretizáciu bez učiteľa alebo riadenú diskretizáciu s učiteľom. 
+\subsubsection*{Kritérium 8. - Metódy diskretizácie podľa použitého parametra }
+Kritérium klasifikuje metódy diskretizácie podľa použitého parametra porovnania rozličných variantov rozdelenia.  Metóda založená na informačných ukazovateľoch často využíva pojem entropie a iné ukazovatele, založené na pojmoch teórie informácie. Štatistické metódy berú do úvahy mieru závislosti (korelácie) medzi atribútmi. Metódy, ktoré berú do úvahy frekvenčné charakteristiky, patria k najjednoduchším metódam diskretizácie. V týchto metódach sa každý interval vopred určuje, určením apriórne zadaného počtu hodnôt. Kolekcia metód využívajúcich chybu klasifikácie, presnosti klasifikácie \cite{levashenkoProj}.
 
-Diskretizácia bez učiteľa určuje body rezu iba na základe analýzy vstupných atribútov. Hodnoty výstupného atribútu sa pritom neberú do úvahy. 
-
-Diskretizácia s učiteľom pri rozklade vstupného atribútu na niekoľko intervalov navyše zisťuje vzťah medzi hodnotami vstupných atribútov a im zodpovedajúcimi hodnotami výstupných atribútov. Výsledkom použitia diskretizácie s učiteľom ej možnosť takého rozdelenia vstupného atribútu, kedy rôznym intervalom zodpovedajú rôzne hodnoty výstupného atribútu. Využitie diskretizácie s učiteľom umožňuje automaticky určovať najlepší počet intervalov a body rozdelenia pre každý atribút s perspektívou realizácie budúcej klasifikácie alebo klusterizácie výstupného atribútu. %Dougherty1995
-\cite{levashenkoProj}
-
-\subsubsection{Priame a inkrementálne metódy diskretizácie}
-Kritérium predpokladá klasifikáciu podľa spôsobu získania intervalov. 
-
-Metódy priamej diskretizácie naraz rozdelia vstupnú množinu na m intervalov. Využitie týchto metód na začiatku vyžaduje určenie veličiny m. V každom kroku spracovania vyberajú tieto metódy niekoľko bodov rezu. 
-
-Na druhej strane metódy postupnej diskretizácie predpokladajú hľadanie najlepšieho kandidáta na bodu rezu. 
-\cite{levashenkoProj}
-\subsubsection{Neparametrické a parametrické metódy diskretizácie }
-Kritérium predstavuje variant predchádzajúceho kritéria a určuje spôsob získania počtu intervalov pre každý atribút. 
-
-Neparametrické metódy určujú najlepší počet intervalov pre každý atribút. 
-
-Parametrické metódy predpokladajú, že počet intervalov je už apriórne zadaný. 
-\cite{levashenkoProj}
-
-\subsubsection{Metódy zlučovacej a rozdeľovacej diskretizácie}
-Kritérium klasifikuje metódy diskretizácie v závislosti od spôsobu spracovania vstupných hodnôt - zlučovanie alebo rozdeľovanie. 
-
-Zlučovacia (merging) diskretizácia predpokladá postupné pridávanie bodov rezu a jeho výsledkom je rozklad na menšie intervaly. 
-
-Rozdeľovacia (splitting) diskretizácia spočíva v odstraňovaní bodov rezu, čo vedie k postupnému zlučovaniu skupiny susedných intervalov do väčšieho intervalu. 
-
-Opakovanie procesov rozdeľovania alebo zlučovania sa riadi ukončovacím kritériom. 
-
-Ako primitívne kritérium ukončenia vystupuje napríklad apriórne zadaný počet intervalov. 
-
-Ako zložité kritérium sa používa napríklad minimálna chyba klasifikácie. Toto kritérium je prípustné iba pre metódy inkrementálnej diskretizácie. 
-
-Sú známe aj metódy diskretizácie, ktorých činnosť je založená na zlučovaní alebo rozdeľovaní niekoľkých intervalov. 
-Hybridné metódy počas činnosti striedajú spájanie a rozdeľovanie. \cite{levashenkoProj}
-
-\subsubsection{Metódy diskretizácie podľa použitého parametra}
-Kritérium klasifikuje metódy diskretizácie podľa použitého parametra porovnania rozličných variantov rozdelenia. 
-
-Metóda založená na informačných ukazovateľoch často využíva pojem entropie a iné ukazovatele, založené na pojmoch teórie informácie. 
-
-Štatistické metódy berú do úvahy mieru závislosti (korelácie) medzi atribútmi. 
-
-Metódy, berúce do úvahy frekvenčné charakteristiky, patria k najjednoduchším metódam diskretizácie. V týchto metódach a každý interval určuje vopred, určením apriórne zadaného počtu hodnôt. 
-
-Kolekcia metód využívajúcich chybu klasifikácie, presnosti klasifikácie. \cite{levashenkoProj}
-
-\subsubsection{Metódy diskretizácie vytvárajúce nepretínajúce a pretínajúce sa intervaly}
-Klasifikácia na základe vlastností získaných intervaloch. 
-
-K metódam diskretizácie vytvárajúce nepretínajúce sa intervaly patria doteraz všetky vymenované metódy diskretizácie. Tieto metódy vytvárajú v procese diskretizácie m diskrétnych intervalov
-$
+\subsubsection*{Kritérium 9. - Metódy diskretizácie vytvárajúce nepretínajúce a pretínajúce sa intervaly}
+Klasifikácia na základe vlastností získaných intervaloch. K metódam diskretizácie vytvárajúce nepretínajúce sa intervaly patria doteraz všetky vymenované metódy diskretizácie. 
+Tieto metódy vytvárajú v procese diskretizácie \textit{m} diskrétnych intervalov
+$$
 \left\langle d_0, d_1 \right) , 
 \left\langle d_1, d_2 \right) , ... , 
-\left\langle d_{m-1}, d_m \right\rangle 
-$
-pre ktoré platia nerovnosti $d_i < d_{i+1}$, pre i = 0, 1, ... m-1. 
-
-Pre metódy diskretizácie, ktoré pretínajú intervaly nemusí platiť nerovnosť. K takýmto metódam patrí fuzzy diskretizácia. \cite{levashenkoProj}
+\left\langle d_{m-1}, d_m \right\rangle ,
+$$ 
+pre ktoré platia nerovnosti $$d_i < d_{i+1},$$ pre i = 0, 1, ... m-1.  Pre metódy diskretizácie, ktoré pretínajú intervaly nemusí platiť nerovnosť. K takýmto metódam patrí fuzzy diskretizácia\cite{levashenkoProj}. 
 
 \subsection{Príklady algoritmov metód diskretizácie}
 
+ Obrázok \ref{fig:obrazok3} zobrazuje kategorizáciu hierarchie metód diskretizácie. V tabuľke \ref{table:1} sú vypísané príklady algoritmov jednotlivých kritérií diskretizácie.\cite{Garcia2013}  
 
 % Fig. 1 illustrates a comparison network where each node corresponds to a discretization algorithm and a directed vertex between two nodes indicates that the algorithm of the start node has been compared with the algorithm of the end node. The direction of the arrows is always from the newest method to the oldest, but it does not influence the results. The size of the node is correlated with the number of input and output vertices. We can see that most of the discretizers are represented by small nodes and that the graph is far from being complete, which has prompted the present paper.
-Obrázok  \ref{fig:obrazok2} ilustruje porovnávaciu sieť, v ktorej každý uzol zodpovedá algoritmu diskretizácie a smeruje na vrchol medzi dvoma uzlami. Označuje, že algoritmus počiatočného uzlu bol porovnávaný s algoritmom koncového uzla. Smer šípok je vždy od najnovšieho spôsobu až po najstaršie. Veľkosť uzla je v korelácii s počtom vstupných a výstupných vrcholov. \cite{Garcia2013} Obrázok \ref{fig:obrazok3} zobrazuje kategorizáciu hierarchie metód diskretizácie. 
 
-\begin{figure}
-	\centering
-	\includegraphics[width=1\linewidth]{obrazky/obrazok2}
-	\caption{Porovnávacia sieť metód diskretizácie}
-	\label{fig:obrazok2}
-\end{figure}
+
+
 
 \begin{figure}
 	\centering
 	\includegraphics[height=1.36\linewidth]{obrazky/obrazok3}
-	\caption{Taxonómia metód diskretizácie}
+	\caption{Taxonómia metód diskretizácie\cite{Garcia2013}}
 	\label{fig:obrazok3}
 \end{figure}
 
 
-\begin{table}[h!]
+
+
+\begin{table}[p]
 	\centering
 	\begin{tabular} { |p{5cm}|p{10cm}| }
 		\hline 
-		\textbf{Metóda diskretizácie} & \textbf{Príklady algoritmov} \\ 
+		\textbf{Kritérium diskretizácie} & \textbf{Príklady algoritmov} \\ 
 		\hline 
 		Statická & ChiMerge, MDLP, Chi2, RFDisc, UnDisc, CDisc, ME-MDL, ImformDisc, ImpMDLP \\ 
 		\hline 
@@ -526,147 +360,144 @@ Obrázok  \ref{fig:obrazok2} ilustruje porovnávaciu sieť, v ktorej každý uzo
 	\label{table:1}
 \end{table}
  
-V tabuľke \ref{table:1} sú vypísané príklady algoritmov jednotlivých metód diskretizácie. 
-Vlastnosti niektorých známych algoritmov metódy diskretizácie. 
-\begin{itemize}
-	\item EqualWidth a EqualFrequency - globálny, jednorozmerný, založený na frekvenčných charakteristikách.\cite{Wong1987} 
-
-\item
-ChiMerge - statický, globálny, riadený, inkrementálny, parametrický, zlučovací, založený na štatistických ukazovateľov.
-\cite{Keber1992} 
-\item
-ID3 a C45 - dynamický, lokálny, riadený, inkrementálny, založený na informačných ukazovateľov. 
-\cite{Quinlan1993} 
-
-\item
-MDLP - statický, jednorozmerný, riadený, neparametrický, rozdeľovací, založený na informačných ukazovateľov.
-\cite{Fayyad1993} 
-\item
-Valley - založený na presnosti klasifikácie. 
-\cite{Ventura1994} 
-\item
-NBIterative - založený na presnosti klasifikácie. 
-\cite{Pazzani1995} 
-
-\item
-CADD - parametrický, hybridný. 
-\cite{Ching1995} 
-\item
-Chi2 - statický, globálny, riadený, inkrementálny, založený na štatistických ukazovateľov.
-\cite{Liu1997} 
-\item
-
-Zeta - založený na štatistických ukazovateľov. 
-%Ho1997
-\cite{Ho1997} 
-\item
-MultiBayesian - dynamický 
-%Monti1998
-\cite{Monti1998} 
-\item
-MODLEM - dynamický
-%Grzymala2001
-\cite{Grzymala2001} 
-\item
-MVD - mnohorozmerný, neriadný, inkrementálny. 
-%Bay2001
-\cite{Bay2001} 
-\item
-USD - neparametrický. 
-%Giraldez2002
-\cite{Giraldez2002} 
-\item
-CAIM - globálny, neparametrický. 
-%Kurgan2004
-\cite{Kurgan2004} 
-\item
-MIDCA - mnohorozmerný. 
-%Chao2005
-\cite{Chao2005} 
-\item
-UCPD - mnohorozmerný, priamy. 
-%Mehta2005
-\cite{Mehta2005} 
-\item
-Multi-MDLP - mnohorozmerný.
-%Ferrandiz2005
-\cite{Ferrandiz2005} 
-\item
-MODL - založený na štatistických ukazovateľov. 
-%Boulle2006
-\cite{Boulle2006} 
-\item
-ITFP - dynamický
-%Au2006
-\cite{Au2006} 
-\item
-HBD - súčasné zlučovanie/rozdeľovanie niektoľkých intervalov. 
-%Lee2007
-\cite{Lee2007} 
-\item
-WEDA - mnohorozmerný, riadený, priamy, hybridný. 
-%Flores2007
-\cite{Flores2007} 
-\item
-IDD - súčasné zlučovanie/rozdeľovanie niektoľkých intervalov. 
-%Ruiz2008
-\cite{Ruiz2008} 
-\item
-DbEr - založený na informačných ukazovateľov. 
-%Hu2008
-\cite{Hu2008} 
-\item
-RFDisc - statický, globálny, mnohorozmerný, riadený, inkrementálny, rozdeľovací, založený na presnosti klasifikácie.
-%Berrado2009
-\cite{Berrado2009} 
-\item
-UnDisc - statický, globálny, jednorozmerný, neriadný, založený na frekvenčných charakteristikách.
-%Jiang2009
-\cite{Jiang2009} 
-\item
-GINI 
-%Jin2009 - založený na pojmoch teórie informácie. 
-\cite{Jin2009} 
-\item
-FFD - neriadný. 
-%Yang2009a
-\cite{Yang2009a} 
-\item
-SMD - mnohorozmerný. 
-%Jiang2009
-\cite{Jiang2009} 
-\item
-CDisc - statický, riadený, rozdeľovací, 
-%Nemmiche2010
-\cite{Nemmiche2010} 
-\item
-ImforDisc - statický, globálny, jednorozmerný,  riadený, hybridný, založený na informačných ukazovateľov.
-%Zhu2010
-\cite{Zhu2010} 
-\item
-ImpMDLP - statický, lokálny, riadený, inkrementálny, rozdeľovací, založený na informačných ukazovateľov. 
-%Li2010a
-\cite{Li2010a} 
-\item
-ME-MDL - statický, globálny, jednorozmerný, riadený, rozdeľovací, založený na informačných ukazovateľov.
-%Gupta2010
-\cite{Gupta2010} 
-
-\item
-EBDA - globálny, jednorozmerný, riadený, inkrementálny, zlučovací, založený na štatistických ukazovateľov. 
-%Sang2010
-\cite{Sang2010} 
-\item
-CBD - mnohorozmerný. 
-%Garcia2010
-\cite{Garcia2010} 
-
-\end{itemize}
 
 
 
-\pagebreak
-\section{Proces riadenej fuzzy diskretizácie}
+%%Vlastnosti niektorých známych algoritmov metód diskretizácie. 
+%%\begin{itemize}
+%%	\item EqualWidth a EqualFrequency - globálny, jednorozmerný, založený na frekvenčných charakteristikách\cite{Wong1987}. 
+%%
+%%\item
+%%ChiMerge - statický, globálny, riadený, inkrementálny, parametrický, zlučovací, založený na štatistických ukazovateľov.
+%%\cite{Keber1992} 
+%%\item
+%%ID3 a C45 - dynamický, lokálny, riadený, inkrementálny, založený na informačných ukazovateľov. 
+%%\cite{Quinlan1993} 
+%%
+%%\item
+%%MDLP - statický, jednorozmerný, riadený, neparametrický, rozdeľovací, založený na informačných ukazovateľov.
+%%\cite{Fayyad1993} 
+%%\item
+%%Valley - založený na presnosti klasifikácie. 
+%%\cite{Ventura1994} 
+%%\item
+%%NBIterative - založený na presnosti klasifikácie. 
+%%\cite{Pazzani1995} 
+%%
+%%\item
+%%CADD - parametrický, hybridný. 
+%%\cite{Ching1995} 
+%%\item
+%%Chi2 - statický, globálny, riadený, inkrementálny, založený na štatistických ukazovateľov.
+%%\cite{Liu1997} 
+%%\item
+%%
+%%Zeta - založený na štatistických ukazovateľov. 
+%%%Ho1997
+%%\cite{Ho1997} 
+%%\item
+%%MultiBayesian - dynamický 
+%%%Monti1998
+%%\cite{Monti1998} 
+%%\item
+%%MODLEM - dynamický
+%%%Grzymala2001
+%%\cite{Grzymala2001} 
+%%\item
+%%MVD - mnohorozmerný, neriadný, inkrementálny. 
+%%%Bay2001
+%%\cite{Bay2001} 
+%%\item
+%%USD - neparametrický. 
+%%%Giraldez2002
+%%\cite{Giraldez2002} 
+%%\item
+%%CAIM - globálny, neparametrický. 
+%%%Kurgan2004
+%%\cite{Kurgan2004} 
+%%\item
+%%MIDCA - mnohorozmerný. 
+%%%Chao2005
+%%\cite{Chao2005} 
+%%\item
+%%UCPD - mnohorozmerný, priamy. 
+%%%Mehta2005
+%%\cite{Mehta2005} 
+%%\item
+%%Multi-MDLP - mnohorozmerný.
+%%%Ferrandiz2005
+%%\cite{Ferrandiz2005} 
+%%\item
+%%MODL - založený na štatistických ukazovateľov. 
+%%%Boulle2006
+%%\cite{Boulle2006} 
+%%\item
+%%ITFP - dynamický
+%%%Au2006
+%%\cite{Au2006} 
+%%\item
+%%HBD - súčasné zlučovanie/rozdeľovanie niektoľkých intervalov. 
+%%%Lee2007
+%%\cite{Lee2007} 
+%%\item
+%%WEDA - mnohorozmerný, riadený, priamy, hybridný. 
+%%%Flores2007
+%%\cite{Flores2007} 
+%%\item
+%%IDD - súčasné zlučovanie/rozdeľovanie niektoľkých intervalov. 
+%%%Ruiz2008
+%%\cite{Ruiz2008} 
+%%\item
+%%DbEr - založený na informačných ukazovateľov. 
+%%%Hu2008
+%%\cite{Hu2008} 
+%%\item
+%%RFDisc - statický, globálny, mnohorozmerný, riadený, inkrementálny, rozdeľovací, založený na presnosti klasifikácie.
+%%%Berrado2009
+%%\cite{Berrado2009} 
+%%\item
+%%UnDisc - statický, globálny, jednorozmerný, neriadný, založený na frekvenčných charakteristikách.
+%%%Jiang2009
+%%\cite{Jiang2009} 
+%%\item
+%%GINI 
+%%%Jin2009 - založený na pojmoch teórie informácie. 
+%%\cite{Jin2009} 
+%%\item
+%%FFD - neriadný. 
+%%%Yang2009a
+%%\cite{Yang2009a} 
+%%\item
+%%SMD - mnohorozmerný. 
+%%%Jiang2009
+%%\cite{Jiang2009} 
+%%\item
+%%CDisc - statický, riadený, rozdeľovací, 
+%%%Nemmiche2010
+%%\cite{Nemmiche2010} 
+%%\item
+%%ImforDisc - statický, globálny, jednorozmerný,  riadený, hybridný, založený na informačných ukazovateľov.
+%%%Zhu2010
+%%\cite{Zhu2010} 
+%%\item
+%%ImpMDLP - statický, lokálny, riadený, inkrementálny, rozdeľovací, založený na informačných ukazovateľov. 
+%%%Li2010a
+%%\cite{Li2010a} 
+%%\item
+%%ME-MDL - statický, globálny, jednorozmerný, riadený, rozdeľovací, založený na informačných ukazovateľov.
+%%%Gupta2010
+%%\cite{Gupta2010} 
+%%
+%%\item
+%%EBDA - globálny, jednorozmerný, riadený, inkrementálny, zlučovací, založený na štatistických ukazovateľov. 
+%%%Sang2010
+%%\cite{Sang2010} 
+%%\item
+%%CBD - mnohorozmerný. 
+%%%Garcia2010
+%%\cite{Garcia2010} 
+%%
+%%\end{itemize}
 
 
 
@@ -685,114 +516,138 @@ CBD - mnohorozmerný.
 
 
 
-\pagebreak
 \section{Meranie Entropie}
-Entropia je meraná množstvom neistoty výsledku náhodného experimentu, alebo equivalene, meraním informácií keď sa pozoruje výsledok. Tento koncept bol zadefinovaný rôznymi spôsobmi [25]–[30] a zovšeobecnený v rozličných aplikovaných oblastiach, ako napríklad teória komunikácie, matematiky, štatistickej termodynamike a ekonómii [31]–[33]. Z pomedzi týchto rozličných definícií, Shannon prispel k najširšej a naj fundamentálnejšej definícii entropie v informačnej teórii. V nasledujúcom texte najprv uvedieme Shannonovu entropiu a potom popíšeme štyri Luca-Termini axiómy [25], ktoré dobre-definovaná entropia musí spĺňať. Nakoniec navrhneme meranie fuzzy entropie, ktoré je rozšírenie Shannonovej definície.
+Entropia je meraná množstvom neistoty výsledku náhodného experimentu, alebo equivalene, meraním informácií, keď sa pozoruje výsledok. Tento koncept bol zadefinovaný rôznymi spôsobmi \cite{kosko25, renyi30} a zovšeobecnený v rozličných aplikovaných oblastiach, ako napríklad teória komunikácie, matematiky, štatistickej termodynamike a ekonómii \cite{belahut31, cover33}. Z pomedzi týchto rozličných definícií, Shannon prispel k najširšej a naj fundamentálnejšej definícii entropie v informačnej teórii. 
+% * <eruner@azet.sk> 2017-04-17T19:15:05.601Z:
+% 
+% to slovo "equivalene" tam má byť alebo to chce slovenskú verziu toho slova?
+% 
+% ^.
 
-\subsection{Shannonova Entropia}
-Za entropiu možno považovať meranie neistoty náhodnej premennej X. Nech X je náhodná spočítateľná premenná s konečnou N-znakovou abecedou danou   .
-Ak výsledok $x_j$ sa vyskytuje s pravdepodobnosťou p($x_j)$, tak potom množstvo informácie spojené so známim výskytom výstupu $x_j$ je definované ako:
+\subsection*{Shannonova Entropia}
+Za entropiu možno považovať meranie neistoty náhodnej premennej $X$.
+\begin{defn} 
+	Nech $X$ je náhodná spočítateľná premenná s konečnou \textit{N}-znakovou abecedou danou $ \left\{ x_0, x_1, \dots, x_{N-1} \right\}$.
+	Ak výsledok $x_j$ sa vyskytuje s pravdepodobnosťou \textit{p($x_j)$}, tak potom množstvo informácie spojené so známym výskytom výstupu $x_j$ je definované ako:
+	$$ I(x_j)=-\log_z p(x_j). $$
+\end{defn}
+To znamená, že pre diskrétne zdroje, informácie získané výberom symbolu $x_j$ sú $\lceil \log_zp(x_j)  \rceil$ bitové. V priemere, symbol $x_j$ bude vybratý $n*p(x_j)$-krát z celkového počtu $N$ výberov, takže priemerné množstvo informácie získanej zo zdrojových výsledkov je:
 
-1. TODO
-To znamená, že pre diskrétne zdroje, informácie získané výberom symbolu sú bitové. V priemere, symbol  bude vybratý -krát z celkového počtu N výberov, takže priemerné množstvo informácie získanej z nzdrojových výsledkou je:
+$$
+-n.p(x_0)\log_2p(x_0) - n.p(x_1)\log_2p(x_1) - \ldots 
+-n.p(x_{N-1})\log_2p(x_{N-1}).
+$$
 
-2. TODO 
+Podelením výrazu číslom $n$ sa získa priemerné množstvo informácie na symbol výskytu zdroja. To je známe ako priemerná informácia, neistota, alebo entropia definovaná nasledovne.
 
-\begin{equation}\label{fuzzy}
-D_j = \frac{ \sum\limits_{r \in S_{C_{j}}(r_n)  } \: \mu_{\tilde{A}} (r) }{\sum\limits_{r \in X  } \mu_{\tilde{A}} (r) }
-\end{equation}
-
-
-
-
-Podelením (2.) číslom n získame priemerné množstvo informácie na symbol výstubu zdroja. To je známe ako priemerná informácia, neistota, alebo entropia definovaná nasledovne.
-Definícia 1:  Entropia H(X) náhodnej diskrétnej premennej X je definovaná ako 
-
-3. TODO
-Alebo
-4.	TODO
-Kde
-Všimnite si, že entropia je funkcia distribúcie X. Nezáleží na skutočných hodnotách náhodnej premennej X, ale iba na pravdepodobnostiach. Preto entropiu možno zasísať ako H(p).
-
-
-\section{TODO INE }
-
-\section{Záver}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\chapter*{TODO = DRAFT KAPITOLY = ZARADIT NESKOR}
-\subsection{Efektívny fuzzy clasifikátor založený na hierarchickej fuzzy entropii (An Efficient Fuzzy Classifier Based on Hierarchical Fuzzy Entropy)}
-Chen-Jian Lin, Chi-Yung Lee, a Shang-Jin Hong
-International Journal of Information Technology
-Vol.12 NO.6 2006
-
-
-Fuzzy klasifikátor založený na hierarchickej fuzzy entropii (FC-HFE)
-Algoritmus vychádza z algoritmu Fuzzy klasifikátora založeného na Fuzzy entropii (FEBFC). 
-
-Metóda FEBFC má nasledovné problémy: 
+\begin{defn}  Entropia $H(X)$ náhodnej diskrétnej premennej $X$ je definovaná ako 
+	$$H\left(x\right)=-\sum\limits_{j=0}^{N-1}p\left(x_j\right)\log_2p\left(x_j\right) $$
+	
+	alebo
+	
+	$$H\left(x\right)=-\sum\limits_{j=0}^{N-1}p_j
+	\log_2p_j$$.
+\end{defn}
+Entropia je funkcia distribúcie $X$. Nezáleží na skutočných hodnotách náhodnej premennej $X$, ale iba na pravdepodobnostiach. Preto entropiu možno zapísať ako $H(p)$.
+\subsection*{Luca-Termini Axiómy}
+Kosko \cite{kosko25} navrhuje, aby meranie dobre definovanej fuzzy entropie musí spĺňať štyri Luca-Termini axiómy. Patria medzi ne nasledujúce:
 \begin{itemize}
-\item Označovanie tried pre každú rozhodovaciu oblasť je vykonávané podľa fuzzy entropy sumácie pre individuálne intervaly pre každú dimensiu. Rozhodovacia oblasť je priradená triede s najnižšou fuzzy entropiou v danej oblasti. Podľa axiómu fuzzy entropie, fuzzy entropia bude nula, či zhodovací stupeň pre každú triedu je nula alebo jedna. Preto, priraďovanie tried bude mať chyby, keď počet tried v ktorých fuzzy entropia sa rovna nule je viac ako jeden v tejto oblasti. 
+	\item $E(A)=0 \iff A\in 2^X $, kde 
+	$A$ nie je fuzzy množina a $2^X$ je množina všetkých podmnožín množiny 
+	$A$. 
+	
+	\item
+	$E(\tilde{A}) =1 \iff m_{{A}}(x_i) =0.5$ pre všetky $i$, kde $m_{\tilde{A}}(x_i)$
+	znamená stupeň príslušnosti 
+	$x_i$ 
+	v fuzzy množine $\tilde{A}$. \item $E(\tilde{A}) \leq E(\tilde{B}) $,  ak 
+	$\tilde{A}$ je menej fuzzy než $\tilde{B}$, napr. ak $m_{\tilde{A}}(x) \leq m_{\tilde{B}} (x)$,  keď 
+	$m_B(x) \leq 0.5$ a $m_{\tilde{A}}(x) \geq m_{\tilde{B}}(x)$, 
+	keď $m_B(x) \geq 0.5$, kde $\tilde{A}$ aj $\tilde{B}$ sú fuzzy množiny. 
+	\item 
+	$E(A)=E(A^C)$.
+\end{itemize} 
 
-\item V FEBFC, rastúci počet intervalou na každej dimensii je vykonaný podľa pravidla, ktoré celkovú entropiu I (počet intervalov v špecifickej dimenzii) intervalov je menej ako to pre I-1 intervalov. Toto pravidlo niekedy zabraňuje v raste počtu intervalov, ktoré vedie k nesprávnej klasifikácii. Napríklad, dáta sú prezentované ako even intersecting distribution, ako spiral dáta.  Fuzzy entropia spiral data typu je na začiatku vysoká, dáta by mali byť neskôr rozdelené na základe klesajúcej fuzzy entropie. Preto zastavujúca podmienka algoritmu pre rastúci počet intervalov bude výsledok v obmedzení rastúceho počtu intervalov na každej dimenzii. 
 
-\item Vzorový priestor bol rozdelený do neprekrývajúcich sa rozhodovacích oblastí použitím mriežkového rozdelenia. Označovanie tried nemôže byť priradené do rozhodovacej oblasti, ktorá nemá žiadne trénovacie dáta. Ak testovacia vzorka padá do danej rozhodovaciej oblasti, ktoré systém nevie ako klasifikovať. 
+\subsection*{Fuzzy entropia na intervale pre každú vlastnosť v rozmere}
+
+
+\begin{defn}Definícia fuzzy entropie na základe Shannonovej entropie. 
+\begin{itemize}
+	\item[1)] Nech $X={r_1,r_2,\ldots,r_n}$ je univerzálna množina prvkov $r_i$ rozptýlená v vzorkovom priestore, kde   $i=1,2, \ldots, n$. 
+	
+	\item[2)]
+	Nech $\tilde{A}$  je fuzzy množina definovaná na intervale vzorkového priestoru, ktorý obsahuje $k$ elementov ($k<n$). Na mapovanie stupňa príslušnosti elementu $r_i$
+	s fuzzy množinou $\tilde{A}$  sa označuje ako 
+	$\mu_{\tilde{A}}(r_i)$. 
+	
+	\item[3)]
+	Nech $C_1, C_2, \ldots,C_m$  reprezentujú $m$  tried, v ktorých je rozdelených $n$ elementov. 
+	
+	\item[4)]
+	Nech $S_{C_j}(r_n)$  je množina elementov triedy  $j$  na univerzálnej množine $X$.
+	Je to podmnožina univerzálnej množiny $X$. 
+	
+	\item[5)]
+	Stupeň príslušnosti elementov fuzzy množiny $\tilde{A}$
+	triedy $j$ na intervale, kde $j=1,2,\ldots,m$
+	je definovaný ako: 
+	\begin{equation}
+	{D_j} = \frac{
+		\sum\limits_{r\in S_{C_j}(r_n)}
+		\mu_{\tilde{A}}(r)
+	}{
+		\sum\limits_{r \in X}
+		\mu_{\tilde{A}}
+		\left(r\right)
+	}. 
+	\end{equation}
+	
+	\item[6)]
+	Fuzzy Entropia $FEC_j(\tilde{A})$ elementov triedy $j$
+	na intervale je definovaná ako: 
+	\begin{equation}\label{eq:eq6}
+	FEC_j(\tilde{A}) = -D_j \log_2D_j.
+	\end{equation}
+	\item[7)]
+	Fuzzy Entropia $FE(\tilde{A})$ na univerzálnej množine $X$
+	pre elementy v intervale je definovaná ako: 
+	$$
+	FE(\tilde{A}) = \sum\limits_{j=1}^m FE_{C_j}(\tilde{A}). 
+	$$
+	
 \end{itemize}
+\end{defn}
 
-FC-HFE upravuje pôvodnú metódu FEBFC v určovaní počtu intervalov najpr. FC-HFE udržiava pôvodnu podmienku pre zastavenie rastu počtu intervalov, keď celková entropia I intervalov je viac ako jeden z I-1 intervalu. Ďalšia podmienka pre zastavenie rastu počtu intevalov, je ak celková fuzzy entropia I intervalov je viac ako jedna z I-1 intevalu a celková fuzzy entropia I-1 intervalov je menej ako prahová hodnota  $\varphi$ $($ to je, keď celková fuzzy entropia I intervalov je menšia ako jedna z I-1 intervalu alebo celková entropia I intervalu je viac ako prahová hodnota $\varphi$, tak $I=I+1)$. Hodnota prahovej hodnoty $\varphi$ bola obdržaná použítím nasledovnej rovnice:$$\varphi= -N_{trieda}\cdot \frac{1}{N_{trieda}} \cdot \log_2{(\frac{1}{N_{trieda}})}\cdot (I-1) \cdot \theta = - \log_2{(\frac{1}{N_{trieda}})}\cdot(I-1)\cdot\theta$$
-kde $N_{trieda}$ je počet data tried, a $\theta$ je percento maximálnej celkovej fuzzy entropie z I-1 intervalov. $\theta$ môže byť ladený použitím odlišného klasifikačného problému. Preto, môžu produkovať dostatok intervalov pre rovnomerné preniky dáta distribúcii použitím tejto metódy. Fuzzy entorpia pre každú dimensiu musí byť menej ako špecifická hodnota. 
 
-Ďalší fenomén, ktorý sa našiel v FEBFC je hodnota fuzzy entropie pre niektoré rozhodovacie oblasti je vždy veľmi vysoká (to je data distribúcia rozhodujúcej oblasti je veľmi zmätená alebo dáta, ktoré sú klasifikované nesprávne je veľmi veľa) snáď vzorkový priestor je rozdenený do toľko rozhodovacích oblastí fuzzy entropiou, zabraňujúc narastaniu klasifikačnej hodnote. 
+Vo výraze \ref{eq:eq6} je fuzzy entropia $FEC_j(\tilde{A})$  ako nepravdepodobnostná entropia. Preto môžme zadefinovať nový pojem stupeň príslušnosti pre $D_j$. Základná vlastnosť navrhnutej fuzzy entropie je podobná ako Shannonova entropia a spĺňa štyri Luca-Termini axiómy, ale ich spôsob merania informácie je rôzny. Pravdepodobnosť $p_j$ Shannonovej entropie je meraná cez výskyt elementov. Oproti tomu, stupeň príslušnosti $D_j$ v fuzzy entropii je merané príslušenstvom hodnôt vyskytujúcich sa elementov. Okrem toho, fuzzy entropia rozhodovacích oblastiach môže byť získaná cez súčet fuzzy entropie jednotlivých intervalov v každej dimenzii vlastností. \cite{lee2001}
 
-FC-HFE  metóda sa zaoberá vyšou fuzzy entropiou rozhodovacích oblastí nazývaních hierarchická fuzzy entorpia. Štruktúra je zobrazená na obrázku TODO OBRAZOK X. 2D vzorkový priestor na Obr.1 je rozdelený do nerovnomerných 53 rozhodovacích oblastí hierarchickou fuzzy entropiou. Prvá až štvrtá rozhodovacia oblasť fuzzy entropie vrstvy I je veľmi vysoká. Rozdelili tieto rozhodovacie oblasti. Nparíklad rozhodovacia oblasť I bola rozdelená do ôsmych rozhodovacích oblastí po druhý raz. Rozhodovacie podoblasti I a II boli rozdelené do štyroch rozhodovacích oblastí retrospektívne po tretí raz. Rozhodovacie oblasti I boli rozdelene do štrnástich rozhodovacích oblastí. Fuzzy entorpia väčšiny rozhodovacích oblastí sa stala nižšou po tom, ako bol vzorkový priestor rozdelený použitím hierarchickej fuzzy entropie. 
+Takto zadefinovaná fuzzy entropia je lepšie schopná rozlíšiť skutočné rozloženie vzorov. Použitím funkcie príslušnosti pre meranie stupňa príslušnosti, hodnota entropie obsahuje nie len počet, ale aj berie do úvahy rozloženie vzorov.  \cite{lee2001}
 
-Okrem toho, FC-HFE modifikoval metódu, ktorou sa počíta fuzzy entorpia pre rozhodovacie oblasti. Ak tam nie sú žiadne trénovacie dáta určitej triedy na intervale, a tak množina fuzzy entropie tejto triedy sa rovná jednej, aby sa zabránilo tomu, že fuzzy entorpia určitej triedy sa bude rovnať nule viac ako jeden pre počítanie najnižšiej fuzzy entorpie oblasti. 
 
-\subsubsection{Algorimtus klasifikácie – Fuzzy klasifikátor založený na hierarchickej fuzzy entropii (FC-HFE)}
 
-\textbf{Krok 1 – Krok 4.} je rovnaký ako FEBFC v selektovaní počtu intervalov pre každú dimenziu na aktuálnom vzorovom priestore. 
 
-\textbf{Krok 5.} Ak celková fuzzy entropia I intervalu je menej ako I-1 intervalu alebo celkova fuzzy entropia I intervalu je viac ako prahova hodnota $\varphi$, tak sa znova rozdeluje $(I = I - 1)$ a ide na krok 2. Inak sa zastavi zvyšovanie intervalov na tejto dimenzii a rozhodne sa počet intervalov pre ďalšiu dimenziu. 
 
-\textbf{Krok 6.} Akonáhle intervaly pre každú dimeziu sú určené, rozhodovacie oblasti pre súčasný vzorkový priestor sú rodelené. Mean fuzzy entropie je vypočítaní použitím nasledujúcej rovnice pre všetky rozhodovacie oblasti: 
-$$MFE_i =  \frac{\sum\limits_{i=1}^{N_i}FE_{ij}}{ N_i},  j=1…N_i$$
-Kde $N_j$ je počet rozhodovacích oblastí pre i-tú vrstvu, $FE_{ij}$ je j-tá rozhodovacia oblasť pre i-tú vrstu a $MFE_i$ je mean fuzy entropy pre i-tú vrstvu. 
 
-\textbf{Krok 7.} Fuzzy entropy pre každú rozhodovaciu oblasť v súčasnom vzorovom priestore je porovnávaný s MFE. Ak fuzzy entorpia pre rozhodovaciu oblasť je vačšia ako mean fuzzy entropie, oblasť sa stane nezávislým podpriestorom a krok 1. až krok 7. sú vykonávané znova na determinovanie rozhodovacích oblastí pre každy podpriestor. Inak rozhodovacia oblasť bude pridelená označeniu triedy. 
 
-Horeuvedený proces je ako rekurzívna funkcia, ktorá je vykonávaná opakovane pre každý podpriestor pokiaľ všetky podpriestory nemôžu byť viac rozdelené. Keď horné kroky sú skončené, testovací vzor je klasifikovaní použitím rozhodovacích oblasti, ktorá majú označenie triedy. Keď testovacia vzorka nemá označenie triedy oblasti triedy, tak testovacia vzorka ej porovnávaná použitím krátkej Euclidovej vzdialenosti medzi susemi trénovacích dát a testovaciej vzorky, klasifikované do najbližšej trénovacej triedy. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
